@@ -6,7 +6,7 @@ Ontology Viewer is a community-maintained preview extension. Support is provided
 
 ## Choose the right channel
 
-- **Something does not work:** check [Troubleshooting](docs/en/troubleshooting.md), then [open a bug report](https://github.com/yaggytter/vscode-ontology-viewer/issues/new?template=bug-report.yml).
+- **Something does not work:** check [Troubleshooting](docs/en/reference/troubleshooting.md), then [open a bug report](https://github.com/yaggytter/vscode-ontology-viewer/issues/new?template=bug-report.yml).
 - **You have a focused improvement:** [open a feature request](https://github.com/yaggytter/vscode-ontology-viewer/issues/new?template=feature-request.yml).
 - **You found a vulnerability:** use the private process in [SECURITY.md](SECURITY.md).
 - **You want to contribute:** read [CONTRIBUTING.md](CONTRIBUTING.md).

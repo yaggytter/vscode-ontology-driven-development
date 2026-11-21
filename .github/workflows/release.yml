@@ -19,20 +19,22 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Verify tag matches package version
-        run: node -e "const expected='v'+require('./package.json').version;if(process.env.GITHUB_REF_NAME!==expected){throw new Error('Tag '+process.env.GITHUB_REF_NAME+' does not match '+expected)}"
+        run: node -e "const expected='v'+require('./packages/vscode/package.json').version;if(process.env.GITHUB_REF_NAME!==expected){throw new Error('Tag '+process.env.GITHUB_REF_NAME+' does not match '+expected)}"
       - run: npm audit --omit=dev
       - run: npm run verify
       - run: npm run package
       - run: npx vsce ls --tree --no-dependencies
+        working-directory: packages/vscode
       - name: Create checksums
+        working-directory: packages/vscode
         run: sha256sum *.vsix > SHA256SUMS
       - name: Upload immutable workflow artifact
         uses: actions/upload-artifact@v4
         with:
           name: ontology-viewer-${{ github.ref_name }}
           path: |
-            *.vsix
-            SHA256SUMS
+            packages/vscode/*.vsix
+            packages/vscode/SHA256SUMS
           if-no-files-found: error
       - name: Create draft GitHub Release
         uses: softprops/action-gh-release@v2
@@ -40,8 +42,8 @@ jobs:
           draft: true
           generate_release_notes: true
           files: |
-            *.vsix
-            SHA256SUMS
+            packages/vscode/*.vsix
+            packages/vscode/SHA256SUMS
           body: |
             This is a draft release. Test the attached VSIX in clean English and Japanese VS Code profiles before publishing it to Visual Studio Marketplace.
 

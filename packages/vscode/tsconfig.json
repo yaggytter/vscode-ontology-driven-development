@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "outDir": "out",
+    "rootDir": ".",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "webview/**/*.ts",
+    "esbuild.mjs"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "out",
+    "out-test",
+    "src/test"
+  ]
+}
