@@ -1,6 +1,10 @@
-import type { ObjectOntology, OoRule } from "./model";
-import { actionAffectedTypes } from "./model";
-import { actionTypeIri, typeIri } from "./iris";
+import {
+  actionAffectedTypes,
+  actionTypeIri,
+  type ObjectOntology,
+  type OoRule,
+  typeIri,
+} from "@yaggytter/object-ontology-core";
 
 /**
  * What the webview's Actions panel needs to show one action type. Plain

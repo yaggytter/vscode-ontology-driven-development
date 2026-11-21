@@ -1,4 +1,4 @@
-import { RDFS_COMMENT } from "../rdf/vocabulary";
+import { RDFS_COMMENT } from "@yaggytter/object-ontology-core";
 import { quadMatches, verifyProposedText } from "./verify";
 import { computeEditablePredicateSubjects, planSetLiteralPredicate, type SetLiteralPlan } from "./setLiteralPredicate";
 

@@ -1,10 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { parseObjectOntology } from "./parse";
+import { buildAgentTools, objectOntologyToQuads, parseObjectOntology } from "@yaggytter/object-ontology-core";
 import { objectOntologyToSchemaModel } from "./toSchemaModel";
-import { objectOntologyToQuads } from "./toQuads";
-import { buildAgentTools } from "./export/agentTools";
 import { detectObjectOntology, OBJECT_ONTOLOGY_FILE_PATTERN } from "./detect";
 import { runSparqlQuery } from "../sparql/engine";
 

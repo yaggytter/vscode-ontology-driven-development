@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { parseObjectOntology } from "../parse";
+import { parseObjectOntology } from "@yaggytter/object-ontology-core";
 import { applySplice, formatScalar } from "./yamlEdit";
 import {
   planAddLinkType,

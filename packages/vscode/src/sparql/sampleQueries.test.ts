@@ -1,9 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { parseOntology } from "../rdf/parse";
 import { runSparqlQuery } from "./engine";
 import { resolveMatchedResources } from "./resourceResolution";
 import { SPARQL_SAMPLE_QUERIES } from "./sampleQueries";
+
+// Paths below are relative to the extension package, whatever the cwd.
+const PACKAGE_ROOT = join(__dirname, "..", "..");
 
 /**
  * Every sample is executed against real bundled ontologies. A beginner's first
@@ -14,7 +18,7 @@ import { SPARQL_SAMPLE_QUERIES } from "./sampleQueries";
 const SAMPLE_FILES = ["samples/harbor-market.ttl", "samples/city-mobility.ttl"];
 
 async function quadsForFile(path: string) {
-  const { quads, errors } = await parseOntology(readFileSync(path, "utf8"), "turtle", `file:///${path}`);
+  const { quads, errors } = await parseOntology(readFileSync(join(PACKAGE_ROOT, path), "utf8"), "turtle", `file:///${path}`);
   expect(errors).toEqual([]);
   return quads;
 }

@@ -1,10 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { parseOntology } from "../rdf/parse";
 import { buildSchemaModel } from "../rdf/schemaModel";
 import { resolveMatchedResources } from "./resourceResolution";
 import { runSparqlQuery } from "./engine";
 import type { SparqlResult } from "./resultModel";
+
+// Paths below are relative to the extension package, whatever the cwd.
+const PACKAGE_ROOT = join(__dirname, "..", "..");
 
 const HARBOR = "https://example.org/ontology/harbor-market#";
 
@@ -104,7 +108,7 @@ describe("resolveMatchedResources", () => {
    * than the classes the schema view draws.
    */
   it("resolves the reported harbor-market query to its instances and their classes", async () => {
-    const ttl = readFileSync("samples/harbor-market.ttl", "utf8");
+    const ttl = readFileSync(join(PACKAGE_ROOT, "samples/harbor-market.ttl"), "utf8");
     const quads = await quadsFor(ttl);
     const result = await runSparqlQuery(
       quads,

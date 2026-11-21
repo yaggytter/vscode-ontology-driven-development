@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { parseObjectOntology } from "./objectOntology/parse";
-import { buildAgentTools } from "./objectOntology/export/agentTools";
-import { buildContextSummary } from "./objectOntology/export/contextSummary";
-import { objectOntologyToTurtle } from "./objectOntology/export/turtle";
+import {
+  buildAgentTools,
+  buildContextSummary,
+  objectOntologyToTurtle,
+  parseObjectOntology,
+} from "@yaggytter/object-ontology-core";
 
 /**
  * The Claude Code examples (tutorials 8 and 9) ship copies of bundled samples

@@ -1,6 +1,6 @@
 import { buildPositionIndex, type Span } from "../rdf/positionIndex";
 import type { PropertyType } from "../rdf/schemaModel";
-import { RDFS_RANGE } from "../rdf/vocabulary";
+import { RDFS_RANGE } from "@yaggytter/object-ontology-core";
 import { xsdIriFor } from "./addProperty";
 import { splice, type TextEdit } from "./textEdit";
 import { verifyProposedText } from "./verify";

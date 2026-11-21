@@ -1,9 +1,14 @@
 import { describe, expect, it } from "vitest";
 import { detectObjectOntology } from "./detect";
 import { buildActionViews } from "./actionView";
-import { parseObjectOntology } from "./parse";
-import { keyRangeAt, nodeAt, pathForElement } from "./locate";
-import { defaultNamespace, parseElementIri } from "./iris";
+import {
+  defaultNamespace,
+  keyRangeAt,
+  nodeAt,
+  parseElementIri,
+  parseObjectOntology,
+  pathForElement,
+} from "@yaggytter/object-ontology-core";
 
 describe("detectObjectOntology", () => {
   it("claims *.oont.* files by name", () => {

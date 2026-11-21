@@ -1,5 +1,5 @@
 import type { Quad, Quad_Object } from "n3";
-import { RDF_FIRST, RDF_REST } from "./vocabulary";
+import { RDF_FIRST, RDF_REST } from "@yaggytter/object-ontology-core";
 
 /**
  * Walks an RDF collection (`( :A :B :C )`, desugared by every parser into an

@@ -1,5 +1,5 @@
 import type { Quad } from "n3";
-import { RDF_TYPE } from "../rdf/vocabulary";
+import { RDF_TYPE } from "@yaggytter/object-ontology-core";
 import type { SparqlResult, SparqlTerm } from "./resultModel";
 
 /**

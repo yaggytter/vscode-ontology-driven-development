@@ -8,9 +8,12 @@ import { computeCommentEditableSubjects } from "../edit/editComment";
 import { isEditableLanguage } from "../util/languages";
 import type { ObjectOntologySyntax } from "../objectOntology/detect";
 import { detectDocumentObjectOntology } from "../objectOntology/detectDocument";
-import { parseObjectOntology, type ParsedObjectOntology } from "../objectOntology/parse";
+import {
+  objectOntologyToQuads,
+  type ParsedObjectOntology,
+  parseObjectOntology,
+} from "@yaggytter/object-ontology-core";
 import { objectOntologyToSchemaModel } from "../objectOntology/toSchemaModel";
-import { objectOntologyToQuads } from "../objectOntology/toQuads";
 import { buildActionViews, type ActionView } from "../objectOntology/actionView";
 import { resolveFormat } from "./format";
 

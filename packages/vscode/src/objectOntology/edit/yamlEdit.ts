@@ -1,5 +1,5 @@
 import { isMap, isScalar, type Document, type Node, type YAMLMap } from "yaml";
-import { nodeAt, pairAt, type YamlPath } from "../locate";
+import { nodeAt, pairAt, type YamlPath } from "@yaggytter/object-ontology-core";
 
 /** A single replacement of `[start, end)` in the source text. */
 export interface TextSplice {

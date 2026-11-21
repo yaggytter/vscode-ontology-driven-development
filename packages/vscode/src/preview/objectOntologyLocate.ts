@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
 import { detectDocumentObjectOntology } from "../objectOntology/detectDocument";
-import { keyRangeAt, pathForElement } from "../objectOntology/locate";
-import { parseObjectOntology } from "../objectOntology/parse";
+import { keyRangeAt, parseObjectOntology, pathForElement } from "@yaggytter/object-ontology-core";
 
 /**
  * Source range of the declaration a diagram node id names in an Object

@@ -1,8 +1,7 @@
 import * as vscode from "vscode";
 import { OBJECT_ONTOLOGY_GLOB } from "../objectOntology/detect";
 import { detectDocumentObjectOntology } from "../objectOntology/detectDocument";
-import { parseObjectOntology } from "../objectOntology/parse";
-import { keyRangeAt } from "../objectOntology/locate";
+import { keyRangeAt, parseObjectOntology } from "@yaggytter/object-ontology-core";
 import type { Document } from "yaml";
 
 const DEBOUNCE_MS = 300;

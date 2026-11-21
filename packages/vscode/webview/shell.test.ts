@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { APP_TEMPLATE } from "./shell";
+
+// Paths below are relative to the extension package, whatever the cwd.
+const PACKAGE_ROOT = join(__dirname, "..");
 
 /**
  * The template's element ids are the contract main.ts looks up with
@@ -11,7 +15,7 @@ import { APP_TEMPLATE } from "./shell";
  */
 describe("APP_TEMPLATE", () => {
   const templateIds = new Set([...APP_TEMPLATE.matchAll(/id="([^"]+)"/g)].map((match) => match[1]));
-  const mainSource = readFileSync("webview/main.ts", "utf8");
+  const mainSource = readFileSync(join(PACKAGE_ROOT, "webview/main.ts"), "utf8");
   const lookedUpIds = [...mainSource.matchAll(/getElementById\("([^"]+)"\)/g)].map((match) => match[1]);
 
   it("declares every id main.ts looks up", () => {
@@ -22,7 +26,7 @@ describe("APP_TEMPLATE", () => {
   it("references every id it declares from either main.ts or the stylesheet", () => {
     // An id nothing points at is dead markup, or a control that was wired up
     // and then lost. Styling by id is legitimate, so the stylesheet counts.
-    const styleSheet = readFileSync("webview/style.css", "utf8");
+    const styleSheet = readFileSync(join(PACKAGE_ROOT, "webview/style.css"), "utf8");
     const unused = [...templateIds].filter(
       (id) => !lookedUpIds.includes(id) && !styleSheet.includes(`#${id}`),
     );

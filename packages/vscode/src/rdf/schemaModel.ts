@@ -69,7 +69,7 @@ import {
   SKOS_RELATED,
   XSD,
   isKnownVocabularyIri,
-} from "./vocabulary";
+} from "@yaggytter/object-ontology-core";
 
 export type PropertyType = "string" | "integer" | "decimal" | "double" | "date" | "datetime" | "boolean" | "enum" | "other";
 export type Cardinality = "one-to-one" | "one-to-many" | "many-to-one" | "many-to-many" | "unspecified";

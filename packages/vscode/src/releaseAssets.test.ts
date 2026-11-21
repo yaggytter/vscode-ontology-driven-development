@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { basename, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const root = resolve(__dirname, "..");
@@ -66,12 +66,17 @@ describe("Marketplace release assets", () => {
   });
 
   it("ships the Object Ontology JSON Schema referenced by the manifest", () => {
+    // The schema lives in the core package; esbuild.mjs copies it to
+    // schemas/ inside the extension, where the manifest points.
+    const coreSchemas = resolve(repoRoot, "packages/core/schemas");
     const contributes = readJson("package.json").contributes as Record<string, { url: string }[]>;
     for (const point of ["jsonValidation", "yamlValidation"]) {
       for (const { url } of contributes[point]) {
-        expect(() => JSON.parse(readFileSync(resolve(root, url), "utf8"))).not.toThrow();
+        expect(url).toBe(`./schemas/${basename(url)}`);
+        expect(() => JSON.parse(readFileSync(resolve(coreSchemas, basename(url)), "utf8"))).not.toThrow();
       }
     }
+    expect(readFileSync(resolve(root, "esbuild.mjs"), "utf8")).toContain("schemas/object-ontology.schema.json");
   });
 
   it("defines repeatable CI and release workflows", () => {

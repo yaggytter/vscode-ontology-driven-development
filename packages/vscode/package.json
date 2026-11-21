@@ -326,7 +326,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:integration": "npm run compile && vscode-test",
-    "pretest:integration": "tsc -p ./src/test/tsconfig.json",
+    "pretest:integration": "tsc --noEmit -p ./src/test/tsconfig.json && node scripts/build-integration-tests.mjs",
     "validate:release": "node scripts/validate-release.mjs",
     "verify": "npm run lint && npm run typecheck && npm test && npm run validate:release",
     "package": "npm run validate:release && vsce package --no-dependencies",
@@ -349,6 +349,7 @@
   "dependencies": {
     "@comunica/query-sparql-rdfjs": "^4.5.0",
     "@vscode/l10n": "^0.0.18",
+    "@yaggytter/object-ontology-core": "0.0.0",
     "cytoscape": "^3.34.0",
     "cytoscape-dagre": "^4.0.0",
     "cytoscape-fcose": "^2.2.0",

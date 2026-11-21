@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { detectFormatFromLanguageId, parseOntology } from "../rdf/parse";
-import { KNOWN_TERMS } from "../rdf/vocabulary";
+import { KNOWN_TERMS } from "@yaggytter/object-ontology-core";
 import { isEditableLanguage } from "../util/languages";
 
 /**

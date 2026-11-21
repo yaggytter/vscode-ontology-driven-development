@@ -1,5 +1,4 @@
-import { isKnownVocabularyIri } from "../../src/rdf/vocabulary";
-import { OONT } from "../../src/objectOntology/iris";
+import { isKnownVocabularyIri, OONT } from "@yaggytter/object-ontology-core";
 import { LITERAL_NODE_PREFIX, type OntologyEdge, type OntologyGraph, type OntologyNode } from "../../src/rdf/graphModel";
 
 export interface CompactTriplesResult {

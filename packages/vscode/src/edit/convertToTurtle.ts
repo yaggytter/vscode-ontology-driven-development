@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import * as N3 from "n3";
 import { detectFormatFromLanguageId, parseOntology } from "../rdf/parse";
-import { WELL_KNOWN_PREFIXES } from "../rdf/vocabulary";
+import { WELL_KNOWN_PREFIXES } from "@yaggytter/object-ontology-core";
 
 function serializeToTurtle(quads: N3.Quad[], prefixes: Record<string, string>): Promise<string> {
   return new Promise((resolve, reject) => {

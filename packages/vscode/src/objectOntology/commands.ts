@@ -1,11 +1,13 @@
 import * as vscode from "vscode";
 import { stringify } from "yaml";
 import { detectDocumentObjectOntology } from "./detectDocument";
-import { parseObjectOntology } from "./parse";
-import type { ObjectOntology } from "./model";
-import { buildAgentTools } from "./export/agentTools";
-import { buildContextSummary } from "./export/contextSummary";
-import { objectOntologyToTurtle } from "./export/turtle";
+import {
+  buildAgentTools,
+  buildContextSummary,
+  type ObjectOntology,
+  objectOntologyToTurtle,
+  parseObjectOntology,
+} from "@yaggytter/object-ontology-core";
 
 /**
  * Command implementations for Object Ontology documents. Every export opens

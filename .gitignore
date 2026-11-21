@@ -10,6 +10,9 @@ out/
 out-test/
 *.vsix
 
+# Copied from packages/core by packages/vscode/esbuild.mjs
+packages/vscode/schemas/
+
 # Test/coverage
 coverage/
 .vscode-test/

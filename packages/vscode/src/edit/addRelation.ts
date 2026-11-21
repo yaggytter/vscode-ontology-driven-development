@@ -1,5 +1,5 @@
 import { buildPositionIndex } from "../rdf/positionIndex";
-import { OWL_OBJECT_PROPERTY, RDFS_DOMAIN, RDFS_LABEL, RDFS_RANGE, RDF_TYPE } from "../rdf/vocabulary";
+import { OWL_OBJECT_PROPERTY, RDFS_DOMAIN, RDFS_LABEL, RDFS_RANGE, RDF_TYPE } from "@yaggytter/object-ontology-core";
 import { planNewTopLevelStatement, type StatementLine } from "./addStatement";
 import { mintIri } from "./mintIri";
 import { escapeTurtleShortString, splice, type TextEdit } from "./textEdit";

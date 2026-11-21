@@ -1,7 +1,7 @@
 import * as vscode from "vscode";
 import { detectFormatFromLanguageId, parseOntology } from "../rdf/parse";
 import { buildPositionIndex } from "../rdf/positionIndex";
-import { lookupKnownTerm, RDFS_COMMENT, RDFS_LABEL } from "../rdf/vocabulary";
+import { lookupKnownTerm, RDFS_COMMENT, RDFS_LABEL } from "@yaggytter/object-ontology-core";
 import { isEditableLanguage } from "../util/languages";
 import { findNamedTermAt, spanToRange } from "./termAt";
 import type { Literal, Quad } from "n3";

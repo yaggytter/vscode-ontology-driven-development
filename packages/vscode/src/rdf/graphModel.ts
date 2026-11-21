@@ -8,7 +8,7 @@ import {
   RDFS_COMMENT,
   RDFS_LABEL,
   RDFS_SUBCLASS_OF,
-} from "./vocabulary";
+} from "@yaggytter/object-ontology-core";
 import { pickByLanguage } from "./labelLanguage";
 
 export type NodeKind = "class" | "property" | "individual" | "resource";

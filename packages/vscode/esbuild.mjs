@@ -2,7 +2,8 @@
 // webview UI (browser/IIFE). Kept as a single plain script (no bundler config
 // file) per VS Code extension convention: https://code.visualstudio.com/api/working-with-extensions/bundling-extension
 import * as esbuild from "esbuild";
-import { copyFileSync } from "node:fs";
+import { copyFileSync, mkdirSync } from "node:fs";
+import { createRequire } from "node:module";
 
 const watch = process.argv.includes("--watch");
 const production = process.argv.includes("--production");
@@ -19,6 +20,23 @@ const copyStylesPlugin = {
   },
 };
 
+// The JSON Schema lives in the core package, but package.json's
+// jsonValidation/yamlValidation contributions need it inside the extension
+// directory, so the build copies it to schemas/ (gitignored). Done on every
+// build, not only prepublish, so the dev host and integration tests see it.
+const CORE_SCHEMA = createRequire(import.meta.url).resolve(
+  "@yaggytter/object-ontology-core/schemas/object-ontology.schema.json",
+);
+const copyCoreSchemaPlugin = {
+  name: "copy-core-schema",
+  setup(build) {
+    build.onEnd(() => {
+      mkdirSync("schemas", { recursive: true });
+      copyFileSync(CORE_SCHEMA, "schemas/object-ontology.schema.json");
+    });
+  },
+};
+
 /** @type {import('esbuild').BuildOptions} */
 const extensionConfig = {
   entryPoints: ["src/extension.ts"],
@@ -31,6 +49,7 @@ const extensionConfig = {
   sourcemap: !production,
   minify: production,
   logLevel: "info",
+  plugins: [copyCoreSchemaPlugin],
 };
 
 /** @type {import('esbuild').BuildOptions} */

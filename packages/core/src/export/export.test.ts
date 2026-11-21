@@ -5,10 +5,9 @@ import { parseObjectOntology } from "../parse";
 import { buildAgentTools } from "./agentTools";
 import { buildContextSummary } from "./contextSummary";
 import { objectOntologyToTurtle } from "./turtle";
-import { parseOntology } from "../../rdf/parse";
 
 const cafe = parseObjectOntology(
-  readFileSync(join(__dirname, "..", "..", "..", "samples", "cafe-orders.oont.yaml"), "utf8"),
+  readFileSync(join(__dirname, "..", "..", "..", "vscode", "samples", "cafe-orders.oont.yaml"), "utf8"),
 ).ontology!;
 
 describe("buildAgentTools", () => {
@@ -60,11 +59,10 @@ describe("buildContextSummary", () => {
 });
 
 describe("objectOntologyToTurtle", () => {
-  it("writes Turtle that the RDF side of the viewer parses back", async () => {
+  // The round trip through the viewer's RDF parser lives in
+  // packages/vscode/src/objectOntology/exportTurtleRoundTrip.test.ts.
+  it("writes Turtle with the Object Ontology vocabulary prefix", async () => {
     const turtle = await objectOntologyToTurtle(cafe);
     expect(turtle).toContain("@prefix oont: <urn:object-ontology:vocab#>.");
-    const parsed = await parseOntology(turtle, "turtle", "file:///cafe.ttl");
-    expect(parsed.errors).toEqual([]);
-    expect(parsed.quads.length).toBeGreaterThan(100);
   });
 });

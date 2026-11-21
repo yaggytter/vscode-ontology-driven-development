@@ -1,6 +1,6 @@
 import { buildPositionIndex } from "../rdf/positionIndex";
 import type { PropertyType } from "../rdf/schemaModel";
-import { OWL_DATATYPE_PROPERTY, RDFS_DOMAIN, RDFS_LABEL, RDFS_RANGE, RDF_TYPE, XSD } from "../rdf/vocabulary";
+import { OWL_DATATYPE_PROPERTY, RDFS_DOMAIN, RDFS_LABEL, RDFS_RANGE, RDF_TYPE, XSD } from "@yaggytter/object-ontology-core";
 import { planNewTopLevelStatement, type StatementLine } from "./addStatement";
 import { mintIri } from "./mintIri";
 import { escapeTurtleShortString, splice, type TextEdit } from "./textEdit";

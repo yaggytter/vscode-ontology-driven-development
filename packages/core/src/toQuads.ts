@@ -13,11 +13,11 @@ import {
   RDFS_RANGE,
   RDFS_SUBCLASS_OF,
   XSD,
-} from "../rdf/vocabulary";
+  XSD_DATATYPE,
+} from "./vocabulary";
 import type { ObjectOntology, OoLinkSide, OoLinkType, OoObjectType, OoProperty } from "./model";
 import { actionAffectedTypes } from "./model";
 import { actionTypeIri, linkTypeIri, memberIri, objectIri, OONT, parameterIri, ruleIri, typeIri } from "./iris";
-import { XSD_DATATYPE } from "./toSchemaModel";
 
 const { namedNode, literal, quad } = DataFactory;
 

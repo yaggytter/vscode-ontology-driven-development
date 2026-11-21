@@ -1,12 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { parseObjectOntology } from "./parse";
+import { type ObjectOntology, objectOntologyToQuads, parseObjectOntology } from "@yaggytter/object-ontology-core";
 import { objectOntologyToSchemaModel } from "./toSchemaModel";
-import { objectOntologyToQuads } from "./toQuads";
 import { OBJECT_ONTOLOGY_SAMPLE_QUERIES } from "./sampleQueries";
 import { runSparqlQuery } from "../sparql/engine";
-import type { ObjectOntology } from "./model";
 
 const SAMPLES_DIR = join(__dirname, "..", "..", "samples");
 

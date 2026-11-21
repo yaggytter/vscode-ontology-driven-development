@@ -1,4 +1,4 @@
-import { RDFS_LABEL } from "../rdf/vocabulary";
+import { RDFS_LABEL } from "@yaggytter/object-ontology-core";
 import { quadMatches, verifyProposedText } from "./verify";
 import { computeEditablePredicateSubjects, planSetLiteralPredicate, type SetLiteralPlan } from "./setLiteralPredicate";
 

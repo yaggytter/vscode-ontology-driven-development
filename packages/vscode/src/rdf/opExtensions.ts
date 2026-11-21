@@ -1,5 +1,5 @@
 import type { Quad } from "n3";
-import { isKnownVocabularyIri } from "./vocabulary";
+import { isKnownVocabularyIri } from "@yaggytter/object-ontology-core";
 
 /** Falls back to the fragment/last-path-segment of an IRI. */
 export function localName(iri: string): string {

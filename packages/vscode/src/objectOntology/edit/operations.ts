@@ -1,9 +1,19 @@
 import type { PropertyType } from "../../rdf/schemaModel";
-import type { ObjectOntology, OoPropertyType } from "../model";
-import { isValidApiName, linkTypeIri, memberIri, parseElementIri, typeIri } from "../iris";
+import {
+  isValidApiName,
+  linkTypeIri,
+  memberIri,
+  nodeAt,
+  type ObjectOntology,
+  type OoPropertyType,
+  type ParsedObjectOntology,
+  parseElementIri,
+  parseObjectOntology,
+  pathForElement,
+  typeIri,
+  type YamlPath,
+} from "@yaggytter/object-ontology-core";
 import { isScalar, type Document } from "yaml";
-import { nodeAt, pathForElement, type YamlPath } from "../locate";
-import { parseObjectOntology, type ParsedObjectOntology } from "../parse";
 import { applySplice, formatFlow, insertEntry, removeEntry, setScalar, type SpliceResult, type TextSplice, type YamlValue } from "./yamlEdit";
 
 /**

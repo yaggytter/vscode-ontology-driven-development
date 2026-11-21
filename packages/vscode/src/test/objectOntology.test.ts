@@ -1,7 +1,7 @@
 import * as assert from "node:assert";
 import * as path from "node:path";
 import * as vscode from "vscode";
-import { parseObjectOntology } from "../objectOntology/parse";
+import { parseObjectOntology } from "@yaggytter/object-ontology-core";
 import { planAddObjectType, planAddProperty, planSetPropertyType } from "../objectOntology/edit/operations";
 
 const EXTENSION_ID = "AkihiroYAGASAKI.ontology-viewer";

@@ -5,6 +5,8 @@
  * this only needs to cover the terms common hand-written OWL/RDFS files use.
  */
 
+import type { OoPropertyType } from "./model";
+
 export const RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 export const RDFS = "http://www.w3.org/2000/01/rdf-schema#";
 export const OWL = "http://www.w3.org/2002/07/owl#";
@@ -160,3 +162,15 @@ export const KNOWN_VOCABULARY_NAMESPACES = [RDF, RDFS, OWL, XSD, SKOS, DCTERMS, 
 export function isKnownVocabularyIri(iri: string): boolean {
   return KNOWN_VOCABULARY_NAMESPACES.some((ns) => iri.startsWith(ns));
 }
+
+/** XSD datatype IRI per Object Ontology property type (Turtle export and the schema view). */
+export const XSD_DATATYPE: Record<OoPropertyType, string> = {
+  string: `${XSD}string`,
+  integer: `${XSD}integer`,
+  decimal: `${XSD}decimal`,
+  double: `${XSD}double`,
+  boolean: `${XSD}boolean`,
+  date: `${XSD}date`,
+  timestamp: `${XSD}dateTime`,
+  geopoint: `${XSD}string`,
+};

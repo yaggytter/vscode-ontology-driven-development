@@ -4,7 +4,8 @@ import { join } from "node:path";
 import { MAX_DOCUMENT_LENGTH, parseObjectOntology } from "./parse";
 import { actionAffectedTypes } from "./model";
 
-const SAMPLES_DIR = join(__dirname, "..", "..", "samples");
+// The fixtures are the extension's bundled samples (packages/vscode/samples).
+const SAMPLES_DIR = join(__dirname, "..", "..", "vscode", "samples");
 
 const MINIMAL = `objectOntology: 1
 name: Fleet

@@ -1,8 +1,15 @@
 import type { Cardinality, PropertyType, SchemaEntity, SchemaModel, SchemaProperty, SchemaRelation } from "../rdf/schemaModel";
 import { assignRelationalAppearance, DEFAULT_CLASS_ICON, iconFor, looksLikeColor, looksLikeIcon } from "../rdf/appearance";
-import { XSD } from "../rdf/vocabulary";
-import type { ObjectOntology, OoLinkType, OoProperty, OoPropertyType } from "./model";
-import { linkTypeIri, memberIri, typeIri } from "./iris";
+import {
+  linkTypeIri,
+  memberIri,
+  type ObjectOntology,
+  type OoLinkType,
+  type OoProperty,
+  type OoPropertyType,
+  typeIri,
+  XSD_DATATYPE,
+} from "@yaggytter/object-ontology-core";
 
 const DEFAULT_INTERFACE_ICON = "◇";
 
@@ -16,17 +23,6 @@ const SCHEMA_TYPE: Record<OoPropertyType, PropertyType> = {
   date: "date",
   timestamp: "datetime",
   geopoint: "other",
-};
-
-export const XSD_DATATYPE: Record<OoPropertyType, string> = {
-  string: `${XSD}string`,
-  integer: `${XSD}integer`,
-  decimal: `${XSD}decimal`,
-  double: `${XSD}double`,
-  boolean: `${XSD}boolean`,
-  date: `${XSD}date`,
-  timestamp: `${XSD}dateTime`,
-  geopoint: `${XSD}string`,
 };
 
 /** `many-to-one` reads as "many sources per target, one target per source". */

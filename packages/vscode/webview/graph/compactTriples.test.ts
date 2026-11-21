@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { parseOntology } from "../../src/rdf/parse";
 import { buildGraphModel, LITERAL_NODE_PREFIX, type OntologyGraph } from "../../src/rdf/graphModel";
-import { OONT } from "../../src/objectOntology/iris";
-import { parseObjectOntology } from "../../src/objectOntology/parse";
-import { objectOntologyToQuads } from "../../src/objectOntology/toQuads";
+import { objectOntologyToQuads, OONT, parseObjectOntology } from "@yaggytter/object-ontology-core";
 import { compactTriples } from "./compactTriples";
+
+// Paths below are relative to the extension package, whatever the cwd.
+const PACKAGE_ROOT = join(__dirname, "..", "..");
 
 const XSD = "http://www.w3.org/2001/XMLSchema#";
 const RDFS = "http://www.w3.org/2000/01/rdf-schema#";
@@ -193,11 +195,11 @@ describe("compactTriples", () => {
   });
 
   it("never folds a literal node of a bundled RDF sample", async () => {
-    const files = readdirSync("samples").filter((name) => /\.(ttl|rdf)$/.test(name));
+    const files = readdirSync(join(PACKAGE_ROOT, "samples")).filter((name) => /\.(ttl|rdf)$/.test(name));
     expect(files.length).toBeGreaterThan(0);
     for (const name of files) {
       const { quads } = await parseOntology(
-        readFileSync(`samples/${name}`, "utf8"),
+        readFileSync(join(PACKAGE_ROOT, "samples", name), "utf8"),
         name.endsWith(".rdf") ? "rdfxml" : "turtle",
         `file:///${name}`,
       );
@@ -209,7 +211,7 @@ describe("compactTriples", () => {
   });
 
   it("halves an Object Ontology sample and leaves only example-object values as literals", () => {
-    const parsed = parseObjectOntology(readFileSync("samples/delivery-ops.oont.yaml", "utf8"));
+    const parsed = parseObjectOntology(readFileSync(join(PACKAGE_ROOT, "samples/delivery-ops.oont.yaml"), "utf8"));
     const full = buildGraphModel(objectOntologyToQuads(parsed.ontology!));
     const compact = compactTriples(full);
 
@@ -266,7 +268,7 @@ describe("compactTriples", () => {
   /** Guards against the compaction misbehaving on a real bundled ontology. */
   it("reduces a bundled sample's edges while keeping every node reachable", async () => {
     const { quads } = await parseOntology(
-      readFileSync("samples/city-mobility.ttl", "utf8"),
+      readFileSync(join(PACKAGE_ROOT, "samples/city-mobility.ttl"), "utf8"),
       "turtle",
       "file:///city-mobility.ttl",
     );
