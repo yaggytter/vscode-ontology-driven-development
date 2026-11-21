@@ -4,7 +4,7 @@ import { parse } from "yaml";
 /**
  * A deliberately small reader for `*.oont.yaml` files: just enough of the
  * format for a server to resolve links, check parameters and apply an
- * action's rules. The Ontology Viewer extension has the full parser and
+ * action's rules. The Ontology-Driven Development extension has the full parser and
  * reports problems in VS Code; this example assumes the file is valid.
  */
 

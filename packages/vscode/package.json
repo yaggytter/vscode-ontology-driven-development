@@ -1,5 +1,5 @@
 {
-  "name": "ontology-viewer",
+  "name": "ontology-driven-development",
   "displayName": "%extension.displayName%",
   "description": "%extension.description%",
   "version": "0.5.1",
@@ -18,6 +18,10 @@
     "Other"
   ],
   "keywords": [
+    "ontology-driven development",
+    "odd",
+    "requirements traceability",
+    "domain modeling",
     "ontology",
     "owl",
     "rdf",
@@ -45,11 +49,11 @@
   "preview": true,
   "pricing": "Free",
   "markdown": "github",
-  "qna": "https://github.com/yaggytter/vscode-ontology-viewer/issues",
+  "qna": "https://github.com/yaggytter/vscode-ontology-driven-development/issues",
   "badges": [
     {
-      "url": "https://github.com/yaggytter/vscode-ontology-viewer/actions/workflows/ci.yml/badge.svg",
-      "href": "https://github.com/yaggytter/vscode-ontology-viewer/actions/workflows/ci.yml",
+      "url": "https://github.com/yaggytter/vscode-ontology-driven-development/actions/workflows/ci.yml/badge.svg",
+      "href": "https://github.com/yaggytter/vscode-ontology-driven-development/actions/workflows/ci.yml",
       "description": "Continuous integration status"
     }
   ],
@@ -180,105 +184,105 @@
     ],
     "commands": [
       {
-        "command": "ontologyViewer.openPreview",
+        "command": "ontologyDrivenDevelopment.openPreview",
         "title": "%command.openPreview.title%",
         "category": "%extension.category%",
         "icon": "$(type-hierarchy-sub)"
       },
       {
-        "command": "ontologyViewer.convertToTurtle",
+        "command": "ontologyDrivenDevelopment.convertToTurtle",
         "title": "%command.convertToTurtle.title%",
         "category": "%extension.category%"
       },
       {
-        "command": "ontologyViewer.exportLayout",
+        "command": "ontologyDrivenDevelopment.exportLayout",
         "title": "%command.exportLayout.title%",
         "category": "%extension.category%"
       },
       {
-        "command": "ontologyViewer.newSample",
+        "command": "ontologyDrivenDevelopment.newSample",
         "title": "%command.newSample.title%",
         "category": "%extension.category%"
       },
       {
-        "command": "ontologyViewer.exportAgentTools",
+        "command": "ontologyDrivenDevelopment.exportAgentTools",
         "title": "%command.exportAgentTools.title%",
         "category": "%extension.category%"
       },
       {
-        "command": "ontologyViewer.exportContextSummary",
+        "command": "ontologyDrivenDevelopment.exportContextSummary",
         "title": "%command.exportContextSummary.title%",
         "category": "%extension.category%"
       },
       {
-        "command": "ontologyViewer.exportObjectOntologyTurtle",
+        "command": "ontologyDrivenDevelopment.exportObjectOntologyTurtle",
         "title": "%command.exportObjectOntologyTurtle.title%",
         "category": "%extension.category%"
       },
       {
-        "command": "ontologyViewer.convertObjectOntologyToYaml",
+        "command": "ontologyDrivenDevelopment.convertObjectOntologyToYaml",
         "title": "%command.convertObjectOntologyToYaml.title%",
         "category": "%extension.category%"
       }
     ],
     "keybindings": [
       {
-        "command": "ontologyViewer.openPreview",
+        "command": "ontologyDrivenDevelopment.openPreview",
         "key": "ctrl+alt+o",
         "mac": "cmd+alt+o",
-        "when": "editorLangId in ontologyViewer.viewableLanguages || (resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyViewer.isObjectOntology)"
+        "when": "editorLangId in ontologyDrivenDevelopment.viewableLanguages || (resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyDrivenDevelopment.isObjectOntology)"
       }
     ],
     "menus": {
       "editor/title": [
         {
-          "command": "ontologyViewer.openPreview",
-          "when": "editorLangId in ontologyViewer.viewableLanguages || (resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyViewer.isObjectOntology)",
+          "command": "ontologyDrivenDevelopment.openPreview",
+          "when": "editorLangId in ontologyDrivenDevelopment.viewableLanguages || (resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyDrivenDevelopment.isObjectOntology)",
           "group": "navigation"
         }
       ],
       "commandPalette": [
         {
-          "command": "ontologyViewer.openPreview",
-          "when": "editorLangId in ontologyViewer.viewableLanguages || (resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyViewer.isObjectOntology)"
+          "command": "ontologyDrivenDevelopment.openPreview",
+          "when": "editorLangId in ontologyDrivenDevelopment.viewableLanguages || (resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyDrivenDevelopment.isObjectOntology)"
         },
         {
-          "command": "ontologyViewer.convertToTurtle",
-          "when": "editorLangId in ontologyViewer.viewOnlyLanguages"
+          "command": "ontologyDrivenDevelopment.convertToTurtle",
+          "when": "editorLangId in ontologyDrivenDevelopment.viewOnlyLanguages"
         },
         {
-          "command": "ontologyViewer.exportLayout",
-          "when": "editorLangId in ontologyViewer.viewableLanguages || (resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyViewer.isObjectOntology)"
+          "command": "ontologyDrivenDevelopment.exportLayout",
+          "when": "editorLangId in ontologyDrivenDevelopment.viewableLanguages || (resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyDrivenDevelopment.isObjectOntology)"
         },
         {
-          "command": "ontologyViewer.exportAgentTools",
-          "when": "(resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyViewer.isObjectOntology)"
+          "command": "ontologyDrivenDevelopment.exportAgentTools",
+          "when": "(resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyDrivenDevelopment.isObjectOntology)"
         },
         {
-          "command": "ontologyViewer.exportContextSummary",
-          "when": "(resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyViewer.isObjectOntology)"
+          "command": "ontologyDrivenDevelopment.exportContextSummary",
+          "when": "(resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyDrivenDevelopment.isObjectOntology)"
         },
         {
-          "command": "ontologyViewer.exportObjectOntologyTurtle",
-          "when": "(resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyViewer.isObjectOntology)"
+          "command": "ontologyDrivenDevelopment.exportObjectOntologyTurtle",
+          "when": "(resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyDrivenDevelopment.isObjectOntology)"
         },
         {
-          "command": "ontologyViewer.convertObjectOntologyToYaml",
-          "when": "(resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyViewer.isObjectOntology) && editorLangId != yaml"
+          "command": "ontologyDrivenDevelopment.convertObjectOntologyToYaml",
+          "when": "(resourceFilename =~ /\\.oont\\.(ya?ml|json)$/ || ontologyDrivenDevelopment.isObjectOntology) && editorLangId != yaml"
         }
       ]
     },
     "configuration": {
       "title": "%extension.category%",
       "properties": {
-        "ontologyViewer.preview.autoRefreshDebounceMs": {
+        "ontologyDrivenDevelopment.preview.autoRefreshDebounceMs": {
           "type": "number",
           "default": 300,
           "minimum": 50,
           "maximum": 5000,
           "description": "%config.autoRefreshDebounceMs.description%"
         },
-        "ontologyViewer.preview.defaultView": {
+        "ontologyDrivenDevelopment.preview.defaultView": {
           "type": "string",
           "enum": [
             "schema",
@@ -287,7 +291,7 @@
           "default": "schema",
           "description": "%config.defaultView.description%"
         },
-        "ontologyViewer.preview.layout": {
+        "ontologyDrivenDevelopment.preview.layout": {
           "type": "string",
           "enum": [
             "fcose",
@@ -360,10 +364,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yaggytter/vscode-ontology-viewer"
+    "url": "https://github.com/yaggytter/vscode-ontology-driven-development"
   },
-  "homepage": "https://github.com/yaggytter/vscode-ontology-viewer/blob/main/README.md",
+  "homepage": "https://github.com/yaggytter/vscode-ontology-driven-development/blob/main/README.md",
   "bugs": {
-    "url": "https://github.com/yaggytter/vscode-ontology-viewer/issues"
+    "url": "https://github.com/yaggytter/vscode-ontology-driven-development/issues"
   }
 }

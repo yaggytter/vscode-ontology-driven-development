@@ -1,18 +1,18 @@
-# Ontology Viewer for VS Code
+# Ontology-Driven Development for VS Code
 
 [日本語](README.ja.md)
 
-[![CI](https://github.com/yaggytter/vscode-ontology-viewer/actions/workflows/ci.yml/badge.svg)](https://github.com/yaggytter/vscode-ontology-viewer/actions/workflows/ci.yml)
+[![CI](https://github.com/yaggytter/vscode-ontology-driven-development/actions/workflows/ci.yml/badge.svg)](https://github.com/yaggytter/vscode-ontology-driven-development/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-6c8cff.svg)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.96%2B-23a8f2.svg)](https://code.visualstudio.com/)
 
-Explore OWL, RDF, RDFS, and SKOS as a readable schema diagram without leaving VS Code. Ontology Viewer combines a polished, searchable canvas with safe Turtle editing, so the diagram is useful for both understanding an ontology and shaping it.
+Explore OWL, RDF, RDFS, and SKOS as a readable schema diagram without leaving VS Code. Ontology-Driven Development combines a polished, searchable canvas with safe Turtle editing, so the diagram is useful for both understanding an ontology and shaping it.
 
 It also reads **Object Ontology** files (`*.oont.yaml`): an object-centric format inspired by the ontologies of operational platforms such as Palantir Foundry, with object types, link types, interfaces, and **action types** that can be exported as tool definitions for AI agents.
 
-> Ontology Viewer is in preview. Keep source control enabled for important ontologies and review diagram-generated changes before committing them.
+> Ontology-Driven Development is in preview. Keep source control enabled for important ontologies and review diagram-generated changes before committing them.
 
-![Ontology Viewer showing the product-compatibility sample: a class hierarchy of bicycle parts with the Component class selected and its properties and relations in the Inspector](packages/vscode/media/ontology-viewer-overview.png)
+![Ontology-Driven Development showing the product-compatibility sample: a class hierarchy of bicycle parts with the Component class selected and its properties and relations in the Inspector](packages/vscode/media/ontology-diagram-overview.png)
 
 ## Why you will enjoy using it
 
@@ -71,8 +71,8 @@ The format is this extension's own; it is not Palantir's file format and does no
 
 ## Get started in one minute
 
-1. Install **Ontology Viewer** from the VS Code Marketplace.
-2. Run **Ontology Viewer: Create Sample Ontology...** from the Command Palette, or open a `.ttl` file.
+1. Install **Ontology-Driven Development** from the VS Code Marketplace.
+2. Run **ODD: Create Sample Ontology...** from the Command Palette, or open a `.ttl` file.
 3. Press `Cmd+Alt+O` on macOS or `Ctrl+Alt+O` on Windows/Linux. You can also use the diagram button in the editor title bar.
 4. Select a class to inspect it. Use the floating canvas controls to zoom or fit the graph.
 5. For Turtle files, edit the selected class in the Inspector and review the source change in the editor.
@@ -113,7 +113,7 @@ Text editing remains first-class: Turtle also has outline, hover, completion, an
 
 ### Bring existing ontologies
 
-RDF/XML and JSON-LD are viewable directly. Use **Ontology Viewer: Convert to Turtle for Editing...** when you want diagram write-back. The conversion creates a new document and does not overwrite the source file.
+RDF/XML and JSON-LD are viewable directly. Use **ODD: Convert to Turtle for Editing...** when you want diagram write-back. The conversion creates a new document and does not overwrite the source file.
 
 ## Format support
 
@@ -136,14 +136,14 @@ See [Format Support](docs/en/reference/format-support.md) for parser and editing
 
 | Command | Default keybinding |
 | --- | --- |
-| Ontology Viewer: Open Diagram Preview | `Cmd+Alt+O` / `Ctrl+Alt+O` |
-| Ontology Viewer: Convert to Turtle for Editing... | — |
-| Ontology Viewer: Export Diagram Layout as JSON... | — |
-| Ontology Viewer: Create Sample Ontology... | — |
-| Ontology Viewer: Export Actions as AI Agent Tools (JSON Schema)... | — |
-| Ontology Viewer: Export Ontology Summary for LLM Context... | — |
-| Ontology Viewer: Export Object Ontology as Turtle (OWL)... | — |
-| Ontology Viewer: Convert Object Ontology JSON to YAML for Editing... | — |
+| ODD: Open Diagram Preview | `Cmd+Alt+O` / `Ctrl+Alt+O` |
+| ODD: Convert to Turtle for Editing... | — |
+| ODD: Export Diagram Layout as JSON... | — |
+| ODD: Create Sample Ontology... | — |
+| ODD: Export Actions as AI Agent Tools (JSON Schema)... | — |
+| ODD: Export Ontology Summary for LLM Context... | — |
+| ODD: Export Object Ontology as Turtle (OWL)... | — |
+| ODD: Convert Object Ontology JSON to YAML for Editing... | — |
 
 `Cmd+Shift+O` / `Ctrl+Shift+O` remains VS Code's built-in **Go to Symbol in Editor** command.
 
@@ -151,9 +151,9 @@ See [Format Support](docs/en/reference/format-support.md) for parser and editing
 
 | Setting | Default | Description |
 | --- | --- | --- |
-| `ontologyViewer.preview.autoRefreshDebounceMs` | `300` | Delay in milliseconds before a source edit refreshes the diagram. |
-| `ontologyViewer.preview.defaultView` | `schema` | Initial view: `schema` or `triples`. |
-| `ontologyViewer.preview.layout` | `fcose` | Automatic layout: `fcose` or `dagre`. |
+| `ontologyDrivenDevelopment.preview.autoRefreshDebounceMs` | `300` | Delay in milliseconds before a source edit refreshes the diagram. |
+| `ontologyDrivenDevelopment.preview.defaultView` | `schema` | Initial view: `schema` or `triples`. |
+| `ontologyDrivenDevelopment.preview.layout` | `fcose` | Automatic layout: `fcose` or `dagre`. |
 
 ## Documentation and help
 
@@ -173,11 +173,11 @@ See [Format Support](docs/en/reference/format-support.md) for parser and editing
 - [Support](SUPPORT.md) · [Privacy](PRIVACY.md) · [Security](SECURITY.md)
 - [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
-Before opening an issue, check the [troubleshooting guide](docs/en/reference/troubleshooting.md). Bugs and focused feature requests are welcome in [GitHub Issues](https://github.com/yaggytter/vscode-ontology-viewer/issues).
+Before opening an issue, check the [troubleshooting guide](docs/en/reference/troubleshooting.md). Bugs and focused feature requests are welcome in [GitHub Issues](https://github.com/yaggytter/vscode-ontology-driven-development/issues).
 
 ## Privacy and trust
 
-Ontology Viewer processes ontology documents locally in the VS Code extension host and webview. The extension does not include telemetry, advertising, accounts, or an extension-owned network service. See the [Privacy Notice](PRIVACY.md) for the exact data flow and the [Security Policy](SECURITY.md) for reporting vulnerabilities.
+Ontology-Driven Development processes ontology documents locally in the VS Code extension host and webview. The extension does not include telemetry, advertising, accounts, or an extension-owned network service. See the [Privacy Notice](PRIVACY.md) for the exact data flow and the [Security Policy](SECURITY.md) for reporting vulnerabilities.
 
 ## License
 

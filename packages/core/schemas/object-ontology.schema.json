@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "urn:object-ontology:schema:1",
   "title": "Object Ontology",
-  "description": "Object-centric ontology (object types, properties, link types, interfaces, action types) read by the Ontology Viewer VS Code extension.",
+  "description": "Object-centric ontology (object types, properties, link types, interfaces, action types) read by the Ontology-Driven Development VS Code extension.",
   "type": "object",
   "additionalProperties": false,
   "required": [

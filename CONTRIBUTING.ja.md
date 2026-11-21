@@ -1,4 +1,4 @@
-# Ontology Viewerへのコントリビューション
+# Ontology-Driven Developmentへのコントリビューション
 
 [English](CONTRIBUTING.md)
 
@@ -6,7 +6,7 @@ VS Codeでのオントロジー作業を、より親しみやすくするため�
 
 ## 作業を始める前に
 
-- 重複を避けるため、[既存のIssue](https://github.com/yaggytter/vscode-ontology-viewer/issues)を検索してください。
+- 重複を避けるため、[既存のIssue](https://github.com/yaggytter/vscode-ontology-driven-development/issues)を検索してください。
 - 大きな挙動変更や対応形式の追加は、実装に入る前にIssueで方針を相談してください。
 - セキュリティ上の問題は公開Issueにせず、[SECURITY.ja.md](SECURITY.ja.md)に沿って報告してください。
 
@@ -15,13 +15,13 @@ VS Codeでのオントロジー作業を、より親しみやすくするため�
 必要なものは、Git、Node.js 22以降、npm、VS Code 1.96以降です。
 
 ```bash
-git clone https://github.com/yaggytter/vscode-ontology-viewer.git
-cd vscode-ontology-viewer
+git clone https://github.com/yaggytter/vscode-ontology-driven-development.git
+cd vscode-ontology-driven-development
 npm ci
 npm run verify
 ```
 
-リポジトリをVS Codeで開き、`F5`を押すとExtension Development Hostが起動します。起動後、そのウィンドウでサンプルの`.ttl`ファイルを開きます。最後に、**Ontology Viewer: 図でプレビューを開く**を実行してください。
+リポジトリをVS Codeで開き、`F5`を押すとExtension Development Hostが起動します。起動後、そのウィンドウでサンプルの`.ttl`ファイルを開きます。最後に、**ODD: 図でプレビューを開く**を実行してください。
 
 ## 変更の進め方
 

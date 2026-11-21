@@ -2,7 +2,7 @@
 
 実データを変更する AI エージェントには、2つのものを渡す必要があります。ひとつは業務領域の正確な全体像、もうひとつは「やってよいこと」を絞り込んだ厳密な一覧です。Object Ontology なら、この2つを1つのファイルにまとめられます。このチュートリアルでは、オントロジーからエージェント用のコンテキストとツール一覧を作り、配送遅延に対応するエージェントの動きを順に追います。
 
-題材は **Harbor City Delivery Ops** です。**「Ontology Viewer: サンプルオントロジーを作成...」** を実行して **配送オペレーション（Object Ontology）** を選ぶと、`delivery-ops.oont.yaml` が作られます。ファイル形式をまだ知らない場合は、先に [チュートリアル5](../learn/tutorial-5-object-ontology.md) を読んでください。
+題材は **Harbor City Delivery Ops** です。**「ODD: サンプルオントロジーを作成...」** を実行して **配送オペレーション（Object Ontology）** を選ぶと、`delivery-ops.oont.yaml` が作られます。ファイル形式をまだ知らない場合は、先に [チュートリアル5](../learn/tutorial-5-object-ontology.md) を読んでください。
 
 拡張機能はネットワーク通信を行わず、LLM も呼び出しません。作るのはテキストと JSON だけで、それをどのエージェントに渡すかは利用者が決めます。
 
@@ -18,7 +18,7 @@ Claude Code をエージェントにして、完成品の MCP サーバーでこ
 
 ## 1. コンテキスト用の要約をエクスポートする
 
-`delivery-ops.oont.yaml` を開いて **「Ontology Viewer: LLM コンテキスト用のオントロジー要約をエクスポート...」** を実行すると、無題の Markdown ドキュメントが開きます。実際の出力から一部を抜き出すと次のとおりです。
+`delivery-ops.oont.yaml` を開いて **「ODD: LLM コンテキスト用のオントロジー要約をエクスポート...」** を実行すると、無題の Markdown ドキュメントが開きます。実際の出力から一部を抜き出すと次のとおりです。
 
 ```markdown
 # Ontology: Harbor City Delivery Ops
@@ -70,7 +70,7 @@ Side effects:
 
 ## 2. エージェント用ツールをエクスポートする
 
-**「Ontology Viewer: アクションを AI エージェント用ツール定義 (JSON Schema) としてエクスポート...」** を実行するか、アクションパネルの **エージェント用ツールとしてエクスポート** を押します。`{ "source": {...}, "tools": [...] }` という形の無題 JSON が開き、アクション型ごとに1つずつツールが入っています。4つのうち2つを、出力そのままで示します。
+**「ODD: アクションを AI エージェント用ツール定義 (JSON Schema) としてエクスポート...」** を実行するか、アクションパネルの **エージェント用ツールとしてエクスポート** を押します。`{ "source": {...}, "tools": [...] }` という形の無題 JSON が開き、アクション型ごとに1つずつツールが入っています。4つのうち2つを、出力そのままで示します。
 
 ```json
 {
@@ -162,7 +162,7 @@ Shipment S-5001 is late — fix it and tell the customer.
 **強制。** ハンドラーは、書き込む前に実行条件を確認します。次は `assignVehicle` の例です。
 
 ```typescript
-// Illustration only — not part of the Ontology Viewer extension.
+// Illustration only — not part of the Ontology-Driven Development extension.
 // Your backend (for example an MCP server) runs the tool and enforces
 // the validations written in the ontology.
 import exported from "./delivery-ops.tools.json";

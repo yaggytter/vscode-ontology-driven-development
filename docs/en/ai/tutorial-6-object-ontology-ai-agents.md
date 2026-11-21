@@ -2,7 +2,7 @@
 
 An AI agent that can change real data needs two things from you: an accurate picture of your domain, and a short, strict list of what it is allowed to do. An Object Ontology holds both in one file. This tutorial turns one into an agent's context and tool list, then follows the agent through a delayed delivery.
 
-We'll use **Harbor City Delivery Ops**. Run **Ontology Viewer: Create Sample Ontology...** and pick **Delivery Operations (Object Ontology)**. This creates `delivery-ops.oont.yaml`. If the file format is new to you, start with [Tutorial 5](../learn/tutorial-5-object-ontology.md).
+We'll use **Harbor City Delivery Ops**. Run **ODD: Create Sample Ontology...** and pick **Delivery Operations (Object Ontology)**. This creates `delivery-ops.oont.yaml`. If the file format is new to you, start with [Tutorial 5](../learn/tutorial-5-object-ontology.md).
 
 The extension makes no network calls and does not call any LLM. It produces text and JSON for you to hand to the agent of your choice.
 
@@ -18,7 +18,7 @@ To run this setup end to end, with Claude Code as the agent and a ready-made MCP
 
 ## 1. Export the context summary
 
-Open `delivery-ops.oont.yaml` and run **Ontology Viewer: Export Ontology Summary for LLM Context...**. An untitled Markdown document opens. Here is a trimmed excerpt of the real output:
+Open `delivery-ops.oont.yaml` and run **ODD: Export Ontology Summary for LLM Context...**. An untitled Markdown document opens. Here is a trimmed excerpt of the real output:
 
 ```markdown
 # Ontology: Harbor City Delivery Ops
@@ -70,7 +70,7 @@ The full document also lists the other types, the `Trackable` interface, the rem
 
 ## 2. Export the agent tools
 
-Run **Ontology Viewer: Export Actions as AI Agent Tools (JSON Schema)...**, or click **Export as agent tools** in the Actions panel. You get an untitled JSON document shaped as `{ "source": {...}, "tools": [...] }`, with one tool per action type. These are two of the four tools, exactly as exported:
+Run **ODD: Export Actions as AI Agent Tools (JSON Schema)...**, or click **Export as agent tools** in the Actions panel. You get an untitled JSON document shaped as `{ "source": {...}, "tools": [...] }`, with one tool per action type. These are two of the four tools, exactly as exported:
 
 ```json
 {
@@ -162,7 +162,7 @@ Two things the extension does **not** do:
 **Enforcement.** Your handler checks the preconditions before it writes anything. The sketch below shows `assignVehicle`.
 
 ```typescript
-// Illustration only — not part of the Ontology Viewer extension.
+// Illustration only — not part of the Ontology-Driven Development extension.
 // Your backend (for example an MCP server) runs the tool and enforces
 // the validations written in the ontology.
 import exported from "./delivery-ops.tools.json";

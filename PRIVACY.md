@@ -4,7 +4,7 @@
 
 Effective date: August 9, 2026
 
-Ontology Viewer is designed to work locally. The extension does not collect or transmit telemetry, ontology contents, file paths, search queries, SPARQL queries or their results, diagram edits, or account identifiers to a service operated by this project.
+Ontology-Driven Development is designed to work locally. The extension does not collect or transmit telemetry, ontology contents, file paths, search queries, SPARQL queries or their results, diagram edits, or account identifiers to a service operated by this project.
 
 ## Data processed locally
 

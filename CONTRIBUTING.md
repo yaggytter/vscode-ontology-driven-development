@@ -1,4 +1,4 @@
-# Contributing to Ontology Viewer
+# Contributing to Ontology-Driven Development
 
 [日本語](CONTRIBUTING.ja.md)
 
@@ -6,7 +6,7 @@ Thank you for helping make ontology work more approachable in VS Code. Bug fixes
 
 ## Before you start
 
-- Search [existing issues](https://github.com/yaggytter/vscode-ontology-viewer/issues) before opening a duplicate.
+- Search [existing issues](https://github.com/yaggytter/vscode-ontology-driven-development/issues) before opening a duplicate.
 - Use an issue to discuss a substantial behavior or format-support change before investing in implementation.
 - For security issues, follow [SECURITY.md](SECURITY.md) instead of opening a public issue.
 
@@ -15,13 +15,13 @@ Thank you for helping make ontology work more approachable in VS Code. Bug fixes
 Requirements: Git, Node.js 22 or later, npm, and VS Code 1.96 or later.
 
 ```bash
-git clone https://github.com/yaggytter/vscode-ontology-viewer.git
-cd vscode-ontology-viewer
+git clone https://github.com/yaggytter/vscode-ontology-driven-development.git
+cd vscode-ontology-driven-development
 npm ci
 npm run verify
 ```
 
-Open the repository in VS Code and press `F5` to launch an Extension Development Host. Open a sample `.ttl` file there and run **Ontology Viewer: Open Diagram Preview**.
+Open the repository in VS Code and press `F5` to launch an Extension Development Host. Open a sample `.ttl` file there and run **ODD: Open Diagram Preview**.
 
 ## Make a change
 

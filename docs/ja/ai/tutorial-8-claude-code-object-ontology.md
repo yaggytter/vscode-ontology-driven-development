@@ -2,7 +2,7 @@
 
 [チュートリアル6](tutorial-6-object-ontology-ai-agents.md) では、Object Ontology をエージェントのコンテキストとツール一覧に変える方法を説明しました。このチュートリアルでは、それを実際に動かします。エージェント役は **Claude Code** です。バックエンド役は小さな **MCP サーバー**で、ビューワーから書き出したツールを公開し、実行条件をすべて確認し、何が変わったかを記録します。エージェントがデータを読み、アクションを呼び、拒否されて別の手を選ぶところを、手元で確かめられます。
 
-> **はじめての方へ:** 先に[イラスト付きの予習ノート](https://yaggytter.github.io/vscode-ontology-viewer/index.ja.html)を読むと、場面、課題、進め方がつかめます。ターミナル部分の[字幕付きの動画](https://yaggytter.github.io/vscode-ontology-viewer/index.ja.html#video)と、その見どころも載せています。
+> **はじめての方へ:** 先に[イラスト付きの予習ノート](https://yaggytter.github.io/vscode-ontology-driven-development/index.ja.html)を読むと、場面、課題、進め方がつかめます。ターミナル部分の[字幕付きの動画](https://yaggytter.github.io/vscode-ontology-driven-development/index.ja.html#video)と、その見どころも載せています。
 
 サーバーは、このリポジトリに完成品として同梱しています。コードを書く必要はありません。5章で Claude Code に確認処理を1つ書いてもらうだけです。
 
@@ -17,8 +17,8 @@
 ## 0. サンプルを用意する
 
 ```sh
-git clone https://github.com/yaggytter/vscode-ontology-viewer.git
-cd vscode-ontology-viewer/examples/claude-code/object-ontology-mcp
+git clone https://github.com/yaggytter/vscode-ontology-driven-development.git
+cd vscode-ontology-driven-development/examples/claude-code/object-ontology-mcp
 npm install
 npm test
 ```
@@ -42,8 +42,8 @@ npm test
 ワークスペースには両方のエクスポート結果が入っているので、この手順は飛ばしてもかまいません。一度やっておくと、ファイルがどこから来たかがわかります。
 
 1. VS Code で `delivery/delivery-ops.oont.yaml` を開き、図を開きます。
-2. **「Ontology Viewer: アクションを AI エージェント用ツール定義 (JSON Schema) としてエクスポート...」** を実行し、開いた無題のドキュメントを `delivery/delivery-ops.tools.json` に上書き保存します。同梱のファイルはこの出力そのものなので、git の差分は出ません。
-3. **「Ontology Viewer: LLM コンテキスト用のオントロジー要約をエクスポート...」** を実行し、`delivery/CLAUDE.md` の `<ontology>` の部分と比べます。同じ内容です。
+2. **「ODD: アクションを AI エージェント用ツール定義 (JSON Schema) としてエクスポート...」** を実行し、開いた無題のドキュメントを `delivery/delivery-ops.tools.json` に上書き保存します。同梱のファイルはこの出力そのものなので、git の差分は出ません。
+3. **「ODD: LLM コンテキスト用のオントロジー要約をエクスポート...」** を実行し、`delivery/CLAUDE.md` の `<ontology>` の部分と比べます。同じ内容です。
 
 `CLAUDE.md` の残りは、[チュートリアル6の4章](tutorial-6-object-ontology-ai-agents.md#4-つなぎ込む)のシステムプロンプトです。この構成のために、ルールを2つ足しています。データを変えるために `state.json` を編集しないこと、要約にあるサンプルオブジェクトより読み取り用ツールの結果を信じること、の2つです。
 

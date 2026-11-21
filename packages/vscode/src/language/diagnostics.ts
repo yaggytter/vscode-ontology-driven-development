@@ -44,7 +44,7 @@ async function refresh(document: vscode.TextDocument, collection: vscode.Diagnos
 }
 
 export function register(_context: vscode.ExtensionContext): vscode.Disposable {
-  const collection = vscode.languages.createDiagnosticCollection("ontologyViewer");
+  const collection = vscode.languages.createDiagnosticCollection("ontologyDrivenDevelopment");
   const timers = new Map<string, ReturnType<typeof setTimeout>>();
 
   const schedule = (document: vscode.TextDocument) => {

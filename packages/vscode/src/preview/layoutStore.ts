@@ -8,7 +8,7 @@ export interface NodePosition {
 
 export type DocumentLayout = Record<string, NodePosition>;
 
-const LAYOUT_STATE_KEY = "ontologyViewer.layouts";
+const LAYOUT_STATE_KEY = "ontologyDrivenDevelopment.layouts";
 
 type LayoutState = Record<string, DocumentLayout>;
 
@@ -19,7 +19,7 @@ const pendingDocumentLayouts = new Map<string, DocumentLayout>();
  * Reads/writes per-node drag positions via `workspaceState`, keyed by
  * document URI (per the confirmed design: never write coordinates into the
  * ontology file itself). A sidecar-JSON mode is planned as a config-switch
- * follow-up (see DevPlan.md / ontologyViewer.layout.storage) but v1 ships
+ * follow-up (see DevPlan.md / ontologyDrivenDevelopment.layout.storage) but v1 ships
  * the workspace-state path only.
  */
 export function getDocumentLayout(context: vscode.ExtensionContext, documentUri: vscode.Uri): DocumentLayout {

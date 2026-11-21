@@ -14,7 +14,7 @@
 
 ## エンティティをリネームする
 
-1. （**「Ontology Viewer: サンプルオントロジーを作成...」** から）`samples/neighborhood-garden.ttl` を開き、図を表示します（既定でスキーマビューが開きます）。
+1. （**「ODD: サンプルオントロジーを作成...」** から）`samples/neighborhood-garden.ttl` を開き、図を表示します（既定でスキーマビューが開きます）。
 2. **Riverside Garden** ノードをクリックします。右側に Inspector が開き、名前欄に `Riverside Garden` と表示されます。
 3. 名前欄をクリアして `Riverside Community Garden` と入力し、Enter を押す（またはフォーカスを外す）と確定します。
 4. テキストエディタを見てみましょう。以下の行が

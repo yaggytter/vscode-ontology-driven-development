@@ -1,8 +1,8 @@
-# Ontology Viewer for VS Code
+# Ontology-Driven Development for VS Code
 
 [English](README.md)
 
-[![CI](https://github.com/yaggytter/vscode-ontology-viewer/actions/workflows/ci.yml/badge.svg)](https://github.com/yaggytter/vscode-ontology-viewer/actions/workflows/ci.yml)
+[![CI](https://github.com/yaggytter/vscode-ontology-driven-development/actions/workflows/ci.yml/badge.svg)](https://github.com/yaggytter/vscode-ontology-driven-development/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-6c8cff.svg)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.96%2B-23a8f2.svg)](https://code.visualstudio.com/)
 
@@ -10,9 +10,9 @@ OWL、RDF、RDFS、SKOSを、VS Codeから離れずに見やすいスキーマ�
 
 **Object Ontology**（`*.oont.yaml`）にも対応しています。Palantir Foundry などの業務プラットフォームのオントロジーに着想を得た、オブジェクト中心の形式です。オブジェクト型、リンク型、インターフェースに加えて**アクション型**を定義でき、アクションは AI エージェント用のツール定義としてエクスポートできます。
 
-> Ontology Viewerはプレビュー版です。大切なオントロジーではソース管理を有効にし、図から生成された変更をコミット前に確認してください。
+> Ontology-Driven Developmentはプレビュー版です。大切なオントロジーではソース管理を有効にし、図から生成された変更をコミット前に確認してください。
 
-![部品互換サンプルを表示した Ontology Viewer。自転車部品のクラス階層で「部品」を選択し、インスペクターにプロパティと関係を表示している](packages/vscode/media/ontology-viewer-overview.ja.png)
+![部品互換サンプルを表示した Ontology-Driven Development。自転車部品のクラス階層で「部品」を選択し、インスペクターにプロパティと関係を表示している](packages/vscode/media/ontology-diagram-overview.ja.png)
 
 ## 触ってわかる使いやすさ
 
@@ -71,8 +71,8 @@ actionTypes:
 
 ## 1分ではじめる
 
-1. VS Code Marketplaceから**Ontology Viewer**をインストールします。
-2. コマンドパレットから**Ontology Viewer: サンプルオントロジーを作成...**を実行するか、`.ttl`ファイルを開きます。
+1. VS Code Marketplaceから**Ontology-Driven Development**をインストールします。
+2. コマンドパレットから**ODD: サンプルオントロジーを作成...**を実行するか、`.ttl`ファイルを開きます。
 3. macOSでは`Cmd+Alt+O`、Windows/Linuxでは`Ctrl+Alt+O`を押します。エディタ右上の図ボタンからも開けます。
 4. クラスを選択して内容を確認します。キャンバス上のフローティング操作から、拡大・縮小や全体表示を試してください。
 5. Turtleファイルでは、Inspectorからクラスを編集し、エディタ側の変更内容を確認します。
@@ -113,7 +113,7 @@ Turtleファイルでは、図からクラスや関係を作成し、エンテ�
 
 ### 既存のオントロジーを取り込む
 
-RDF/XMLとJSON-LDはそのまま表示できます。図から編集したい場合は、**Ontology Viewer: 編集用にTurtleへ変換...**を実行してください。変換結果は新しい文書として作成し、元ファイルを上書きしません。
+RDF/XMLとJSON-LDはそのまま表示できます。図から編集したい場合は、**ODD: 編集用にTurtleへ変換...**を実行してください。変換結果は新しい文書として作成し、元ファイルを上書きしません。
 
 ## 対応形式
 
@@ -136,14 +136,14 @@ SPARQL による問い合わせは、この表のすべての形式で利用で�
 
 | コマンド | 既定のキーバインド |
 | --- | --- |
-| Ontology Viewer: 図でプレビューを開く | `Cmd+Alt+O` / `Ctrl+Alt+O` |
-| Ontology Viewer: 編集用にTurtleへ変換... | — |
-| Ontology Viewer: 図のレイアウトをJSONでエクスポート... | — |
-| Ontology Viewer: サンプルオントロジーを作成... | — |
-| Ontology Viewer: アクションを AI エージェント用ツール定義 (JSON Schema) としてエクスポート... | — |
-| Ontology Viewer: LLM コンテキスト用のオントロジー要約をエクスポート... | — |
-| Ontology Viewer: Object Ontology を Turtle (OWL) としてエクスポート... | — |
-| Ontology Viewer: Object Ontology の JSON を編集用に YAML へ変換... | — |
+| ODD: 図でプレビューを開く | `Cmd+Alt+O` / `Ctrl+Alt+O` |
+| ODD: 編集用にTurtleへ変換... | — |
+| ODD: 図のレイアウトをJSONでエクスポート... | — |
+| ODD: サンプルオントロジーを作成... | — |
+| ODD: アクションを AI エージェント用ツール定義 (JSON Schema) としてエクスポート... | — |
+| ODD: LLM コンテキスト用のオントロジー要約をエクスポート... | — |
+| ODD: Object Ontology を Turtle (OWL) としてエクスポート... | — |
+| ODD: Object Ontology の JSON を編集用に YAML へ変換... | — |
 
 `Cmd+Shift+O` / `Ctrl+Shift+O`は、VS Code標準の**エディター内のシンボルへ移動**に割り当てたままです。
 
@@ -151,9 +151,9 @@ SPARQL による問い合わせは、この表のすべての形式で利用で�
 
 | 設定項目 | 既定値 | 説明 |
 | --- | --- | --- |
-| `ontologyViewer.preview.autoRefreshDebounceMs` | `300` | ソース編集後に図を更新するまでの待機時間（ミリ秒）。 |
-| `ontologyViewer.preview.defaultView` | `schema` | 最初に開くビュー。`schema`または`triples`。 |
-| `ontologyViewer.preview.layout` | `fcose` | 自動レイアウト。`fcose`または`dagre`。 |
+| `ontologyDrivenDevelopment.preview.autoRefreshDebounceMs` | `300` | ソース編集後に図を更新するまでの待機時間（ミリ秒）。 |
+| `ontologyDrivenDevelopment.preview.defaultView` | `schema` | 最初に開くビュー。`schema`または`triples`。 |
+| `ontologyDrivenDevelopment.preview.layout` | `fcose` | 自動レイアウト。`fcose`または`dagre`。 |
 
 ## ドキュメントとサポート
 
@@ -173,11 +173,11 @@ SPARQL による問い合わせは、この表のすべての形式で利用で�
 - [サポート](SUPPORT.ja.md)・[プライバシー](PRIVACY.ja.md)・[セキュリティ](SECURITY.ja.md)
 - [コントリビューション](CONTRIBUTING.ja.md)・[変更履歴](CHANGELOG.ja.md)
 
-不具合を報告する前に、[トラブルシューティング](docs/ja/reference/troubleshooting.md)をご確認ください。再現可能な不具合や具体的な機能提案は、[GitHub Issues](https://github.com/yaggytter/vscode-ontology-viewer/issues)で受け付けています。
+不具合を報告する前に、[トラブルシューティング](docs/ja/reference/troubleshooting.md)をご確認ください。再現可能な不具合や具体的な機能提案は、[GitHub Issues](https://github.com/yaggytter/vscode-ontology-driven-development/issues)で受け付けています。
 
 ## プライバシーと信頼性
 
-Ontology Viewerは、VS Codeの拡張機能ホストとWebview内でオントロジーを処理します。テレメトリ、広告、アカウント機能、拡張機能独自のネットワークサービスは含みません。正確なデータの流れは[プライバシーに関する通知](PRIVACY.ja.md)、脆弱性の報告方法は[セキュリティポリシー](SECURITY.ja.md)をご覧ください。
+Ontology-Driven Developmentは、VS Codeの拡張機能ホストとWebview内でオントロジーを処理します。テレメトリ、広告、アカウント機能、拡張機能独自のネットワークサービスは含みません。正確なデータの流れは[プライバシーに関する通知](PRIVACY.ja.md)、脆弱性の報告方法は[セキュリティポリシー](SECURITY.ja.md)をご覧ください。
 
 ## ライセンス
 

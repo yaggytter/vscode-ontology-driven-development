@@ -4,7 +4,7 @@ Most real-world OWL files you'll find in the wild are RDF/XML (`.owl` or `.rdf`)
 
 ## 1. Open the file
 
-Open `samples/community-event.rdf` (via **Ontology Viewer: Create Sample Ontology...**), or any `.owl`/`.rdf` file you have.
+Open `samples/community-event.rdf` (via **ODD: Create Sample Ontology...**), or any `.owl`/`.rdf` file you have.
 
 ## 2. Preview it
 
@@ -17,7 +17,7 @@ Notice the banner at the top of the diagram: **"This format is view-only in the 
 Either:
 
 - click **"Convert to Turtle to edit"** in that banner, or
-- run **Ontology Viewer: Convert to Turtle for Editing...** from the Command Palette.
+- run **ODD: Convert to Turtle for Editing...** from the Command Palette.
 
 This parses the RDF/XML, serializes it as Turtle, and opens the result as a new **untitled** document — your original `.rdf`/`.owl` file is never modified.
 

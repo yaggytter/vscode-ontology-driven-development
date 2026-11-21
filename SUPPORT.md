@@ -2,12 +2,12 @@
 
 [日本語](SUPPORT.ja.md)
 
-Ontology Viewer is a community-maintained preview extension. Support is provided on a best-effort basis through GitHub.
+Ontology-Driven Development is a community-maintained preview extension. Support is provided on a best-effort basis through GitHub.
 
 ## Choose the right channel
 
-- **Something does not work:** check [Troubleshooting](docs/en/reference/troubleshooting.md), then [open a bug report](https://github.com/yaggytter/vscode-ontology-viewer/issues/new?template=bug-report.yml).
-- **You have a focused improvement:** [open a feature request](https://github.com/yaggytter/vscode-ontology-viewer/issues/new?template=feature-request.yml).
+- **Something does not work:** check [Troubleshooting](docs/en/reference/troubleshooting.md), then [open a bug report](https://github.com/yaggytter/vscode-ontology-driven-development/issues/new?template=bug-report.yml).
+- **You have a focused improvement:** [open a feature request](https://github.com/yaggytter/vscode-ontology-driven-development/issues/new?template=feature-request.yml).
 - **You found a vulnerability:** use the private process in [SECURITY.md](SECURITY.md).
 - **You want to contribute:** read [CONTRIBUTING.md](CONTRIBUTING.md).
 
