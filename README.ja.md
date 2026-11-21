@@ -6,15 +6,83 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-6c8cff.svg)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.96%2B-23a8f2.svg)](https://code.visualstudio.com/)
 
-OWL、RDF、RDFS、SKOSを、VS Codeから離れずに見やすいスキーマ図で探索できる拡張機能です。検索しやすいキャンバスと安全なTurtle編集を組み合わせ、既存オントロジーの把握にも、考えながら設計する作業にも使えます。
+要件からオントロジーを作り、そのオントロジーで開発を駆動する。**Ontology-Driven Development（ODD、オントロジー駆動開発）**は、そのための VS Code 拡張機能とコマンドラインツール（`oont`）です。オントロジーを書き、業務を知る人と一緒にレビューし、検証し、後に続くコードや AI エージェントに渡すところまでを支えます。
 
-**Object Ontology**（`*.oont.yaml`）にも対応しています。Palantir Foundry などの業務プラットフォームのオントロジーに着想を得た、オブジェクト中心の形式です。オブジェクト型、リンク型、インターフェースに加えて**アクション型**を定義でき、アクションは AI エージェント用のツール定義としてエクスポートできます。
+```text
+要件（REQ-001 など）→ Object Ontology（*.oont.yaml）→ レビュー → 設計 → AI エージェントと実装 → 検証
+```
+
+- **要件からオントロジーへ**：オブジェクト型、リンク、**アクション型**（データを変えてよい操作）を、小さな YAML ファイル（Object Ontology）に書きます。`requirements:` の要件台帳と `requirements: [REQ-001]` の参照で、各要素がどの要件を実現するかをたどれます。
+- **書きながら診断**：台帳にない要件 ID、どこからも参照されていない要件、参照切れ、未知のフィールドが「問題」パネルに出ます。
+- **図でレビュー**：図、Inspector、アクションパネルに各要素と要件が表示されるので、業務担当者と一緒にオントロジーを確かめられます。
+- **VS Code の外でも同じ検査**：`oont validate` はターミナル、CI、AI コーディングエージェントから実行できます。`oont export` は、エージェント用のツール定義、LLM 向けの要約、Turtle を、拡張機能とまったく同じ内容で書き出します。
+- **図と Semantic Web の機能もそのまま**：OWL・RDF・RDFS・SKOS のビューアー、Turtle の編集、SPARQL は引き続き使えます。オントロジー駆動開発では、Object Ontology を用語集や外部の知識とつなぐ役割を担います。
+
+はじめての方は、[オントロジー駆動開発とは](docs/ja/odd/what-is-odd.md)を読んでから、[ハンズオンのチュートリアル](docs/ja/odd/tutorial-requirements-to-ontology.md)を試してください。
 
 > Ontology-Driven Developmentはプレビュー版です。大切なオントロジーではソース管理を有効にし、図から生成された変更をコミット前に確認してください。
 
+> **旧 Ontology Viewer**：このプロジェクトは、開発を終えた [vscode-ontology-viewer](https://github.com/yaggytter/vscode-ontology-viewer) を引き継いだものです。新しい拡張機能として公開するため、Ontology Viewer の設定は引き継がれません。
+
 ![部品互換サンプルを表示した Ontology-Driven Development。自転車部品のクラス階層で「部品」を選択し、インスペクターにプロパティと関係を表示している](packages/vscode/media/ontology-diagram-overview.ja.png)
 
-## 触ってわかる使いやすさ
+## 要件からオントロジーへ
+
+要件に ID を振り、オントロジーの `requirements:` 台帳に並べ、各要素にどの要件を実現するかを書きます。
+
+```yaml
+objectOntology: 1
+name: 会議室予約
+requirements:
+  REQ-001: { title: 社員は会議室を時間指定で予約できる, source: requirements.md }
+  REQ-002: 同じ会議室で時間帯が重なる予約はできない
+objectTypes:
+  Booking:
+    primaryKey: bookingId
+    requirements: [REQ-001]
+    properties:
+      bookingId: string
+      status: { type: string, enum: [reserved, inUse, cancelled, released] }
+actionTypes:
+  reserveRoom:
+    requirements: [REQ-001, REQ-002]
+    # parameters, rules ...
+    validations:
+      - description: 同じ会議室の予約済み・利用中の予約と時間帯が重ならないこと
+        requirements: [REQ-002]
+```
+
+- 台帳にない ID を参照するとエラー（`requirement-undefined`）、どの要素も実現していない要件は警告（`requirement-unreferenced`）になります。警告は、オントロジーを作っている間の「残りの作業の一覧」として使えます。
+- Inspector とアクションパネルに各要素の要件が表示されます。SPARQL のサンプル **9. 要件と、それを実現する要素** で一覧でき、LLM 向けの要約には `## Requirements` 節が付きます。
+- `x-` で始まるキーは拡張フィールドです。ツールは無視するので、`x-trigger: { kind: schedule, every: 1m }` のように、後の工程のためのメモを残せます。
+
+**ODD: サンプルオントロジーを作成...** で **会議室予約（Object Ontology）** を選ぶと、完全な例を見られます。すべてのフィールドは[形式リファレンス](docs/ja/reference/object-ontology-format.md)で説明しています。
+
+## `oont` CLI
+
+会議室予約のサンプルを置いたフォルダーを検証した例です。どの要素も実現していない要件 `REQ-008` を足してあります。
+
+```text
+$ oont validate docs/ontology --strict
+docs/ontology/room-booking.oont.yaml:16:3: warning: Requirement "REQ-008" is not referenced by any element. [requirement-unreferenced]
+1 file checked: 0 errors, 1 warning
+```
+
+| コマンド | すること |
+| --- | --- |
+| `oont validate <path>... [--format text\|json] [--strict]` | ファイルやディレクトリをまとめて検証します。終了コードは、エラーなしが 0、エラーあり（`--strict` なら警告も）が 1、使い方やファイルの問題が 2 です。 |
+| `oont export tools\|summary\|turtle <file> [-o <out>]` | エージェント用のツール定義、LLM 向けの要約、Turtle を書き出します。拡張機能のエクスポートと同じ内容です。 |
+
+CLI はローカルで動き、ネットワークに接続せず、テレメトリも送りません。npm には `@yaggytter/object-ontology-cli` として公開する予定です。それまでは、このリポジトリをクローンして実行してください。
+
+```sh
+npm ci && npm run build
+node packages/cli/bin/oont.js validate path/to/ontologies
+```
+
+オプション、出力形式、CI での使い方は [CLI リファレンス](docs/ja/reference/cli.md)にあります。
+
+## 図の使いやすさ
 
 - **読みやすいスキーマカード**: データ型プロパティをクラス内にまとめ、トリプルをすべてノードにしたときの視覚的なノイズを抑えます。
 - **読みやすく意味のある配色**: 背景に合う文字色を自動選択し、関連するエンティティが同系色になる理由も表示します。
@@ -26,7 +94,9 @@ OWL、RDF、RDFS、SKOSを、VS Codeから離れずに見やすいスキーマ�
 - **英語・日本語UI**: VS Codeの表示言語に合わせて切り替わります。
 - **ローカル処理**: 拡張機能からオントロジーの内容や利用状況のテレメトリを送信しません。
 
-## 2つの方式のオントロジーを1つのビューアーで
+## 2つの方式のオントロジー：中心と接続層
+
+オントロジー駆動開発では、Object Ontology が中心です。コードを駆動する概念と操作はここに書きます。Semantic Web のオントロジーは、それを用語集、標準の語彙、外部の知識とつなぎます。この拡張機能はどちらにも対応しています。
 
 | | Semantic Web（OWL / RDF / SKOS） | Object Ontology（`*.oont.yaml`） |
 | --- | --- | --- |
@@ -61,9 +131,9 @@ actionTypes:
 ```
 
 - **表示・編集・クエリ**を同じキャンバスで行えます。オブジェクト型、インターフェース（六角形）、カーディナリティ付きのリンク型を描き、**アクション**パネルで操作の定義を確認できます。図からの編集は YAML の該当箇所だけを書き換え、反映前に再パースして確認します。コメントも残ります。
-- **「問題」パネルとアウトライン**: 参照切れ、未知のフィールド、サンプルオブジェクトのキー重複を、該当箇所に表示します。同梱の JSON Schema により、`*.oont.json`（Red Hat の YAML 拡張機能を入れれば `*.oont.yaml` も）で補完が効きます。
-- **SPARQL** は RDF に変換したモデル（OWL と `oont:` 語彙）に対して実行します。「各型に対して何ができるか」「オブジェクト間のリンクをたどる」など、Object Ontology 用のクエリ例を8つ用意しています。
-- **AI エージェント向けのエクスポート**は、確認しやすいよう無題のドキュメントとして開きます。アクション型の**ツール定義**（MCP や function calling で使われる JSON Schema 形式）、LLM のコンテキストに入れる Markdown の**要約**、Semantic Web のデータと組み合わせるための **Turtle** の3種類です。拡張機能自体は LLM もネットワークも呼び出しません。
+- **「問題」パネルとアウトライン**: 参照切れ、未知のフィールド、サンプルオブジェクトのキー重複、台帳にない・参照されていない要件 ID を、該当箇所に表示します。同梱の JSON Schema により、`*.oont.json`（Red Hat の YAML 拡張機能を入れれば `*.oont.yaml` も）で補完が効きます。
+- **SPARQL** は RDF に変換したモデル（OWL と `oont:` 語彙）に対して実行します。「各型に対して何ができるか」「オブジェクト間のリンクをたどる」「要件と、それを実現する要素」など、Object Ontology 用のクエリ例を9つ用意しています。
+- **AI エージェント向けのエクスポート**は、確認しやすいよう無題のドキュメントとして開きます。アクション型の**ツール定義**（MCP や function calling で使われる JSON Schema 形式）、LLM のコンテキストに入れる Markdown の**要約**、Semantic Web のデータと組み合わせるための **Turtle** の3種類です。同じエクスポートは CLI の `oont export` でも行えます。拡張機能も CLI も、LLM やネットワークを呼び出しません。
 
 ![Corner Cafe Orders サンプルで Order 型を選択した画面。インスペクターに説明、サンプルオブジェクトの数、型付きのプロパティ（主キーに鍵マーク）、リンクが表示されている](packages/vscode/media/object-ontology-inspector.ja.png)
 
@@ -72,12 +142,12 @@ actionTypes:
 ## 1分ではじめる
 
 1. VS Code Marketplaceから**Ontology-Driven Development**をインストールします。
-2. コマンドパレットから**ODD: サンプルオントロジーを作成...**を実行するか、`.ttl`ファイルを開きます。
+2. コマンドパレットから**ODD: サンプルオントロジーを作成...**を実行し、**会議室予約（Object Ontology）**を選びます。`room-booking.oont.yaml` という名前で保存します。
 3. macOSでは`Cmd+Alt+O`、Windows/Linuxでは`Ctrl+Alt+O`を押します。エディタ右上の図ボタンからも開けます。
-4. クラスを選択して内容を確認します。キャンバス上のフローティング操作から、拡大・縮小や全体表示を試してください。
-5. Turtleファイルでは、Inspectorからクラスを編集し、エディタ側の変更内容を確認します。
+4. **Meeting room** か **Booking** を選ぶと、Inspector にプロパティ、リンク、実現する要件が表示されます。**アクション**を開くと、各アクションのルールと要件を確認できます。
+5. `requirements:` 台帳に、どこからも参照されない要件を足してみてください。「問題」パネルに警告が出ます。`oont validate room-booking.oont.yaml` を実行すると、ターミナルでも同じ結果になります。
 
-詳しい手順は[はじめにガイド](docs/ja/getting-started.md)と[チュートリアル](docs/ja/)にまとめています。
+詳しい手順は[はじめにガイド](docs/ja/getting-started.md)、[ODD チュートリアル](docs/ja/odd/tutorial-requirements-to-ontology.md)、ほかの[チュートリアル](docs/ja/)にまとめています。OWL や RDF は、`.ttl` ファイルを開いて同じショートカットを押すと図で表示できます。
 
 ## 主な機能
 
@@ -158,6 +228,8 @@ SPARQL による問い合わせは、この表のすべての形式で利用で�
 ## ドキュメントとサポート
 
 - [はじめに](docs/ja/getting-started.md)
+- オントロジー駆動開発：[オントロジー駆動開発とは](docs/ja/odd/what-is-odd.md)・[チュートリアル：要件からオントロジーを作る](docs/ja/odd/tutorial-requirements-to-ontology.md)
+- リファレンス：[Object Ontology 形式](docs/ja/reference/object-ontology-format.md)・[CLI（`oont`）](docs/ja/reference/cli.md)
 - [最初のオントロジーを作る](docs/ja/learn/tutorial-1-first-ontology.md)
 - [図から編集する](docs/ja/learn/tutorial-2-editing-from-diagram.md)
 - [既存のOWLファイルを取り込む](docs/ja/learn/tutorial-3-importing-owl.md)
@@ -177,7 +249,7 @@ SPARQL による問い合わせは、この表のすべての形式で利用で�
 
 ## プライバシーと信頼性
 
-Ontology-Driven Developmentは、VS Codeの拡張機能ホストとWebview内でオントロジーを処理します。テレメトリ、広告、アカウント機能、拡張機能独自のネットワークサービスは含みません。正確なデータの流れは[プライバシーに関する通知](PRIVACY.ja.md)、脆弱性の報告方法は[セキュリティポリシー](SECURITY.ja.md)をご覧ください。
+Ontology-Driven Developmentは、VS Codeの拡張機能ホストとWebview内でオントロジーを処理します。テレメトリ、広告、アカウント機能、拡張機能独自のネットワークサービスは含みません。`oont` CLI もローカルのファイルだけを扱い、ネットワークに接続せず、テレメトリも送りません。正確なデータの流れは[プライバシーに関する通知](PRIVACY.ja.md)、脆弱性の報告方法は[セキュリティポリシー](SECURITY.ja.md)をご覧ください。
 
 ## ライセンス
 
