@@ -1,4 +1,4 @@
-import type { ObjectOntology, OoProperty } from "../model";
+import { requirementCoverage, type ObjectOntology, type OoProperty, type OoRequirementElement } from "../model";
 
 export interface ContextSummaryOptions {
   /** Include up to this many example objects per type (0 = none). */
@@ -18,6 +18,26 @@ function propertyLine(property: OoProperty, primaryKey?: string): string {
   const label = property.displayName && property.displayName !== property.apiName ? ` "${property.displayName}"` : "";
   const description = property.description ? ` — ${property.description}` : "";
   return `  - ${property.apiName}${label}: ${type}${notes.length ? ` (${notes.join(", ")})` : ""}${description}`;
+}
+
+/** `Requirements: A, B` for an element that references requirements; nothing otherwise. */
+function requirementsLine(ids: readonly string[]): string[] {
+  return ids.length > 0 ? [`Requirements: ${ids.join(", ")}`] : [];
+}
+
+function describeElement(element: OoRequirementElement): string {
+  switch (element.kind) {
+    case "objectType":
+      return `object type ${element.apiName}`;
+    case "interface":
+      return `interface ${element.apiName}`;
+    case "linkType":
+      return `link ${element.apiName}`;
+    case "actionType":
+      return `action ${element.apiName}`;
+    case "validation":
+      return `a validation of action ${element.apiName}`;
+  }
 }
 
 function formatValue(value: unknown): string {
@@ -53,6 +73,7 @@ export function buildContextSummary(ontology: ObjectOntology, options: ContextSu
     for (const type of ontology.objectTypes) {
       const label = type.displayName && type.displayName !== type.apiName ? ` ("${type.displayName}")` : "";
       out.push("", `### ${type.apiName}${label}`);
+      out.push(...requirementsLine(type.requirements));
       if (type.description) {
         out.push(type.description);
       }
@@ -70,6 +91,7 @@ export function buildContextSummary(ontology: ObjectOntology, options: ContextSu
       out.push(
         "",
         `### ${iface.apiName}`,
+        ...requirementsLine(iface.requirements),
         ...(iface.description ? [iface.description] : []),
         ...(iface.extends.length ? [`Extends: ${iface.extends.join(", ")}`] : []),
         `Implemented by: ${implementers.join(", ") || "(none)"}`,
@@ -84,7 +106,7 @@ export function buildContextSummary(ontology: ObjectOntology, options: ContextSu
       const fromCount = link.from.cardinality === "one" ? "exactly one" : "many";
       const toCount = link.to.cardinality === "one" ? "exactly one" : "many";
       out.push(
-        `- ${link.apiName}${link.displayName ? ` ("${link.displayName}")` : ""}: each ${link.from.objectType} has ${fromCount} ${link.to.objectType} via \`${link.from.name}\`; each ${link.to.objectType} has ${toCount} ${link.from.objectType} via \`${link.to.name}\`.${link.foreignKey ? ` Backed by ${link.foreignKey.objectType}.${link.foreignKey.property}.` : ""}`,
+        `- ${link.apiName}${link.displayName ? ` ("${link.displayName}")` : ""}: each ${link.from.objectType} has ${fromCount} ${link.to.objectType} via \`${link.from.name}\`; each ${link.to.objectType} has ${toCount} ${link.from.objectType} via \`${link.to.name}\`.${link.foreignKey ? ` Backed by ${link.foreignKey.objectType}.${link.foreignKey.property}.` : ""}${link.requirements.length ? ` Requirements: ${link.requirements.join(", ")}.` : ""}`,
       );
     }
   }
@@ -93,6 +115,7 @@ export function buildContextSummary(ontology: ObjectOntology, options: ContextSu
     out.push("", "## Actions (the only allowed writes)");
     for (const action of ontology.actionTypes) {
       out.push("", `### ${action.apiName}${action.displayName ? ` ("${action.displayName}")` : ""}`);
+      out.push(...requirementsLine(action.requirements));
       if (action.description) {
         out.push(action.description);
       }
@@ -110,11 +133,22 @@ export function buildContextSummary(ontology: ObjectOntology, options: ContextSu
         );
       }
       if (action.validations.length > 0) {
-        out.push("Rejected unless:", ...action.validations.map((v) => `  - ${v.description}`));
+        out.push(
+          "Rejected unless:",
+          ...action.validations.map((v) => `  - ${v.description}${v.requirements.length ? ` (requirements: ${v.requirements.join(", ")})` : ""}`),
+        );
       }
       if (action.sideEffects.length > 0) {
         out.push("Side effects:", ...action.sideEffects.map((s) => `  - ${s}`));
       }
+    }
+  }
+
+  if (ontology.requirements.length > 0) {
+    out.push("", "## Requirements");
+    for (const { requirement, elements } of requirementCoverage(ontology)) {
+      const realizedBy = elements.length ? `realized by ${elements.map(describeElement).join(", ")}` : "not referenced by any element yet";
+      out.push(`- ${requirement.id}: ${requirement.title} — ${realizedBy}`);
     }
   }
 

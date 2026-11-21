@@ -50,6 +50,20 @@ export function ruleIri(ns: string, actionName: string, index: number): string {
   return `${ns}action/${actionName}/rule/${index + 1}`;
 }
 
+/**
+ * Requirement IDs may contain "." and "-" (P1 spec 4.1), so they get their
+ * own `requirement/` segment: `Room.capacity` as an ID can never collide
+ * with the member IRI of property `capacity` on type `Room`.
+ */
+export function requirementIri(ns: string, requirementId: string): string {
+  return `${ns}requirement/${encodeURIComponent(requirementId)}`;
+}
+
+/** Only validations that reference requirements become resources (P1 spec 4.6). */
+export function validationIri(ns: string, actionName: string, index: number): string {
+  return `${ns}action/${actionName}/validation/${index + 1}`;
+}
+
 export function objectIri(ns: string, typeName: string, primaryKey: string): string {
   return `${ns}${typeName}/${encodeURIComponent(primaryKey)}`;
 }
