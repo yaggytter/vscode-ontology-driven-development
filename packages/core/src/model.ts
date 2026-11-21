@@ -48,6 +48,8 @@ export interface OoProperty {
   unit?: string;
   enumValues?: string[];
   required: boolean;
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface OoObjectType {
@@ -61,6 +63,8 @@ export interface OoObjectType {
   color?: string;
   implements: string[];
   properties: OoProperty[];
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface OoInterface {
@@ -69,6 +73,8 @@ export interface OoInterface {
   description?: string;
   extends: string[];
   properties: OoProperty[];
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface OoLinkSide {
@@ -78,6 +84,8 @@ export interface OoLinkSide {
   displayName?: string;
   /** How many objects of the other side one object of this side links to. */
   cardinality: OoCardinality;
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface OoLinkType {
@@ -88,6 +96,8 @@ export interface OoLinkType {
   to: OoLinkSide;
   /** `Type.property` holding the other side's primary key, when the link is foreign-key backed. */
   foreignKey?: { objectType: string; property: string };
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface OoParameter {
@@ -99,6 +109,8 @@ export interface OoParameter {
   displayName?: string;
   description?: string;
   enumValues?: string[];
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface OoRule {
@@ -112,11 +124,15 @@ export interface OoRule {
   to?: string;
   /** Property API name -> value expression (`$param` or a literal), kept as text. */
   set: Record<string, string>;
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface OoValidation {
   description: string;
   expr?: string;
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface OoActionType {
@@ -127,6 +143,8 @@ export interface OoActionType {
   rules: OoRule[];
   validations: OoValidation[];
   sideEffects: string[];
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface OoObjectRecord {
@@ -145,6 +163,8 @@ export interface ObjectOntology {
   linkTypes: OoLinkType[];
   actionTypes: OoActionType[];
   objects: OoObjectRecord[];
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export type OoSeverity = "error" | "warning";
@@ -153,6 +173,8 @@ export interface OoDiagnostic {
   message: string;
   severity: OoSeverity;
   range: SourceRange;
+  /** Stable identifier for diagnostics added in P1 (e.g. `requirement-undefined`). Older diagnostics have none. */
+  code?: string;
 }
 
 /** Object types and interfaces share one name space — both become schema entities. */

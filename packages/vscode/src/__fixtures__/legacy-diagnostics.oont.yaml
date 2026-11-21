@@ -1,0 +1,27 @@
+# Fixture for A1: a pre-P1 file with known problems. Its diagnostics must
+# stay exactly the same after P1 (requirement IDs and x- fields). It has no
+# unknown fields on purpose: their message lists the allowed fields, which P1
+# extends.
+objectOntology: 1
+name: Legacy diagnostics
+objectTypes:
+  Room:
+    primaryKey: id
+    color: red
+    properties:
+      id: string
+      size: { type: bigint }
+  bad-name:
+    primaryKey: id
+linkTypes:
+  roomOwner:
+    from: { objectType: Room, name: owner, cardinality: one }
+    to: { objectType: Person, name: rooms }
+actionTypes:
+  book:
+    parameters:
+      room: { type: objectRef, objectType: Room }
+    rules:
+      - { op: modifyObject, objectType: Room, object: room, set: { missing: $room } }
+    validations:
+      - { description: Room must be free, expr: "true" }

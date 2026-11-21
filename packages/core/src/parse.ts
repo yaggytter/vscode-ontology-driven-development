@@ -55,6 +55,12 @@ class ParseBudgetExceeded extends Error {}
 
 type Entry = { key: string; keyNode: Node; value: Node | null };
 
+/** `x-` extension field keys (P1 spec 5.1). Unknown to tools, so never reported. */
+export const EXTENSION_FIELD_PATTERN = /^x-[A-Za-z0-9][A-Za-z0-9_.-]*$/;
+
+/** Cap on aliases expanded while reading one extension value (see MAX_NODE_VISITS). */
+const MAX_EXTENSION_ALIASES = 100;
+
 class Reader {
   readonly diagnostics: OoDiagnostic[] = [];
   private visits = 0;
@@ -99,12 +105,29 @@ class Reader {
   fields(node: Node | null, what: string, allowed: readonly string[]): Map<string, Entry> {
     const map = new Map<string, Entry>();
     for (const entry of this.entries(node, what)) {
-      if (!allowed.includes(entry.key)) {
+      if (!allowed.includes(entry.key) && !EXTENSION_FIELD_PATTERN.test(entry.key)) {
         this.report(entry.keyNode, `Unknown field "${entry.key}" in ${what}. Expected one of: ${allowed.join(", ")}.`, "warning");
       }
       map.set(entry.key, entry);
     }
     return map;
+  }
+
+  /** The `x-` fields of a mapping read with `fields()`, as plain values; undefined when there are none. */
+  extensions(fields: ReadonlyMap<string, Entry>): Record<string, unknown> | undefined {
+    let out: Record<string, unknown> | undefined;
+    for (const [key, entry] of fields) {
+      if (!EXTENSION_FIELD_PATTERN.test(key)) {
+        continue;
+      }
+      out ??= {};
+      try {
+        out[key] = entry.value === null ? null : entry.value.toJS(this.doc, { maxAliasCount: MAX_EXTENSION_ALIASES });
+      } catch {
+        this.report(entry.value, `The value of ${key} could not be read.`, "warning");
+      }
+    }
+    return out;
   }
 
   string(entry: Entry | undefined, what: string): string | undefined {
@@ -193,6 +216,12 @@ class Reader {
   }
 }
 
+/** Spread into a model element: adds `extensions` only when the mapping has `x-` fields. */
+function withExtensions(reader: Reader, fields: ReadonlyMap<string, Entry>): { extensions?: Record<string, unknown> } {
+  const extensions = reader.extensions(fields);
+  return extensions ? { extensions } : {};
+}
+
 export function rangeOf(node: Node | null | undefined): SourceRange {
   const range = node?.range;
   if (!range) {
@@ -241,6 +270,7 @@ function readProperties(reader: Reader, node: Node | null, owner: string): OoPro
       unit: reader.string(fields.get("unit"), "unit"),
       enumValues,
       required: reader.boolean(fields.get("required"), "required") ?? false,
+      ...withExtensions(reader, fields),
     });
   }
   return out;
@@ -280,6 +310,7 @@ function readObjectTypes(reader: Reader, node: Node | null): OoObjectType[] {
       color: reader.string(fields.get("color"), "color"),
       implements: reader.stringList(fields.get("implements"), "implements"),
       properties: readProperties(reader, fields.get("properties")?.value ?? null, entry.key),
+      ...withExtensions(reader, fields),
     });
   }
   return out;
@@ -298,6 +329,7 @@ function readInterfaces(reader: Reader, node: Node | null): OoInterface[] {
       description: reader.string(fields.get("description"), "description"),
       extends: reader.stringList(fields.get("extends"), "extends"),
       properties: readProperties(reader, fields.get("properties")?.value ?? null, entry.key),
+      ...withExtensions(reader, fields),
     });
   }
   return out;
@@ -334,6 +366,7 @@ function readLinkSide(reader: Reader, entry: Entry | undefined, linkName: string
     name,
     displayName: reader.string(fields.get("displayName"), "displayName"),
     cardinality: readCardinality(reader, fields.get("cardinality"), "cardinality"),
+    ...withExtensions(reader, fields),
   };
 }
 
@@ -369,6 +402,7 @@ function readLinkTypes(reader: Reader, node: Node | null): OoLinkType[] {
       from,
       to,
       foreignKey,
+      ...withExtensions(reader, fields),
     });
   }
   return out;
@@ -407,6 +441,7 @@ function readParameters(reader: Reader, node: Node | null, actionName: string): 
       displayName: reader.string(fields.get("displayName"), "displayName"),
       description: reader.string(fields.get("description"), "description"),
       enumValues: fields.has("enum") ? reader.stringList(fields.get("enum"), "enum") : undefined,
+      ...withExtensions(reader, fields),
     });
   }
   return out;
@@ -436,6 +471,7 @@ function readRules(reader: Reader, entry: Entry | undefined, actionName: string)
       from: reader.string(fields.get("from"), "from"),
       to: reader.string(fields.get("to"), "to"),
       set,
+      ...withExtensions(reader, fields),
     });
   }
   return out;
@@ -465,7 +501,7 @@ function readActionTypes(reader: Reader, node: Node | null): OoActionType[] {
         reader.report(item, "A validation needs a description.");
         return [];
       }
-      return [{ description, expr: reader.string(v.get("expr"), "expr") }];
+      return [{ description, expr: reader.string(v.get("expr"), "expr"), ...withExtensions(reader, v) }];
     });
     out.push({
       apiName: entry.key,
@@ -475,6 +511,7 @@ function readActionTypes(reader: Reader, node: Node | null): OoActionType[] {
       rules: readRules(reader, fields.get("rules"), entry.key),
       validations,
       sideEffects: reader.stringList(fields.get("sideEffects"), "sideEffects"),
+      ...withExtensions(reader, fields),
     });
   }
   return out;
@@ -603,6 +640,7 @@ function readDocument(document: Document.Parsed): ParsedObjectOntology {
     linkTypes: readLinkTypes(reader, top.get("linkTypes")?.value ?? null),
     actionTypes: readActionTypes(reader, top.get("actionTypes")?.value ?? null),
     objects: objects.records,
+    ...withExtensions(reader, top),
   };
 
   diagnostics.push(...reader.diagnostics, ...validateOntology(ontology, document, objects.nodes));

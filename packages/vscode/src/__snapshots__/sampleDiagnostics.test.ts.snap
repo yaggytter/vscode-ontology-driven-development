@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sample diagnostics are unchanged by format extensions (A1) > examples/claude-code/object-ontology-mcp/delivery/delivery-ops.oont.yaml 1`] = `[]`;
+
+exports[`sample diagnostics are unchanged by format extensions (A1) > examples/claude-code/object-ontology-mcp/support/support-desk.oont.yaml 1`] = `[]`;
+
+exports[`sample diagnostics are unchanged by format extensions (A1) > packages/vscode/samples/cafe-orders.oont.yaml 1`] = `[]`;
+
+exports[`sample diagnostics are unchanged by format extensions (A1) > packages/vscode/samples/delivery-ops.oont.yaml 1`] = `[]`;
+
+exports[`sample diagnostics are unchanged by format extensions (A1) > packages/vscode/samples/plant-maintenance.oont.yaml 1`] = `[]`;
+
+exports[`sample diagnostics are unchanged by format extensions (A1) > packages/vscode/samples/support-desk.oont.yaml 1`] = `[]`;
+
+exports[`sample diagnostics are unchanged by format extensions (A1) > packages/vscode/src/__fixtures__/legacy-diagnostics.oont.yaml 1`] = `
+[
+  {
+    "at": "13:21",
+    "message": "Unknown property type "bigint". Use one of: string, integer, decimal, double, boolean, date, timestamp, geopoint (append [] for a list).",
+    "severity": "error",
+  },
+  {
+    "at": "14:3",
+    "message": "Object type "bad-name" is not a valid API name (letters, digits and _ only, starting with a letter).",
+    "severity": "error",
+  },
+  {
+    "at": "10:5",
+    "message": "color must be a hex color such as #3a7bd5.",
+    "severity": "warning",
+  },
+  {
+    "at": "19:11",
+    "message": "Link roomOwner refers to unknown object type "Person".",
+    "severity": "error",
+  },
+  {
+    "at": "25:68",
+    "message": "Room has no property "missing".",
+    "severity": "error",
+  },
+]
+`;

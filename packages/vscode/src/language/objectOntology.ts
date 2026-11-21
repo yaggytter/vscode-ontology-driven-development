@@ -39,6 +39,9 @@ export function registerDiagnostics(): vscode.Disposable {
           d.severity === "error" ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning,
         );
         diagnostic.source = "Object Ontology";
+        if (d.code) {
+          diagnostic.code = d.code;
+        }
         return diagnostic;
       }),
     );
