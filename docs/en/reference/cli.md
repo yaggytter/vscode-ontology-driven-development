@@ -170,12 +170,11 @@ room-booking.oont.yaml:10:3: warning: Requirement "REQ-005" is not referenced by
 room-booking.oont.yaml:11:3: warning: Requirement "REQ-006" is not referenced by any element. [requirement-unreferenced]
 ```
 
-`export` does not check the file name. A file that is not an Object Ontology fails with its diagnostics and exit code 1, not 2:
+A file that is neither named `*.oont.yaml|yml|json` nor starts with the key `objectOntology` is rejected before anything is read, with exit code 2 (the same rule as `validate`):
 
 ```text
 $ oont export summary notes.yaml
-notes.yaml:1:1: warning: Unknown field "a" in the document. Expected one of: objectOntology, name, description, namespace, objectTypes, interfaces, linkTypes, actionTypes, objects, requirements.
-notes.yaml:1:1: error: Missing `objectOntology: 1` — the format version marker.
+oont: notes.yaml is not an Object Ontology file (expected *.oont.yaml|yml|json or a first key objectOntology).
 ```
 
 A sample of the summary output is in [the ODD tutorial](../odd/tutorial-requirements-to-ontology.md#7-check-it-with-the-cli).

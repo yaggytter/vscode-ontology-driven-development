@@ -140,11 +140,16 @@ function collectFiles(path: string, io: CliIo): string[] {
   if (stats.isDirectory()) {
     return walk(absolute);
   }
-  const text = readOrThrow(absolute, path);
-  if (detectObjectOntology(absolute, absolute.endsWith(".json") ? "json" : "yaml", text) === undefined) {
-    throw new UsageError(`${path} is not an Object Ontology file (expected *.oont.yaml|yml|json or a first key objectOntology).`);
-  }
+  requireObjectOntologyFile(absolute, path);
   return [absolute];
+}
+
+/** Exit code 2 for a file that is neither named *.oont.* nor starts with objectOntology (P1 spec 6.4). */
+function requireObjectOntologyFile(absolute: string, shown: string): void {
+  const text = readOrThrow(absolute, shown);
+  if (detectObjectOntology(absolute, absolute.endsWith(".json") ? "json" : "yaml", text) === undefined) {
+    throw new UsageError(`${shown} is not an Object Ontology file (expected *.oont.yaml|yml|json or a first key objectOntology).`);
+  }
 }
 
 function walk(directory: string): string[] {
@@ -257,7 +262,10 @@ async function exportCommand(args: readonly string[], io: CliIo): Promise<number
     throw new UsageError("export needs exactly one file.");
   }
   const absolute = resolve(io.cwd, file);
-  statOrThrow(absolute, file);
+  if (statOrThrow(absolute, file).isDirectory()) {
+    throw new UsageError(`${file} is a directory; export needs one file.`);
+  }
+  requireObjectOntologyFile(absolute, file);
   const checked = checkFile(absolute, io);
   for (const diagnostic of checked.diagnostics) {
     io.stderr(`${diagnosticLine(checked, diagnostic)}\n`);

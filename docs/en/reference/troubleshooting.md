@@ -96,7 +96,7 @@ oont: notes.yaml is not an Object Ontology file (expected *.oont.yaml|yml|json o
 
 ### `oont export` printed diagnostics and wrote nothing
 
-`export` writes nothing when the file has errors, and exits with code 1. Fix the errors it printed on standard error (the same ones `oont validate` reports) and run it again. Warnings alone do not stop an export. `export` does not check the file name, so a file that is not an Object Ontology also ends here, with ``Missing `objectOntology: 1` `` among the errors.
+`export` writes nothing when the file has errors, and exits with code 1. Fix the errors it printed on standard error (the same ones `oont validate` reports) and run it again. Warnings alone do not stop an export. A file that is not an Object Ontology at all stops earlier, with exit code 2 and "is not an Object Ontology file".
 
 ## Still stuck?
 

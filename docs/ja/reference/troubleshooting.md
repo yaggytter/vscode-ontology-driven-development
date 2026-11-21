@@ -96,7 +96,7 @@ oont: notes.yaml is not an Object Ontology file (expected *.oont.yaml|yml|json o
 
 ### `oont export` が診断を表示して何も出力しない
 
-`export` は、ファイルにエラーがあると何も出力せず、終了コード 1 で終わります。標準エラーに表示されたエラー（`oont validate` と同じもの）を直して、もう一度実行してください。警告だけならエクスポートは止まりません。`export` はファイル名を確かめないので、Object Ontology ではないファイルを指定した場合もここに当たり、エラーに ``Missing `objectOntology: 1` `` が含まれます。
+`export` は、ファイルにエラーがあると何も出力せず、終了コード 1 で終わります。標準エラーに表示されたエラー（`oont validate` と同じもの）を直して、もう一度実行してください。警告だけならエクスポートは止まりません。Object Ontology ではないファイルを指定した場合は、ここに来る前に終了コード 2 と「is not an Object Ontology file」で止まります。
 
 ## それでも解決しない場合
 
