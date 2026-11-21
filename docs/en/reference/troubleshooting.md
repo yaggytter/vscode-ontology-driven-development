@@ -43,7 +43,7 @@ That's expected — it's VS Code's built-in "Go to Symbol in Editor". This exten
 
 ## RDF/XML or JSON-LD file won't let me edit from the diagram
 
-That's by design — see [Format Support](format-support.md#why-only-turtle-is-editable). Use **ODD: Convert to Turtle for Editing...** first.
+That's by design — see [Format Support](format-support.md#why-only-turtle-is-editable-among-rdf-formats). Use **ODD: Convert to Turtle for Editing...** first.
 
 ## Node positions disappeared
 
