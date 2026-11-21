@@ -3,7 +3,10 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, extname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
+// The extension package (manifest, l10n, media, samples) ...
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+// ... and the workspace root (public documents, docs/, .github/).
+const repoRoot = resolve(root, "..", "..");
 const failures = [];
 
 function fail(message) {
@@ -19,9 +22,9 @@ function readJson(relativePath) {
   }
 }
 
-function requireFiles(paths) {
+function requireFiles(paths, base = root) {
   for (const path of paths) {
-    if (!existsSync(resolve(root, path))) {
+    if (!existsSync(resolve(base, path))) {
       fail(`Missing required release file: ${path}`);
     }
   }
@@ -56,10 +59,10 @@ function validatePng(relativePath, minimumWidth, minimumHeight = minimumWidth) {
 }
 
 function markdownFiles() {
-  const rootDocuments = readdirSync(root, { withFileTypes: true })
+  const rootDocuments = readdirSync(repoRoot, { withFileTypes: true })
     .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
-    .map((entry) => resolve(root, entry.name));
-  const docsRoot = resolve(root, "docs");
+    .map((entry) => resolve(repoRoot, entry.name));
+  const docsRoot = resolve(repoRoot, "docs");
   const nestedDocuments = [];
   const visit = (directory) => {
     for (const entry of readdirSync(directory, { withFileTypes: true })) {
@@ -86,7 +89,7 @@ function validateLocalMarkdownLinks() {
       }
       const fileTarget = decodeURIComponent(rawTarget.split("#", 1)[0]);
       if (fileTarget && !existsSync(resolve(dirname(file), fileTarget))) {
-        fail(`${relative(root, file)} links to missing local path: ${rawTarget}`);
+        fail(`${relative(repoRoot, file)} links to missing local path: ${rawTarget}`);
       }
     }
   }
@@ -131,17 +134,20 @@ const bilingualDocumentBases = [
   "PRIVACY",
 ];
 
-requireFiles([
-  "LICENSE",
-  "THIRD_PARTY_NOTICES.md",
-  ".github/workflows/ci.yml",
-  ".github/workflows/release.yml",
-  ".github/ISSUE_TEMPLATE/bug-report.yml",
-  ".github/ISSUE_TEMPLATE/feature-request.yml",
-  ".github/PULL_REQUEST_TEMPLATE.md",
-  "media/ontology-viewer-overview.png",
-  ...bilingualDocumentBases.flatMap((name) => [`${name}.md`, `${name}.ja.md`]),
-]);
+requireFiles(
+  [
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    ".github/workflows/ci.yml",
+    ".github/workflows/release.yml",
+    ".github/ISSUE_TEMPLATE/bug-report.yml",
+    ".github/ISSUE_TEMPLATE/feature-request.yml",
+    ".github/PULL_REQUEST_TEMPLATE.md",
+    ...bilingualDocumentBases.flatMap((name) => [`${name}.md`, `${name}.ja.md`]),
+  ],
+  repoRoot,
+);
+requireFiles(["media/ontology-viewer-overview.png", "scripts/copy-public-docs.mjs"]);
 
 const manifest = readJson("package.json");
 if (manifest.publisher !== "AkihiroYAGASAKI" || manifest.name !== "ontology-viewer") {

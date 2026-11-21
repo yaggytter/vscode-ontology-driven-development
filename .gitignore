@@ -12,6 +12,10 @@ out-test/
 
 # Copied from packages/core by packages/vscode/esbuild.mjs
 packages/vscode/schemas/
+# Copied from the workspace root by packages/vscode/scripts/copy-public-docs.mjs
+/packages/vscode/*.md
+/packages/vscode/LICENSE
+/packages/vscode/docs/
 
 # Test/coverage
 coverage/

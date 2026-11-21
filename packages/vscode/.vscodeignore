@@ -1,5 +1,4 @@
 .vscode/**
-.github/**
 scripts/**
 src/**
 webview/**
@@ -19,7 +18,6 @@ node_modules/.cache/**
 .vscode-test.mjs
 **/*.map
 tsconfig.json
-eslint.config.mjs
 esbuild.mjs
 vitest.config.mts
 .eslintrc*
@@ -31,5 +29,3 @@ DevPlan.md
 docs/plans/**
 # Japanese README screenshots: VS Code only renders README.md from the package.
 media/*.ja.png
-# Claude Code examples for tutorials 8 and 9: run from a clone, not from the installed extension.
-examples/**

@@ -317,7 +317,7 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "npm run compile:production",
+    "vscode:prepublish": "node scripts/copy-public-docs.mjs && npm run compile:production",
     "compile": "node esbuild.mjs",
     "compile:production": "node esbuild.mjs --production",
     "watch": "node esbuild.mjs --watch",
@@ -329,8 +329,8 @@
     "pretest:integration": "tsc --noEmit -p ./src/test/tsconfig.json && node scripts/build-integration-tests.mjs",
     "validate:release": "node scripts/validate-release.mjs",
     "verify": "npm run lint && npm run typecheck && npm test && npm run validate:release",
-    "package": "npm run validate:release && vsce package --no-dependencies",
-    "publish:marketplace": "npm run validate:release && vsce publish --no-dependencies"
+    "package": "npm run validate:release && vsce package --no-dependencies --baseContentUrl https://github.com/yaggytter/vscode-ontology-driven-development/blob/HEAD --baseImagesUrl https://github.com/yaggytter/vscode-ontology-driven-development/raw/HEAD",
+    "publish:marketplace": "npm run validate:release && vsce publish --no-dependencies --baseContentUrl https://github.com/yaggytter/vscode-ontology-driven-development/blob/HEAD --baseImagesUrl https://github.com/yaggytter/vscode-ontology-driven-development/raw/HEAD"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
