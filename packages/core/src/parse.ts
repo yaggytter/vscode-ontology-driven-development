@@ -17,6 +17,8 @@ import {
   type OoParameterType,
   type OoProperty,
   type OoPropertyType,
+  type OoRequirement,
+  type OoValidation,
   type OoRule,
   type OoRuleOp,
   type OoSeverity,
@@ -61,14 +63,56 @@ export const EXTENSION_FIELD_PATTERN = /^x-[A-Za-z0-9][A-Za-z0-9_.-]*$/;
 /** Cap on aliases expanded while reading one extension value (see MAX_NODE_VISITS). */
 const MAX_EXTENSION_ALIASES = 100;
 
+/** Requirement IDs (P1 spec 4.1): unlike API names they may contain "-" and ".". */
+export const REQUIREMENT_ID_PATTERN = /^[A-Za-z][A-Za-z0-9_.-]*$/;
+export const MAX_REQUIREMENT_ID_LENGTH = 64;
+
+export function isValidRequirementId(id: string): boolean {
+  return id.length <= MAX_REQUIREMENT_ID_LENGTH && REQUIREMENT_ID_PATTERN.test(id);
+}
+
+/** A requirement ID written in an element's `requirements:` list. */
+interface RequirementSite {
+  id: string;
+  node: Node;
+}
+
 class Reader {
   readonly diagnostics: OoDiagnostic[] = [];
+  /** Every valid requirement reference, in reading order (for the registry checks). */
+  readonly requirementSites: RequirementSite[] = [];
   private visits = 0;
 
   constructor(private readonly doc: Document.Parsed) {}
 
-  report(node: Node | null | undefined, message: string, severity: OoSeverity = "error"): void {
-    this.diagnostics.push({ message, severity, range: rangeOf(node) });
+  report(node: Node | null | undefined, message: string, severity: OoSeverity = "error", code?: string): void {
+    this.diagnostics.push({ message, severity, range: rangeOf(node), ...(code ? { code } : {}) });
+  }
+
+  /**
+   * An element's `requirements:` list (P1 spec 4.2). Invalid and repeated IDs
+   * are reported here; the result keeps each valid ID once.
+   */
+  requirementRefs(entry: Entry | undefined, what: string): string[] {
+    const out: string[] = [];
+    for (const node of this.sequence(entry, `requirements of ${what}`)) {
+      if (!isScalar(node) || node.value === null || typeof node.value === "object") {
+        this.report(node, `Items of requirements of ${what} must be requirement IDs.`);
+        continue;
+      }
+      const id = String(node.value);
+      if (!isValidRequirementId(id)) {
+        this.report(node, invalidRequirementIdMessage(id), "error", "requirement-id-invalid");
+        continue;
+      }
+      if (out.includes(id)) {
+        this.report(node, `Requirement "${id}" is listed more than once.`, "warning", "requirement-duplicate-reference");
+        continue;
+      }
+      out.push(id);
+      this.requirementSites.push({ id, node });
+    }
+    return out;
   }
 
   resolve(node: unknown): Node | null {
@@ -241,6 +285,81 @@ function parseTypeName(raw: string): { base: string; isArray: boolean } {
 
 const PROPERTY_FIELDS = ["type", "displayName", "description", "unit", "enum", "required"];
 
+function invalidRequirementIdMessage(id: string): string {
+  return `Invalid requirement ID "${id}". Use letters, digits, "_", "-" or ".", starting with a letter.`;
+}
+
+interface RequirementRegistry {
+  /** Valid entries in written order. */
+  requirements: OoRequirement[];
+  /** Every valid ID, including entries reported for a missing title. */
+  keyNodes: Map<string, Node>;
+}
+
+function readRequirementRegistry(reader: Reader, node: Node | null): RequirementRegistry {
+  const registry: RequirementRegistry = { requirements: [], keyNodes: new Map() };
+  for (const entry of reader.entries(node, "requirements")) {
+    if (!isValidRequirementId(entry.key)) {
+      reader.report(entry.keyNode, invalidRequirementIdMessage(entry.key), "error", "requirement-id-invalid");
+      continue;
+    }
+    registry.keyNodes.set(entry.key, entry.keyNode);
+    // Shorthand `REQ-001: Title` is accepted alongside `REQ-001: { title: Title }`.
+    if (isScalar(entry.value) && entry.value.value !== null) {
+      const title = reader.string(entry, `Title of requirement ${entry.key}`);
+      if (title !== undefined) {
+        registry.requirements.push({ id: entry.key, title });
+      }
+      continue;
+    }
+    const fields = reader.fields(entry.value, `requirement ${entry.key}`, ["title", "description", "source"]);
+    const title = reader.string(fields.get("title"), "title");
+    if (title === undefined) {
+      reader.report(entry.keyNode, `Requirement "${entry.key}" needs a title.`, "error", "requirement-title-missing");
+      continue;
+    }
+    const description = reader.string(fields.get("description"), "description");
+    const source = reader.string(fields.get("source"), "source");
+    registry.requirements.push({
+      id: entry.key,
+      title,
+      ...(description !== undefined ? { description } : {}),
+      ...(source !== undefined ? { source } : {}),
+      ...withExtensions(reader, fields),
+    });
+  }
+  return registry;
+}
+
+/** Registry-level checks (P1 spec 4.3): undefined, missing registry, unreferenced. */
+function checkRequirementReferences(reader: Reader, registry: RequirementRegistry | undefined): void {
+  const sites = reader.requirementSites;
+  if (!registry) {
+    if (sites.length > 0) {
+      const first = sites.reduce((a, b) => (rangeOf(b.node).start < rangeOf(a.node).start ? b : a));
+      reader.report(
+        first.node,
+        "Requirement IDs are not checked because there is no top-level requirements registry.",
+        "warning",
+        "requirement-registry-missing",
+      );
+    }
+    return;
+  }
+  const referenced = new Set<string>();
+  for (const site of sites) {
+    referenced.add(site.id);
+    if (!registry.keyNodes.has(site.id)) {
+      reader.report(site.node, `Requirement "${site.id}" is not defined in requirements.`, "error", "requirement-undefined");
+    }
+  }
+  for (const [id, keyNode] of registry.keyNodes) {
+    if (!referenced.has(id)) {
+      reader.report(keyNode, `Requirement "${id}" is not referenced by any element.`, "warning", "requirement-unreferenced");
+    }
+  }
+}
+
 function readProperties(reader: Reader, node: Node | null, owner: string): OoProperty[] {
   const out: OoProperty[] = [];
   for (const entry of reader.entries(node, `properties of ${owner}`)) {
@@ -286,6 +405,7 @@ const OBJECT_TYPE_FIELDS = [
   "color",
   "implements",
   "properties",
+  "requirements",
 ];
 
 function readObjectTypes(reader: Reader, node: Node | null): OoObjectType[] {
@@ -310,6 +430,7 @@ function readObjectTypes(reader: Reader, node: Node | null): OoObjectType[] {
       color: reader.string(fields.get("color"), "color"),
       implements: reader.stringList(fields.get("implements"), "implements"),
       properties: readProperties(reader, fields.get("properties")?.value ?? null, entry.key),
+      requirements: reader.requirementRefs(fields.get("requirements"), `object type ${entry.key}`),
       ...withExtensions(reader, fields),
     });
   }
@@ -322,13 +443,14 @@ function readInterfaces(reader: Reader, node: Node | null): OoInterface[] {
     if (!reader.apiName(entry, "Interface")) {
       continue;
     }
-    const fields = reader.fields(entry.value, `interface ${entry.key}`, ["displayName", "description", "extends", "properties"]);
+    const fields = reader.fields(entry.value, `interface ${entry.key}`, ["displayName", "description", "extends", "properties", "requirements"]);
     out.push({
       apiName: entry.key,
       displayName: reader.string(fields.get("displayName"), "displayName"),
       description: reader.string(fields.get("description"), "description"),
       extends: reader.stringList(fields.get("extends"), "extends"),
       properties: readProperties(reader, fields.get("properties")?.value ?? null, entry.key),
+      requirements: reader.requirementRefs(fields.get("requirements"), `interface ${entry.key}`),
       ...withExtensions(reader, fields),
     });
   }
@@ -376,7 +498,7 @@ function readLinkTypes(reader: Reader, node: Node | null): OoLinkType[] {
     if (!reader.apiName(entry, "Link type")) {
       continue;
     }
-    const fields = reader.fields(entry.value, `link type ${entry.key}`, ["displayName", "description", "from", "to", "foreignKey"]);
+    const fields = reader.fields(entry.value, `link type ${entry.key}`, ["displayName", "description", "from", "to", "foreignKey", "requirements"]);
     const from = readLinkSide(reader, fields.get("from"), entry.key, "from");
     const to = readLinkSide(reader, fields.get("to"), entry.key, "to");
     if (!from || !to) {
@@ -402,6 +524,7 @@ function readLinkTypes(reader: Reader, node: Node | null): OoLinkType[] {
       from,
       to,
       foreignKey,
+      requirements: reader.requirementRefs(fields.get("requirements"), `link type ${entry.key}`),
       ...withExtensions(reader, fields),
     });
   }
@@ -490,18 +613,27 @@ function readActionTypes(reader: Reader, node: Node | null): OoActionType[] {
       "rules",
       "validations",
       "sideEffects",
+      "requirements",
     ]);
-    const validations = reader.sequence(fields.get("validations"), "validations").flatMap((item) => {
+    const requirements = reader.requirementRefs(fields.get("requirements"), `action type ${entry.key}`);
+    const validations = reader.sequence(fields.get("validations"), "validations").flatMap((item): OoValidation[] => {
       if (isScalar(item) && item.value !== null) {
-        return [{ description: String(item.value) }];
+        return [{ description: String(item.value), requirements: [] }];
       }
-      const v = reader.fields(item, "a validation", ["description", "expr"]);
+      const v = reader.fields(item, "a validation", ["description", "expr", "requirements"]);
       const description = reader.string(v.get("description"), "description");
       if (description === undefined) {
         reader.report(item, "A validation needs a description.");
         return [];
       }
-      return [{ description, expr: reader.string(v.get("expr"), "expr"), ...withExtensions(reader, v) }];
+      return [
+        {
+          description,
+          expr: reader.string(v.get("expr"), "expr"),
+          requirements: reader.requirementRefs(v.get("requirements"), `a validation of ${entry.key}`),
+          ...withExtensions(reader, v),
+        },
+      ];
     });
     out.push({
       apiName: entry.key,
@@ -511,6 +643,7 @@ function readActionTypes(reader: Reader, node: Node | null): OoActionType[] {
       rules: readRules(reader, fields.get("rules"), entry.key),
       validations,
       sideEffects: reader.stringList(fields.get("sideEffects"), "sideEffects"),
+      requirements,
       ...withExtensions(reader, fields),
     });
   }
@@ -547,6 +680,7 @@ const TOP_LEVEL_FIELDS = [
   "linkTypes",
   "actionTypes",
   "objects",
+  "requirements",
 ];
 
 /**
@@ -630,6 +764,8 @@ function readDocument(document: Document.Parsed): ParsedObjectOntology {
   }
 
   const objects = readObjects(reader, top.get("objects")?.value ?? null);
+  const registryEntry = top.get("requirements");
+  const registry = registryEntry ? readRequirementRegistry(reader, registryEntry.value) : undefined;
   const ontology: ObjectOntology = {
     version: Number.isFinite(version) ? version : OBJECT_ONTOLOGY_FORMAT_VERSION,
     name,
@@ -640,8 +776,10 @@ function readDocument(document: Document.Parsed): ParsedObjectOntology {
     linkTypes: readLinkTypes(reader, top.get("linkTypes")?.value ?? null),
     actionTypes: readActionTypes(reader, top.get("actionTypes")?.value ?? null),
     objects: objects.records,
+    requirements: registry?.requirements ?? [],
     ...withExtensions(reader, top),
   };
+  checkRequirementReferences(reader, registry);
 
   diagnostics.push(...reader.diagnostics, ...validateOntology(ontology, document, objects.nodes));
   return { ontology, diagnostics, document };

@@ -17,7 +17,7 @@ import {
 } from "./vocabulary";
 import type { ObjectOntology, OoLinkSide, OoLinkType, OoObjectType, OoProperty } from "./model";
 import { actionAffectedTypes } from "./model";
-import { actionTypeIri, linkTypeIri, memberIri, objectIri, OONT, parameterIri, ruleIri, typeIri } from "./iris";
+import { actionTypeIri, linkTypeIri, memberIri, objectIri, OONT, parameterIri, requirementIri, ruleIri, typeIri, validationIri } from "./iris";
 
 const { namedNode, literal, quad } = DataFactory;
 
@@ -124,6 +124,25 @@ function emitLinkType(sink: QuadSink, ns: string, link: OoLinkType): void {
   emitLinkSide(sink, ns, link, link.to, link.from);
 }
 
+/** `<element> oont:satisfies <requirement>` for each referenced requirement (P1 spec 4.6). */
+function satisfies(sink: QuadSink, ns: string, subject: string, requirementIds: readonly string[]): void {
+  for (const id of requirementIds) {
+    sink.iri(subject, `${OONT}satisfies`, requirementIri(ns, id));
+  }
+}
+
+function emitRequirements(sink: QuadSink, ontology: ObjectOntology): void {
+  const ns = ontology.namespace;
+  for (const requirement of ontology.requirements) {
+    const iri = requirementIri(ns, requirement.id);
+    sink.iri(iri, RDF_TYPE, `${OONT}Requirement`);
+    sink.text(iri, `${OONT}requirementId`, requirement.id);
+    sink.text(iri, RDFS_LABEL, requirement.title);
+    sink.text(iri, RDFS_COMMENT, requirement.description);
+    sink.text(iri, `${OONT}source`, requirement.source);
+  }
+}
+
 function emitActions(sink: QuadSink, ontology: ObjectOntology): void {
   const ns = ontology.namespace;
   for (const action of ontology.actionTypes) {
@@ -165,9 +184,17 @@ function emitActions(sink: QuadSink, ontology: ObjectOntology): void {
         }
       }
     });
-    for (const validation of action.validations) {
+    satisfies(sink, ns, iri, action.requirements);
+    action.validations.forEach((validation, index) => {
       sink.text(iri, `${OONT}validation`, validation.description);
-    }
+      if (validation.requirements.length > 0) {
+        const v = validationIri(ns, action.apiName, index);
+        sink.iri(iri, `${OONT}validationRule`, v);
+        sink.iri(v, RDF_TYPE, `${OONT}Validation`);
+        sink.text(v, RDFS_LABEL, validation.description);
+        satisfies(sink, ns, v, validation.requirements);
+      }
+    });
     for (const effect of action.sideEffects) {
       sink.text(iri, `${OONT}sideEffect`, effect);
     }
@@ -297,14 +324,18 @@ export function objectOntologyToQuads(ontology: ObjectOntology): Quad[] {
     for (const property of iface.properties) {
       emitProperty(sink, ns, iface.apiName, property);
     }
+    satisfies(sink, ns, iri, iface.requirements);
   }
   for (const type of ontology.objectTypes) {
     emitObjectType(sink, ns, type);
+    satisfies(sink, ns, typeIri(ns, type.apiName), type.requirements);
   }
   for (const link of ontology.linkTypes) {
     emitLinkType(sink, ns, link);
+    satisfies(sink, ns, linkTypeIri(ns, link.apiName), link.requirements);
   }
   emitActions(sink, ontology);
+  emitRequirements(sink, ontology);
   emitObjects(sink, ontology);
   return sink.quads;
 }

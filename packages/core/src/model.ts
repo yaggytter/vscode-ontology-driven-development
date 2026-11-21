@@ -65,6 +65,8 @@ export interface OoObjectType {
   properties: OoProperty[];
   /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
   extensions?: Record<string, unknown>;
+  /** Requirement IDs this element realizes (P1 F1); empty when none are written. */
+  requirements: string[];
 }
 
 export interface OoInterface {
@@ -75,6 +77,8 @@ export interface OoInterface {
   properties: OoProperty[];
   /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
   extensions?: Record<string, unknown>;
+  /** Requirement IDs this element realizes (P1 F1); empty when none are written. */
+  requirements: string[];
 }
 
 export interface OoLinkSide {
@@ -98,6 +102,8 @@ export interface OoLinkType {
   foreignKey?: { objectType: string; property: string };
   /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
   extensions?: Record<string, unknown>;
+  /** Requirement IDs this element realizes (P1 F1); empty when none are written. */
+  requirements: string[];
 }
 
 export interface OoParameter {
@@ -133,6 +139,8 @@ export interface OoValidation {
   expr?: string;
   /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
   extensions?: Record<string, unknown>;
+  /** Requirement IDs this element realizes (P1 F1); empty when none are written. */
+  requirements: string[];
 }
 
 export interface OoActionType {
@@ -145,12 +153,25 @@ export interface OoActionType {
   sideEffects: string[];
   /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
   extensions?: Record<string, unknown>;
+  /** Requirement IDs this element realizes (P1 F1); empty when none are written. */
+  requirements: string[];
 }
 
 export interface OoObjectRecord {
   objectType: string;
   /** Raw field values keyed by property API name or link-side name. */
   values: ReadonlyMap<string, unknown>;
+}
+
+/** An entry of the top-level requirements registry (P1 F1). */
+export interface OoRequirement {
+  id: string;
+  title: string;
+  description?: string;
+  /** Where the requirement text lives: a URL or a path relative to the ontology file. */
+  source?: string;
+  /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
+  extensions?: Record<string, unknown>;
 }
 
 export interface ObjectOntology {
@@ -163,6 +184,8 @@ export interface ObjectOntology {
   linkTypes: OoLinkType[];
   actionTypes: OoActionType[];
   objects: OoObjectRecord[];
+  /** The requirements registry in written order; empty when the file has none. */
+  requirements: OoRequirement[];
   /** `x-` extension fields (P1 F2), keyed as written. Absent when there are none. */
   extensions?: Record<string, unknown>;
 }
@@ -201,4 +224,44 @@ export function actionAffectedTypes(ontology: ObjectOntology, action: OoActionTy
     }
   }
   return [...affected].filter((name) => findSchemaType(ontology, name) !== undefined).sort();
+}
+
+export type OoRequirementElementKind = "objectType" | "interface" | "linkType" | "actionType" | "validation";
+
+export interface OoRequirementElement {
+  kind: OoRequirementElementKind;
+  /** The element's API name; for a validation, the API name of the action type that owns it. */
+  apiName: string;
+  /** Position of the validation in its action type's list. */
+  validationIndex?: number;
+}
+
+/**
+ * For every registry entry, the elements that reference it, in document
+ * model order. A validation's references count for the validation only;
+ * they are not inherited by its action type (P1 spec 4.2).
+ */
+export function requirementCoverage(ontology: ObjectOntology): Array<{ requirement: OoRequirement; elements: OoRequirementElement[] }> {
+  const byId = new Map<string, OoRequirementElement[]>(ontology.requirements.map((r) => [r.id, []]));
+  const add = (ids: readonly string[], element: OoRequirementElement): void => {
+    for (const id of ids) {
+      byId.get(id)?.push(element);
+    }
+  };
+  for (const type of ontology.objectTypes) {
+    add(type.requirements, { kind: "objectType", apiName: type.apiName });
+  }
+  for (const iface of ontology.interfaces) {
+    add(iface.requirements, { kind: "interface", apiName: iface.apiName });
+  }
+  for (const link of ontology.linkTypes) {
+    add(link.requirements, { kind: "linkType", apiName: link.apiName });
+  }
+  for (const action of ontology.actionTypes) {
+    add(action.requirements, { kind: "actionType", apiName: action.apiName });
+    action.validations.forEach((validation, validationIndex) => {
+      add(validation.requirements, { kind: "validation", apiName: action.apiName, validationIndex });
+    });
+  }
+  return ontology.requirements.map((requirement) => ({ requirement, elements: byId.get(requirement.id) ?? [] }));
 }
