@@ -172,12 +172,11 @@ room-booking.oont.yaml:10:3: warning: Requirement "REQ-005" is not referenced by
 room-booking.oont.yaml:11:3: warning: Requirement "REQ-006" is not referenced by any element. [requirement-unreferenced]
 ```
 
-`export` はファイル名を確かめません。Object Ontology ではないファイルを指定すると、終了コード 2 ではなく、診断を表示して終了コード 1 になります。
+名前が `*.oont.yaml|yml|json` でなく、先頭のキーも `objectOntology` でないファイルは、中身を読む前に終了コード 2 で止まります（`validate` と同じ判定です）。
 
 ```text
 $ oont export summary notes.yaml
-notes.yaml:1:1: warning: Unknown field "a" in the document. Expected one of: objectOntology, name, description, namespace, objectTypes, interfaces, linkTypes, actionTypes, objects, requirements.
-notes.yaml:1:1: error: Missing `objectOntology: 1` — the format version marker.
+oont: notes.yaml is not an Object Ontology file (expected *.oont.yaml|yml|json or a first key objectOntology).
 ```
 
 要約の出力例は [ODD チュートリアル](../odd/tutorial-requirements-to-ontology.md#7-cli-で確かめる)にあります。

@@ -208,7 +208,14 @@ describe("oont export (A8)", () => {
   });
 
   it("exits 2 for a missing kind, an unknown kind or a missing file", async () => {
-    for (const args of [["export"], ["export", "pdf", "clean.oont.yaml"], ["export", "tools"], ["export", "tools", "missing.oont.yaml"]]) {
+    for (const args of [
+      ["export"],
+      ["export", "pdf", "clean.oont.yaml"],
+      ["export", "tools"],
+      ["export", "tools", "missing.oont.yaml"],
+      ["export", "summary", "plain.yaml"],
+      ["export", "summary", "tree"],
+    ]) {
       expect((await runAsync(args)).code, args.join(" ")).toBe(2);
     }
   });
