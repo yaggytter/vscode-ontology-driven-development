@@ -51,7 +51,16 @@ RDF/XML や JSON-LD で同じ保証を得るには、それぞれ専用の位置
 
 Object Ontology は、ファイル名が `.oont.yaml`、`.oont.yml`、`.oont.json` で終わる YAML（または JSON）のファイルです。VS Code の言語モードは通常の YAML / JSON のままなので、シンタックスハイライトなど YAML 用のツールはそのまま使えます。拡張機能はファイル名でこの形式を判別します。先頭のキーが `objectOntology` の無題の YAML ドキュメントも対象になるため、**サンプルオントロジーを作成...** で開いたサンプルは保存前から図で表示できます。一般の `.yaml`、`.json`、`.jsonld` のファイルを Object Ontology として扱うことはありません。
 
-トップレベルのキーは、`objectOntology`（形式のバージョン。`1`）、`name`、`description`、`namespace`（RDF に変換するときの IRI。省略可）、`objectTypes`、`interfaces`、`linkTypes`、`actionTypes`、`objects`（サンプルデータ。省略可）です。詳しい構造は同梱の JSON Schema（`schemas/object-ontology.schema.json`）で定義しています。`*.oont.json` には VS Code が自動で適用し、`*.oont.yaml` には Red Hat の YAML 拡張機能が適用します。各セクションの書き方は[はじめての Object Ontology](../learn/tutorial-5-object-ontology.md)で順に説明しています。
+トップレベルのキーは、`objectOntology`（形式のバージョン。`1`）、`name`、`description`、`namespace`（RDF に変換するときの IRI。省略可）、`objectTypes`、`interfaces`、`linkTypes`、`actionTypes`、`objects`（サンプルデータ。省略可）、`requirements`（要件台帳。省略可）です。詳しい構造は同梱の JSON Schema（`schemas/object-ontology.schema.json`）で定義しています。`*.oont.json` には VS Code が自動で適用し、`*.oont.yaml` には Red Hat の YAML 拡張機能が適用します。各セクションの書き方は[はじめての Object Ontology](../learn/tutorial-5-object-ontology.md)で順に説明し、すべてのフィールドは [Object Ontology 形式リファレンス](object-ontology-format.md)にまとめています。
+
+### 要件 ID と `x-` フィールド
+
+版 1 に任意で追加できるものが2つあります。既存のファイルを変える必要はありません。
+
+- **要件 ID**：トップレベルの `requirements:`（要件台帳。ID → 見出し）と、オブジェクト型・インターフェース・リンク型・アクション型・validation に書く `requirements: [ID, ...]`（要件参照）です。`requirement-undefined`（エラー）や `requirement-unreferenced`（警告）など、コード付きの6つの診断で検査します。Inspector とアクションパネルには各要素の要件が表示されます。RDF に変換したモデルでは、要件が `oont:Requirement` のリソースになり、要素から `oont:satisfies` で参照されるので、SPARQL でたどれます。
+- **`x-` 拡張フィールド**：`x-` で始まるキーは、決まったフィールドを持つマッピングならどこにでも書けます。警告は出ず、図から編集しても消えず、エクスポートと RDF への変換には含まれません。
+
+[`oont` CLI](cli.md) は同じファイルを読み、VS Code の外で同じ診断を出します。
 
 図からの編集は YAML ファイルだけが対象です。JSON は表示のみなので、**Object Ontology の JSON を編集用に YAML へ変換...**（または図のバナーのリンク）で YAML にしてから編集してください。図からの編集は Turtle と同じ安全性の規則に従います。YAML の該当箇所だけを最小限のテキスト置換で書き換え、変更後のテキストを再パースし、意図した変更が反映されている場合にだけ適用します。安全に変更できない場合（YAML に構文エラーがあるときや、型がまだ主キーとして指定しているプロパティを削除しようとしたときなど）は、ファイルを書き換えずに理由を示して編集を断ります。
 

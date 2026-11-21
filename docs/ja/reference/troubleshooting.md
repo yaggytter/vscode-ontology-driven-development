@@ -43,7 +43,7 @@
 
 ## RDF/XML や JSON-LD ファイルで図から編集できない
 
-これは意図的な設計です。[対応形式](format-support.md#なぜ-turtle-だけが編集可能なのか) をご覧ください。まず **「ODD: 編集用に Turtle へ変換...」** を実行してください。
+これは意図的な設計です。[対応形式](format-support.md#rdf-の形式の中で-turtle-だけが編集可能な理由) をご覧ください。まず **「ODD: 編集用に Turtle へ変換...」** を実行してください。
 
 ## ノードの位置が消えてしまった
 
@@ -60,6 +60,43 @@
 ## エクスポートしたエージェント用ツールが検証ルールを守らない
 
 これは仕様です。`validations` とその `expr` は、モデルがルールを理解できるようにツールの説明文へ書き込むだけで、拡張機能は評価しません。モデルやサービスを呼び出すこともありません。同じチェックは、ツールを実行するコード（MCP サーバーやバックエンド）に実装してください。詳しくは [Object Ontology × AI エージェント](../ai/tutorial-6-object-ontology-ai-agents.md) を参照してください。[チュートリアル8](../ai/tutorial-8-claude-code-object-ontology.md) には、それらを確認し、確認処理がまだないアクションは拒否する MCP サーバーの実例があります。
+
+## 要件の警告の意味が分からない
+
+- **`Requirement "REQ-008" is not referenced by any element.`**：台帳にある要件を、どのオブジェクト型・インターフェース・リンク型・アクション型・validation も `requirements:` に書いていません。その要件を実現する要素に参照を足すか、要件がなくなったのなら台帳から消してください。オントロジーを作っている途中なら、この警告は残りの作業の一覧として使えます。
+- **`Requirement IDs are not checked because there is no top-level requirements registry.`**：要素に `requirements:` を書いているのに、トップレベルの `requirements:`（要件台帳）がないので、ID を確かめられません。台帳を足してください。
+- **`Requirement "REQ-04" is not defined in requirements.`**：参照した ID が台帳のどれとも一致しません。たいていは打ち間違いです。
+
+要件の6つの診断の一覧は[形式リファレンス](object-ontology-format.md#要件の診断)にあります。
+
+## CLI (`oont`)
+
+### `oont: command not found` と表示される
+
+CLI はまだ npm に公開していません。このリポジトリをクローンして `npm ci && npm run build` でビルドし、`node <クローンした場所>/packages/cli/bin/oont.js` で実行してください。[CLI リファレンス](cli.md#インストール)のようにエイリアスを作っておくと便利です。
+
+### 終了コードが 2 になる
+
+終了コード 2 は、コマンドをそもそも実行できなかったことを表します。`oont` は理由と使い方を標準エラーに表示します。原因は次のいずれかです。
+
+- 使い方の誤り：未知のコマンド・オプション・`--format` の値・エクスポートの種類、ファイルの指定漏れ
+- ファイルが存在しない、読めない、（`-o` の場合）書き込めない
+- コマンドラインで直接指定したファイルが Object Ontology ではない（次の項目）
+- 指定したディレクトリに `*.oont.yaml`、`*.oont.yml`、`*.oont.json` が1つもない（`No Object Ontology files ... found in ...`）
+
+これに対して終了コード 1 は、ファイルを検証した結果、エラー（`--strict` のときは警告も）があったことを表します。
+
+### 「is not an Object Ontology file」と表示される
+
+```text
+oont: notes.yaml is not an Object Ontology file (expected *.oont.yaml|yml|json or a first key objectOntology).
+```
+
+`oont validate` は、コマンドラインで直接指定したファイルのうち、名前が `.oont.yaml`、`.oont.yml`、`.oont.json` で終わるもの、または最初のキーが `objectOntology` のものだけを検証します。ファイル名を変える（`notes.yaml` を `notes.oont.yaml` にするなど）か、1行目を `objectOntology: 1` にしてください。ディレクトリを指定したときは、中身にかかわらず `*.oont.*` のファイルだけを探し、`node_modules` と `.` で始まるディレクトリは探しません。
+
+### `oont export` が診断を表示して何も出力しない
+
+`export` は、ファイルにエラーがあると何も出力せず、終了コード 1 で終わります。標準エラーに表示されたエラー（`oont validate` と同じもの）を直して、もう一度実行してください。警告だけならエクスポートは止まりません。`export` はファイル名を確かめないので、Object Ontology ではないファイルを指定した場合もここに当たり、エラーに ``Missing `objectOntology: 1` `` が含まれます。
 
 ## それでも解決しない場合
 

@@ -45,6 +45,15 @@ npm test
 2. **「ODD: アクションを AI エージェント用ツール定義 (JSON Schema) としてエクスポート...」** を実行し、開いた無題のドキュメントを `delivery/delivery-ops.tools.json` に上書き保存します。同梱のファイルはこの出力そのものなので、git の差分は出ません。
 3. **「ODD: LLM コンテキスト用のオントロジー要約をエクスポート...」** を実行し、`delivery/CLAUDE.md` の `<ontology>` の部分と比べます。同じ内容です。
 
+[`oont` CLI](../reference/cli.md) を使えば、`examples/claude-code/object-ontology-mcp` のターミナルから同じことができます。[5章](#5-オントロジーを変え確認できるまでサーバーに拒否させる)のように変更のたびにエクスポートし直すときに便利です。
+
+```sh
+oont export tools delivery/delivery-ops.oont.yaml -o delivery/delivery-ops.tools.json
+oont export summary delivery/delivery-ops.oont.yaml
+```
+
+1つ目のコマンドの出力は同梱のファイルと1バイトも違わないので、`git status` に差分は出ません。
+
 `CLAUDE.md` の残りは、[チュートリアル6の4章](tutorial-6-object-ontology-ai-agents.md#4-つなぎ込む)のシステムプロンプトです。この構成のために、ルールを2つ足しています。データを変えるために `state.json` を編集しないこと、要約にあるサンプルオブジェクトより読み取り用ツールの結果を信じること、の2つです。
 
 ## 2. 配送のワークスペースで Claude Code を起動する

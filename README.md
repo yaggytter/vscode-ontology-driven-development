@@ -6,15 +6,83 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-6c8cff.svg)](LICENSE)
 [![VS Code](https://img.shields.io/badge/VS%20Code-1.96%2B-23a8f2.svg)](https://code.visualstudio.com/)
 
-Explore OWL, RDF, RDFS, and SKOS as a readable schema diagram without leaving VS Code. Ontology-Driven Development combines a polished, searchable canvas with safe Turtle editing, so the diagram is useful for both understanding an ontology and shaping it.
+Build an ontology from your requirements, and let it drive development. **Ontology-Driven Development (ODD)** is a VS Code extension and a command-line tool (`oont`) for writing that ontology, reviewing it with the people who know the business, checking it, and handing it to the code and the AI agents that come after.
 
-It also reads **Object Ontology** files (`*.oont.yaml`): an object-centric format inspired by the ontologies of operational platforms such as Palantir Foundry, with object types, link types, interfaces, and **action types** that can be exported as tool definitions for AI agents.
+```text
+Requirements (REQ-001, ...) → Object Ontology (*.oont.yaml) → Review → Design → Implementation with AI agents → Verification
+```
+
+- **Requirements to ontology.** Write object types, links and **action types** (the operations allowed to change data) in a small YAML file, the Object Ontology. A `requirements:` registry and `requirements: [REQ-001]` references trace every element back to the requirement it realizes.
+- **Diagnostics as you type.** Undefined and unreferenced requirement IDs, broken references and unknown fields show up in the Problems panel.
+- **Review in a diagram.** The diagram, the Inspector and the Actions panel show each element with its requirements, so you can walk through the ontology with the business.
+- **The same checks outside VS Code.** `oont validate` runs in a terminal, in CI or from an AI coding agent. `oont export` writes the agent tool definitions, the LLM context summary and Turtle, exactly as the extension does.
+- **Diagrams and Semantic Web support remain.** The OWL, RDF, RDFS and SKOS viewer, Turtle editing and SPARQL are all still here. In ODD they connect the Object Ontology to glossaries and external knowledge.
+
+New to the idea? Read [What Is Ontology-Driven Development?](docs/en/odd/what-is-odd.md), then try the [hands-on tutorial](docs/en/odd/tutorial-requirements-to-ontology.md).
 
 > Ontology-Driven Development is in preview. Keep source control enabled for important ontologies and review diagram-generated changes before committing them.
 
+> **Formerly Ontology Viewer.** This project continues [vscode-ontology-viewer](https://github.com/yaggytter/vscode-ontology-viewer), which is no longer developed. It is published as a new extension, so settings from Ontology Viewer are not carried over.
+
 ![Ontology-Driven Development showing the product-compatibility sample: a class hierarchy of bicycle parts with the Component class selected and its properties and relations in the Inspector](packages/vscode/media/ontology-diagram-overview.png)
 
-## Why you will enjoy using it
+## From requirements to an ontology
+
+Give each requirement an ID, list the IDs in the ontology's `requirements:` registry, and say on each element which requirements it realizes:
+
+```yaml
+objectOntology: 1
+name: Meeting Room Booking
+requirements:
+  REQ-001: { title: Members can book a room for a time range, source: requirements.md }
+  REQ-002: No overlapping bookings for the same room
+objectTypes:
+  Booking:
+    primaryKey: bookingId
+    requirements: [REQ-001]
+    properties:
+      bookingId: string
+      status: { type: string, enum: [reserved, inUse, cancelled, released] }
+actionTypes:
+  reserveRoom:
+    requirements: [REQ-001, REQ-002]
+    # parameters, rules ...
+    validations:
+      - description: No other reserved or in-use booking of the same room may overlap.
+        requirements: [REQ-002]
+```
+
+- A reference to an ID that is not in the registry is an error (`requirement-undefined`). A requirement that no element realizes is a warning (`requirement-unreferenced`), which works as a to-do list while you build the ontology.
+- The Inspector and the Actions panel show each element's requirements. The SPARQL example **9. Requirements and the elements that realize them** lists them all, and the LLM context summary gets a `## Requirements` section.
+- Keys starting with `x-` are extension fields. Tools ignore them, so you can keep notes for later phases, such as `x-trigger: { kind: schedule, every: 1m }`.
+
+Run **ODD: Create Sample Ontology...** and pick **Meeting Room Booking (Object Ontology)** to see a complete example. The [format reference](docs/en/reference/object-ontology-format.md) covers every field.
+
+## The `oont` CLI
+
+Here it checks a folder holding the Meeting Room Booking sample, after a requirement `REQ-008` was added that no element realizes yet:
+
+```text
+$ oont validate docs/ontology --strict
+docs/ontology/room-booking.oont.yaml:16:3: warning: Requirement "REQ-008" is not referenced by any element. [requirement-unreferenced]
+1 file checked: 0 errors, 1 warning
+```
+
+| Command | What it does |
+| --- | --- |
+| `oont validate <path>... [--format text\|json] [--strict]` | Checks files or whole directories. Exit code 0 means no errors, 1 means errors (or warnings with `--strict`), 2 means a usage or file problem. |
+| `oont export tools\|summary\|turtle <file> [-o <out>]` | Writes the agent tool definitions, the LLM context summary or Turtle, identical to the extension's exports. |
+
+The CLI runs locally, with no network access and no telemetry. It will be published to npm as `@yaggytter/object-ontology-cli`. Until then, run it from a clone of this repository:
+
+```sh
+npm ci && npm run build
+node packages/cli/bin/oont.js validate path/to/ontologies
+```
+
+See the [CLI reference](docs/en/reference/cli.md) for options, output formats and CI use.
+
+## A diagram you will enjoy using
 
 - **Readable schema cards** keep datatype properties inside their class instead of turning every triple into visual noise.
 - **Accessible, meaningful colors** automatically choose readable node text and explain how related entities form color families.
@@ -26,7 +94,9 @@ It also reads **Object Ontology** files (`*.oont.yaml`): an object-centric forma
 - **English and Japanese UI** follows the VS Code display language.
 - **Local-first operation** sends no ontology contents or usage telemetry from the extension.
 
-## Two styles of ontology, one viewer
+## Two styles of ontology: the center and the connection layer
+
+In ontology-driven development, the Object Ontology is the center: it holds the concepts and the operations that drive the code. Semantic Web ontologies connect it to glossaries, standard vocabularies and external knowledge. The extension supports both.
 
 | | Semantic Web (OWL / RDF / SKOS) | Object Ontology (`*.oont.yaml`) |
 | --- | --- | --- |
@@ -61,9 +131,9 @@ actionTypes:
 ```
 
 - **Diagram, edit, and query** with the same canvas: object types, interfaces (hexagons), link types with cardinality badges, and an **Actions** panel. Diagram edits are surgical YAML changes that are re-parsed before they are applied, and comments are kept.
-- **Problems and outline**: broken references, unknown fields, and duplicate example keys are reported at their exact location. A bundled JSON Schema adds completion for `*.oont.json` (and for `*.oont.yaml` with the Red Hat YAML extension).
-- **SPARQL** runs over an RDF projection (OWL + an `oont:` vocabulary), with eight Object-Ontology example queries such as "what can be done to each type?" and "follow links between objects".
-- **AI-agent exports** open as untitled documents for you to review: action types as **tool definitions** (JSON Schema, the shape used by MCP and function-calling APIs), a compact **LLM context summary** in Markdown, and **Turtle** for combining with Semantic Web data. The extension itself never calls an LLM or the network.
+- **Problems and outline**: broken references, unknown fields, duplicate example keys, and undefined or unreferenced requirement IDs are reported at their exact location. A bundled JSON Schema adds completion for `*.oont.json` (and for `*.oont.yaml` with the Red Hat YAML extension).
+- **SPARQL** runs over an RDF projection (OWL + an `oont:` vocabulary), with nine Object-Ontology example queries such as "what can be done to each type?", "follow links between objects" and "requirements and the elements that realize them".
+- **AI-agent exports** open as untitled documents for you to review: action types as **tool definitions** (JSON Schema, the shape used by MCP and function-calling APIs), a compact **LLM context summary** in Markdown, and **Turtle** for combining with Semantic Web data. The same exports are available from the CLI as `oont export`. Neither the extension nor the CLI calls an LLM or the network.
 
 ![The Corner Cafe Orders sample with the Order type selected: the Inspector shows its description, example-object count, typed properties with the primary key marked, and its links](packages/vscode/media/object-ontology-inspector.png)
 
@@ -72,12 +142,12 @@ The format is this extension's own; it is not Palantir's file format and does no
 ## Get started in one minute
 
 1. Install **Ontology-Driven Development** from the VS Code Marketplace.
-2. Run **ODD: Create Sample Ontology...** from the Command Palette, or open a `.ttl` file.
+2. Run **ODD: Create Sample Ontology...** from the Command Palette and pick **Meeting Room Booking (Object Ontology)**. Save it as `room-booking.oont.yaml`.
 3. Press `Cmd+Alt+O` on macOS or `Ctrl+Alt+O` on Windows/Linux. You can also use the diagram button in the editor title bar.
-4. Select a class to inspect it. Use the floating canvas controls to zoom or fit the graph.
-5. For Turtle files, edit the selected class in the Inspector and review the source change in the editor.
+4. Select **Meeting room** or **Booking**. The Inspector lists its properties, links and the requirements it realizes. Open **Actions** to see each action with its rules and requirements.
+5. Add a requirement to the `requirements:` registry that nothing references, and watch the warning appear in the Problems panel. Then run `oont validate room-booking.oont.yaml` for the same result in a terminal.
 
-Continue with the [Getting Started guide](docs/en/getting-started.md) or the hands-on [tutorials](docs/en/).
+Continue with the [Getting Started guide](docs/en/getting-started.md), the [ODD tutorial](docs/en/odd/tutorial-requirements-to-ontology.md) or the other [tutorials](docs/en/). For OWL and RDF, open any `.ttl` file and press the same shortcut.
 
 ## What you can do
 
@@ -158,6 +228,8 @@ See [Format Support](docs/en/reference/format-support.md) for parser and editing
 ## Documentation and help
 
 - [Getting Started](docs/en/getting-started.md)
+- Ontology-driven development: [What Is ODD?](docs/en/odd/what-is-odd.md) · [Tutorial: From Requirements to an Ontology](docs/en/odd/tutorial-requirements-to-ontology.md)
+- Reference: [Object Ontology Format](docs/en/reference/object-ontology-format.md) · [CLI (`oont`)](docs/en/reference/cli.md)
 - [Build Your First Ontology](docs/en/learn/tutorial-1-first-ontology.md)
 - [Edit From the Diagram](docs/en/learn/tutorial-2-editing-from-diagram.md)
 - [Import an Existing OWL File](docs/en/learn/tutorial-3-importing-owl.md)
@@ -177,7 +249,7 @@ Before opening an issue, check the [troubleshooting guide](docs/en/reference/tro
 
 ## Privacy and trust
 
-Ontology-Driven Development processes ontology documents locally in the VS Code extension host and webview. The extension does not include telemetry, advertising, accounts, or an extension-owned network service. See the [Privacy Notice](PRIVACY.md) for the exact data flow and the [Security Policy](SECURITY.md) for reporting vulnerabilities.
+Ontology-Driven Development processes ontology documents locally in the VS Code extension host and webview. The extension does not include telemetry, advertising, accounts, or an extension-owned network service. The `oont` CLI also works only on local files, with no network access and no telemetry. See the [Privacy Notice](PRIVACY.md) for the exact data flow and the [Security Policy](SECURITY.md) for reporting vulnerabilities.
 
 ## License
 
