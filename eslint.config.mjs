@@ -50,6 +50,29 @@ export default [
     },
   },
   {
+    // packages/cli may depend only on packages/core and Node built-ins
+    // (P1 spec 6.1); its tests may also use vitest.
+    files: ["packages/cli/src/**/*.ts"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [{ name: "vscode", message: "packages/cli must not depend on the VS Code API." }],
+          patterns: [
+            {
+              regex: "^(?!\\.{1,2}/)(?!(?:@yaggytter/object-ontology-core|vitest)$)(?!node:)",
+              message: "packages/cli may import only its own modules, @yaggytter/object-ontology-core and node: built-ins.",
+            },
+            {
+              regex: "\\.\\./(?:vscode|core)/",
+              message: "packages/cli must use packages/core through its package name.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
     // Core tests may additionally use the test runner and Node built-ins.
     files: ["packages/core/src/**/*.test.ts"],
     rules: {

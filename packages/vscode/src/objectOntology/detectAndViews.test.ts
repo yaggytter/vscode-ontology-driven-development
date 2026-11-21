@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { detectObjectOntology } from "./detect";
+import { detectObjectOntology } from "@yaggytter/object-ontology-core";
 import { buildActionViews } from "./actionView";
 import {
   defaultNamespace,

@@ -27,6 +27,12 @@ jobs:
       - run: npm ci
       - run: npm audit --omit=dev
       - run: npm run verify
+      - name: Build core and the oont CLI
+        run: npm run build
+      - name: Smoke-test the built oont CLI
+        run: |
+          node packages/cli/bin/oont.js --version
+          node packages/cli/bin/oont.js validate --strict packages/vscode/samples examples packages/core/fixtures
       - run: npm run package
       - name: Upload VSIX for review
         uses: actions/upload-artifact@v4

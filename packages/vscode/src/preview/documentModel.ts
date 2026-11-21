@@ -6,7 +6,7 @@ import { buildSchemaModel, type SchemaModel } from "../rdf/schemaModel";
 import { computeEditableSubjects } from "../edit/editLiteral";
 import { computeCommentEditableSubjects } from "../edit/editComment";
 import { isEditableLanguage } from "../util/languages";
-import type { ObjectOntologySyntax } from "../objectOntology/detect";
+import type { ObjectOntologySyntax } from "@yaggytter/object-ontology-core";
 import { detectDocumentObjectOntology } from "../objectOntology/detectDocument";
 import {
   objectOntologyToQuads,

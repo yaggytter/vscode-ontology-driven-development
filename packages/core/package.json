@@ -4,15 +4,20 @@
   "private": true,
   "description": "Object Ontology reading, validation, export and JSON Schema (no VS Code dependency).",
   "license": "SEE LICENSE IN LICENSE",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "sideEffects": false,
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
     "./schemas/object-ontology.schema.json": "./schemas/object-ontology.schema.json",
     "./package.json": "./package.json"
   },
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit -p ./",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -27,5 +32,9 @@
     "ajv": "^8.17.1",
     "typescript": "^5.7.2",
     "vitest": "^5.0.5"
-  }
+  },
+  "files": [
+    "dist",
+    "schemas"
+  ]
 }

@@ -14,6 +14,7 @@ await esbuild.build({
   entryPoints,
   outdir: "out-test/src/test",
   bundle: true,
+  conditions: ["source"],
   platform: "node",
   target: "node20",
   format: "cjs",

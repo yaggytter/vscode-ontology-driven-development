@@ -1,16 +1,27 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "CommonJS",
-    "moduleResolution": "Node10",
-    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": [
+      "ES2022"
+    ],
     "outDir": "../../out-test",
     "rootDir": "../..",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "types": ["node", "mocha"]
+    "types": [
+      "node",
+      "mocha"
+    ],
+    "customConditions": [
+      "source"
+    ]
   },
-  "include": ["./**/*.ts", "../types/*.d.ts"]
+  "include": [
+    "./**/*.ts",
+    "../types/*.d.ts"
+  ]
 }
