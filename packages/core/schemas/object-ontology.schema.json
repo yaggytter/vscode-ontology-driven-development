@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "urn:object-ontology:schema:1",
   "title": "Object Ontology",
-  "description": "Object-centric ontology (object types, properties, link types, interfaces, action types) read by the Ontology-Driven Development VS Code extension.",
+  "description": "Object-centric ontology (object types, properties, link types, interfaces, action types, requirements) read by the Ontology-Driven Development tools: the core library, the oont CLI and the VS Code extension.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -50,6 +50,11 @@
             "required": {
               "type": "boolean"
             }
+          },
+          "patternProperties": {
+            "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+              "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
+            }
           }
         }
       ]
@@ -93,7 +98,56 @@
           ],
           "default": "many"
         }
+      },
+      "patternProperties": {
+        "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+          "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
+        }
       }
+    },
+    "requirementId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_.-]*$",
+      "maxLength": 64
+    },
+    "requirementRefs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/requirementId"
+      },
+      "description": "Requirement IDs this element realizes (F1)."
+    },
+    "requirement": {
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "Shorthand: the title."
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+              "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
+            }
+          },
+          "required": [
+            "title"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "description": "URL or relative path to the detailed requirement."
+            }
+          }
+        }
+      ]
     }
   },
   "properties": {
@@ -161,6 +215,14 @@
           },
           "properties": {
             "$ref": "#/definitions/properties"
+          },
+          "requirements": {
+            "$ref": "#/definitions/requirementRefs"
+          }
+        },
+        "patternProperties": {
+          "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+            "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
           }
         }
       }
@@ -193,6 +255,14 @@
           },
           "properties": {
             "$ref": "#/definitions/properties"
+          },
+          "requirements": {
+            "$ref": "#/definitions/requirementRefs"
+          }
+        },
+        "patternProperties": {
+          "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+            "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
           }
         }
       }
@@ -229,6 +299,14 @@
           "foreignKey": {
             "type": "string",
             "pattern": "^[A-Za-z][A-Za-z0-9_]*\\.[A-Za-z][A-Za-z0-9_]*$"
+          },
+          "requirements": {
+            "$ref": "#/definitions/requirementRefs"
+          }
+        },
+        "patternProperties": {
+          "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+            "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
           }
         }
       }
@@ -288,6 +366,11 @@
                 "enum": {
                   "type": "array"
                 }
+              },
+              "patternProperties": {
+                "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+                  "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
+                }
               }
             }
           },
@@ -337,6 +420,11 @@
                   },
                   "description": "property: value or $parameter"
                 }
+              },
+              "patternProperties": {
+                "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+                  "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
+                }
               }
             }
           },
@@ -359,6 +447,14 @@
                     },
                     "expr": {
                       "type": "string"
+                    },
+                    "requirements": {
+                      "$ref": "#/definitions/requirementRefs"
+                    }
+                  },
+                  "patternProperties": {
+                    "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+                      "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
                     }
                   }
                 }
@@ -370,6 +466,14 @@
             "items": {
               "type": "string"
             }
+          },
+          "requirements": {
+            "$ref": "#/definitions/requirementRefs"
+          }
+        },
+        "patternProperties": {
+          "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+            "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
           }
         }
       }
@@ -390,6 +494,24 @@
         }
       },
       "description": "Optional example objects per object type, keyed by property API names and link-side names."
+    },
+    "requirements": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "propertyNames": {
+        "$ref": "#/definitions/requirementId"
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/requirement"
+      },
+      "description": "Requirement registry (F1): ID -> title."
+    }
+  },
+  "patternProperties": {
+    "^x-[A-Za-z0-9][A-Za-z0-9_.-]*$": {
+      "description": "Extension field (F2). Ignored by tools that do not know it; kept on edit."
     }
   }
 }

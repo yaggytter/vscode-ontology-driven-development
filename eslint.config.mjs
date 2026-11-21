@@ -59,8 +59,8 @@ export default [
           paths: [{ name: "vscode", message: "packages/core must not depend on the VS Code API." }],
           patterns: [
             {
-              regex: "^(?!\\.{1,2}/)(?!(?:yaml|n3|vitest)$)(?!node:)",
-              message: "packages/core tests may import only core modules, yaml, n3, vitest and node: built-ins.",
+              regex: "^(?!\\.{1,2}/)(?!(?:yaml|n3|vitest|ajv)$)(?!node:)",
+              message: "packages/core tests may import only core modules, yaml, n3, vitest, ajv and node: built-ins.",
             },
             {
               regex: "\\.\\./(?:vscode|cli)/",

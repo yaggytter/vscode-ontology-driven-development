@@ -1,0 +1,183 @@
+objectOntology: 1
+name: Meeting Room Booking
+description: >-
+  Worked example for ontology-driven development, written in the proposed
+  P1 format: a requirements registry, requirement references, and x- fields.
+
+requirements:
+  REQ-001: { title: 会議室を時間指定で予約できる, source: ../../methodology/examples/room-booking/requirements.md }
+  REQ-002: 同じ会議室で時間帯が重なる予約はできない
+  REQ-003: 参加人数が定員を超える予約はできない
+  REQ-004: 予約者は開始前なら取り消せる
+  REQ-005: 開始時刻の前後15分以内にチェックインする
+  REQ-006: 15分チェックインがなければ自動解放し通知する
+  REQ-007: 総務は会議室を利用停止にできる
+
+objectTypes:
+  Member:
+    displayName: Member
+    description: An employee who books rooms. Admins can suspend rooms.
+    primaryKey: memberId
+    titleProperty: name
+    properties:
+      memberId: { type: string }
+      name: { type: string }
+      role: { type: string, enum: [staff, admin] }
+
+  Room:
+    displayName: Meeting room
+    description: A bookable meeting room.
+    requirements: [REQ-003, REQ-007]
+    primaryKey: roomId
+    titleProperty: name
+    properties:
+      roomId: { type: string }
+      name: { type: string }
+      capacity: { type: integer, description: Maximum number of attendees. }
+      status: { type: string, enum: [active, suspended] }
+
+  Booking:
+    displayName: Booking
+    description: >-
+      A reservation of one room for a time range. Cancelled and released
+      bookings are kept for no-show analysis.
+    requirements: [REQ-001, REQ-004, REQ-006]
+    x-retention: keep cancelled and released bookings for 1 year
+    primaryKey: bookingId
+    titleProperty: bookingId
+    properties:
+      bookingId: { type: string }
+      startsAt: { type: timestamp }
+      endsAt: { type: timestamp }
+      attendees: { type: integer }
+      status: { type: string, enum: [reserved, inUse, cancelled, released] }
+      checkedInAt: { type: timestamp }
+
+linkTypes:
+  bookingRoom:
+    displayName: Booked room
+    from: { objectType: Booking, name: room, cardinality: one }
+    to: { objectType: Room, name: bookings, cardinality: many }
+  bookingOrganizer:
+    displayName: Organizer
+    from: { objectType: Booking, name: organizer, cardinality: one }
+    to: { objectType: Member, name: bookings, cardinality: many }
+
+actionTypes:
+  reserveRoom:
+    displayName: Reserve room
+    description: Book a room for a time range.
+    requirements: [REQ-001, REQ-002, REQ-003, REQ-007]
+    parameters:
+      bookingId: { type: string, required: true }
+      room: { type: objectRef, objectType: Room, required: true }
+      organizer: { type: objectRef, objectType: Member, required: true }
+      startsAt: { type: timestamp, required: true }
+      endsAt: { type: timestamp, required: true }
+      attendees: { type: integer, required: true }
+    rules:
+      - op: createObject
+        objectType: Booking
+        set:
+          bookingId: $bookingId
+          startsAt: $startsAt
+          endsAt: $endsAt
+          attendees: $attendees
+          status: reserved
+      - { op: createLink, linkType: bookingRoom, from: bookingId, to: room }
+      - { op: createLink, linkType: bookingOrganizer, from: bookingId, to: organizer }
+    validations:
+      - description: The end time must be after the start time.
+        requirements: [REQ-001]
+        expr: "endsAt > startsAt"
+      - description: The room must not be suspended.
+        requirements: [REQ-007]
+        expr: "room.status == 'active'"
+      - description: Attendees must not exceed the room capacity.
+        requirements: [REQ-003]
+        expr: "attendees <= room.capacity"
+      - description: No other reserved or in-use booking of the same room may overlap.
+        requirements: [REQ-002]
+        expr: "none(room.bookings, b => b.status in ['reserved', 'inUse'] && b.startsAt < endsAt && startsAt < b.endsAt)"
+
+  cancelBooking:
+    displayName: Cancel booking
+    description: The organizer cancels a booking before it starts.
+    requirements: [REQ-004]
+    parameters:
+      booking: { type: objectRef, objectType: Booking, required: true }
+      requestedBy: { type: objectRef, objectType: Member, required: true }
+    rules:
+      - { op: modifyObject, objectType: Booking, object: booking, set: { status: cancelled } }
+    validations:
+      - description: Only the organizer can cancel.
+        requirements: [REQ-004]
+        expr: "booking.organizer == requestedBy"
+      - description: Only a reserved booking that has not started can be cancelled.
+        requirements: [REQ-004]
+        expr: "booking.status == 'reserved' && now() < booking.startsAt"
+
+  checkIn:
+    displayName: Check in
+    description: Start using a booked room within 15 minutes of the start time.
+    requirements: [REQ-005]
+    parameters:
+      booking: { type: objectRef, objectType: Booking, required: true }
+      checkedInAt: { type: timestamp, required: true }
+    rules:
+      - op: modifyObject
+        objectType: Booking
+        object: booking
+        set: { status: inUse, checkedInAt: $checkedInAt }
+    validations:
+      - description: Only a reserved booking can be checked in.
+        requirements: [REQ-005]
+        expr: "booking.status == 'reserved'"
+      - description: Check-in must be within 15 minutes before or after the start time.
+        requirements: [REQ-005]
+        expr: "abs(minutesBetween(checkedInAt, booking.startsAt)) <= 15"
+
+  releaseNoShow:
+    displayName: Release no-show booking
+    description: >-
+      Run by the system. Releases a booking with no check-in 15 minutes after
+      the start time.
+    requirements: [REQ-006]
+    x-trigger: { kind: schedule, every: 1m }
+    parameters:
+      booking: { type: objectRef, objectType: Booking, required: true }
+    rules:
+      - { op: modifyObject, objectType: Booking, object: booking, set: { status: released } }
+    validations:
+      - description: Only a reserved booking that is 15 minutes past its start can be released.
+        requirements: [REQ-006]
+        expr: "booking.status == 'reserved' && minutesBetween(booking.startsAt, now()) >= 15"
+    sideEffects:
+      - Notify the organizer that the booking was released.
+
+  suspendRoom:
+    displayName: Suspend room
+    description: An admin takes a room out of service.
+    requirements: [REQ-007]
+    parameters:
+      room: { type: objectRef, objectType: Room, required: true }
+      requestedBy: { type: objectRef, objectType: Member, required: true }
+    rules:
+      - { op: modifyObject, objectType: Room, object: room, set: { status: suspended } }
+    validations:
+      - description: Only an admin can suspend a room.
+        requirements: [REQ-007]
+        expr: "requestedBy.role == 'admin'"
+
+objects:
+  Member:
+    - { memberId: U-01, name: Sato, role: staff }
+    - { memberId: U-02, name: Suzuki, role: admin }
+  Room:
+    - { roomId: R-A, name: Room A, capacity: 4, status: active }
+    - { roomId: R-B, name: Room B, capacity: 8, status: active }
+    - { roomId: R-C, name: Room C, capacity: 12, status: suspended }
+  Booking:
+    - { bookingId: B-1001, startsAt: "2026-11-18T10:00:00+09:00", endsAt: "2026-11-18T11:00:00+09:00", attendees: 3, status: inUse, checkedInAt: "2026-11-18T09:58:00+09:00", room: R-A, organizer: U-01 }
+    - { bookingId: B-1002, startsAt: "2026-11-18T13:00:00+09:00", endsAt: "2026-11-18T14:00:00+09:00", attendees: 6, status: released, room: R-B, organizer: U-01 }
+    - { bookingId: B-1003, startsAt: "2026-11-19T15:00:00+09:00", endsAt: "2026-11-19T16:00:00+09:00", attendees: 5, status: reserved, room: R-B, organizer: U-02 }
