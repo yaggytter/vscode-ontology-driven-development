@@ -113,4 +113,19 @@ WHERE {
   OPTIONAL { ?implementer oont:implements ?interface }
 }`,
   ),
+  withPrefixes(
+    "oo-requirements",
+    `# Requirements and the elements that realize them (traceability, P1).
+SELECT ?requirementId ?title ?element ?elementLabel
+WHERE {
+  ?requirement a oont:Requirement ;
+               oont:requirementId ?requirementId ;
+               rdfs:label ?title .
+  OPTIONAL {
+    ?element oont:satisfies ?requirement .
+    OPTIONAL { ?element rdfs:label ?elementLabel }
+  }
+}
+ORDER BY ?requirementId ?elementLabel`,
+  ),
 ];

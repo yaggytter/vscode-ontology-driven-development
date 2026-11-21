@@ -32,6 +32,8 @@ export interface ActionView {
   validations: string[];
   sideEffects: string[];
   affectedTypeIds: string[];
+  /** "REQ-001 Title" per requirement the action realizes (P1 F1); absent when there are none. */
+  requirements?: string[];
 }
 
 function describeRule(rule: OoRule): string {
@@ -47,6 +49,8 @@ export function buildActionViews(ontology: ObjectOntology): ActionView[] {
     const type = ontology.objectTypes.find((t) => t.apiName === apiName) ?? ontology.interfaces.find((i) => i.apiName === apiName);
     return type ? type.displayName ?? type.apiName : undefined;
   };
+  const titles = new Map(ontology.requirements.map((r) => [r.id, r.title]));
+  const requirementLine = (id: string): string => (titles.get(id) ? `${id} ${titles.get(id)}` : id);
   return ontology.actionTypes.map((action) => ({
     id: actionTypeIri(ns, action.apiName),
     apiName: action.apiName,
@@ -62,8 +66,11 @@ export function buildActionViews(ontology: ObjectOntology): ActionView[] {
       objectTypeName: p.objectType ? nameOf(p.objectType) : undefined,
     })),
     rules: action.rules.map(describeRule),
-    validations: action.validations.map((v) => (v.expr ? `${v.description} (${v.expr})` : v.description)),
+    validations: action.validations.map(
+      (v) => `${v.expr ? `${v.description} (${v.expr})` : v.description}${v.requirements.length ? ` [${v.requirements.join(", ")}]` : ""}`,
+    ),
     sideEffects: action.sideEffects,
     affectedTypeIds: actionAffectedTypes(ontology, action).map((name) => typeIri(ns, name)),
+    ...(action.requirements.length ? { requirements: action.requirements.map(requirementLine) } : {}),
   }));
 }

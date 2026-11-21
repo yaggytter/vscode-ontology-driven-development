@@ -1,5 +1,5 @@
 import { clear, h } from "../dom";
-import type { PropertyType, SchemaEntity, SchemaModel, SchemaRelation } from "../../src/rdf/schemaModel";
+import type { PropertyType, SchemaEntity, SchemaModel, SchemaRelation, SchemaRequirement } from "../../src/rdf/schemaModel";
 import type { UiStrings } from "../../src/shared/messages";
 
 const PROPERTY_TYPES: PropertyType[] = ["string", "integer", "decimal", "double", "date", "datetime", "boolean", "enum", "other"];
@@ -48,6 +48,24 @@ function relationLabel(strings: UiStrings, rel: SchemaRelation): string {
 
 function listItemClass(inferred: boolean): string {
   return `inspector-list-item${inferred ? " inferred" : ""}`;
+}
+
+/** The requirements an element realizes (P1 F1): "REQ-001 Title" per line. */
+function renderRequirements(container: HTMLElement, strings: UiStrings, requirements: SchemaRequirement[] | undefined): void {
+  if (!requirements || requirements.length === 0) {
+    return;
+  }
+  container.appendChild(h("h4", { className: "panel-heading", text: strings.requirementsLabel }));
+  const list = h("ul", { className: "inspector-list inspector-requirements" });
+  for (const requirement of requirements) {
+    list.appendChild(
+      h("li", {
+        className: "inspector-list-item",
+        text: requirement.title ? `${requirement.id} ${requirement.title}` : requirement.id,
+      }),
+    );
+  }
+  container.appendChild(list);
 }
 
 export function renderEmptySelection(container: HTMLElement, strings: UiStrings): void {
@@ -135,6 +153,7 @@ export function renderEntitySelection(
     }
   });
   container.appendChild(commentInput);
+  renderRequirements(container, strings, entity.requirements);
 
   container.appendChild(
     h("p", { className: "inspector-meta", text: strings.instancesLabel.replace("{0}", String(entity.instanceCount)) }),
@@ -279,6 +298,7 @@ export function renderRelationSelection(
   if (relation.description) {
     container.appendChild(h("p", { className: "inspector-description", text: relation.description }));
   }
+  renderRequirements(container, strings, relation.requirements);
   if (relation.provenance !== "declared") {
     container.appendChild(h("p", { className: "inspector-meta inferred-note", text: strings.legendInferredHint }));
   }

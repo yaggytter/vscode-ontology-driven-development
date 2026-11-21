@@ -27,5 +27,6 @@ The samples are distributed under the repository's [MIT License](../../../LICENS
 | `delivery-ops.oont.yaml` | Medium | Dispatch agent scenario: a delayed shipment, links to an alternative vehicle, `assignVehicle` / `notifyCustomer` actions |
 | `plant-maintenance.oont.yaml` | Medium | Sensor anomaly → affected machine and line → spare part and technician → work order |
 | `support-desk.oont.yaml` | Medium | Refund guard rails: validations and an approval action for large refunds |
+| `room-booking.oont.yaml` | Small | Ontology-driven development: a requirements registry, requirement IDs on every element, `x-` fields (Japanese requirement titles) |
 
 All listed samples, including the RDF/XML interoperability example, follow the same original-content policy.

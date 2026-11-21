@@ -216,5 +216,10 @@
   "Plant Maintenance (Object Ontology)": "工場保全（Object Ontology）",
   "Follow links from a sensor alert to a work order": "センサーの警報からリンクをたどって作業指示を起票する",
   "Support Desk (Object Ontology)": "サポートデスク（Object Ontology）",
-  "Validations as guard rails for agent-issued refunds": "検証ルールを、エージェントが行う返金のガードレールにする"
+  "Validations as guard rails for agent-issued refunds": "検証ルールを、エージェントが行う返金のガードレールにする",
+  "Requirements": "要件",
+  "9. Requirements and the elements that realize them": "9. 要件と、それを実現する要素",
+  "Each requirement in the registry with the object types, links, actions and validations that reference it.": "台帳の各要件と、それを参照しているオブジェクト型・リンク・アクション・validation。",
+  "Meeting Room Booking (Object Ontology)": "会議室予約（Object Ontology）",
+  "Requirement IDs traced to every element (ontology-driven development)": "すべての要素から要件 ID をたどれる（オントロジー駆動開発）"
 }

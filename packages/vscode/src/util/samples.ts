@@ -24,6 +24,7 @@ const SAMPLES: SampleDescriptor[] = [
   { file: "delivery-ops.oont.yaml", label: "Delivery Operations (Object Ontology)", detail: "Actions as AI-agent tools for delay handling" },
   { file: "plant-maintenance.oont.yaml", label: "Plant Maintenance (Object Ontology)", detail: "Follow links from a sensor alert to a work order" },
   { file: "support-desk.oont.yaml", label: "Support Desk (Object Ontology)", detail: "Validations as guard rails for agent-issued refunds" },
+  { file: "room-booking.oont.yaml", label: "Meeting Room Booking (Object Ontology)", detail: "Requirement IDs traced to every element (ontology-driven development)" },
 ];
 
 function languageFor(file: string): string {

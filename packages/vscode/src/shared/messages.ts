@@ -43,6 +43,8 @@ export interface UiStrings {
   entitiesLabel: string;
   relationsLabel: string;
   propertiesLabel: string;
+  /** Heading for the requirements an Object Ontology element realizes. */
+  requirementsLabel: string;
   /** Template with a single `{0}` placeholder for the count, replaced client-side. */
   instancesLabel: string;
   unattachedHeading: string;
