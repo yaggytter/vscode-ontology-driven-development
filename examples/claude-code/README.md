@@ -5,8 +5,8 @@ AI 向けチュートリアルを実際に動かすためのサンプルです�
 
 | Folder / フォルダ | Tutorial / チュートリアル |
 | --- | --- |
-| [`object-ontology-mcp/`](object-ontology-mcp/) | An MCP server that serves the action tools exported from an Object Ontology and enforces their preconditions. Object Ontology から書き出したアクションを公開し、実行条件を確認する MCP サーバー。 [Tutorial 8 (en)](../../docs/en/tutorial-8-claude-code-object-ontology.md) · [チュートリアル8 (ja)](../../docs/ja/tutorial-8-claude-code-object-ontology.md) |
-| [`semantic-web-sparql/`](semantic-web-sparql/) | A local SPARQL command over Turtle files, with the same engine as the viewer's SPARQL panel. ビューワーの SPARQL パネルと同じエンジンで Turtle ファイルに問い合わせるローカルのコマンド。 [Tutorial 9 (en)](../../docs/en/tutorial-9-claude-code-semantic-web.md) · [チュートリアル9 (ja)](../../docs/ja/tutorial-9-claude-code-semantic-web.md) |
+| [`object-ontology-mcp/`](object-ontology-mcp/) | An MCP server that serves the action tools exported from an Object Ontology and enforces their preconditions. Object Ontology から書き出したアクションを公開し、実行条件を確認する MCP サーバー。 [Tutorial 8 (en)](../../docs/en/ai/tutorial-8-claude-code-object-ontology.md) · [チュートリアル8 (ja)](../../docs/ja/ai/tutorial-8-claude-code-object-ontology.md) |
+| [`semantic-web-sparql/`](semantic-web-sparql/) | A local SPARQL command over Turtle files, with the same engine as the viewer's SPARQL panel. ビューワーの SPARQL パネルと同じエンジンで Turtle ファイルに問い合わせるローカルのコマンド。 [Tutorial 9 (en)](../../docs/en/ai/tutorial-9-claude-code-semantic-web.md) · [チュートリアル9 (ja)](../../docs/ja/ai/tutorial-9-claude-code-semantic-web.md) |
 
 Requirements / 必要なもの: Node.js 22.6+, [Claude Code](https://docs.claude.com/en/docs/claude-code/overview).
 

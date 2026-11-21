@@ -128,4 +128,4 @@ WHERE {
 - Everything executes **locally** inside VS Code. No part of your ontology is sent anywhere.
 - A syntax error or a failed query is reported in the panel; the diagram is left as it was.
 
-Next: [Format Support](format-support.md), or back to the [tutorial list](../en/).
+Next: [Format Support](../reference/format-support.md), or back to the [tutorial list](../).

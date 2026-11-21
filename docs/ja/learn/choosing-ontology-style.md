@@ -22,7 +22,7 @@ Object Ontology が答えるのは「**業務で何を操作し、それに対�
 
 ## 3. 同じ題材を両方の方式で書く
 
-同梱のサンプルには、同じラストワンマイル配送の業務を同じ ID で2通りに書いたものがあります。[`delivery-ops.oont.yaml`](../../samples/delivery-ops.oont.yaml) と [`delivery-ops.ttl`](../../samples/delivery-ops.ttl) です。どちらでも、配送 S-5001 はバン V-101 の整備のため遅れており、同じ営業所のバン V-102 には空きがあります。
+同梱のサンプルには、同じラストワンマイル配送の業務を同じ ID で2通りに書いたものがあります。[`delivery-ops.oont.yaml`](../../../packages/vscode/samples/delivery-ops.oont.yaml) と [`delivery-ops.ttl`](../../../packages/vscode/samples/delivery-ops.ttl) です。どちらでも、配送 S-5001 はバン V-101 の整備のため遅れており、同じ営業所のバン V-102 には空きがあります。
 
 ### Object Ontology の抜粋
 
@@ -122,7 +122,7 @@ flowchart LR
 
 - **用語集**（SKOS）と**データカタログ**（DCAT + PROV-O）は Semantic Web 側に置きます。他のチームやツールもそのまま再利用できます。
 - **業務オペレーション**は Object Ontology で定義します。エージェントが書き込めるのはアクション経由だけにし、検証はバックエンドで行います。
-- 両者をつなぐのが **「Object Ontology を Turtle (OWL) としてエクスポート...」** です。エクスポートした Turtle は OWL と `oont:` 語彙で書かれているので、用語集と同じ RDF ストアに置き、1つの SPARQL クエリで横断できます。ビューワー自体は一度に1つのドキュメントしか問い合わせないため、先にファイルを1つにまとめます。手順と検証済みのクエリは [チュートリアル7](tutorial-7-semantic-web-llm.md) の6章にあります。
+- 両者をつなぐのが **「Object Ontology を Turtle (OWL) としてエクスポート...」** です。エクスポートした Turtle は OWL と `oont:` 語彙で書かれているので、用語集と同じ RDF ストアに置き、1つの SPARQL クエリで横断できます。ビューワー自体は一度に1つのドキュメントしか問い合わせないため、先にファイルを1つにまとめます。手順と検証済みのクエリは [チュートリアル7](../ai/tutorial-7-semantic-web-llm.md) の6章にあります。
 
 ## 6. よくある誤解
 
@@ -141,6 +141,6 @@ BI や AI エージェント向けに、エンティティ・プロパティ・�
 ## 次のステップ
 
 - [チュートリアル5: はじめての Object Ontology](tutorial-5-object-ontology.md) — Object Ontology の作成、表示、編集。
-- [チュートリアル6: Object Ontology × AI エージェント](tutorial-6-object-ontology-ai-agents.md) — 配送遅延のシナリオで、アクションをエージェントのツールとして使う。
-- [チュートリアル7: Semantic Web オントロジー × LLM](tutorial-7-semantic-web-llm.md) — 回答の裏付け、LLM が書く SPARQL、用語集、来歴。
+- [チュートリアル6: Object Ontology × AI エージェント](../ai/tutorial-6-object-ontology-ai-agents.md) — 配送遅延のシナリオで、アクションをエージェントのツールとして使う。
+- [チュートリアル7: Semantic Web オントロジー × LLM](../ai/tutorial-7-semantic-web-llm.md) — 回答の裏付け、LLM が書く SPARQL、用語集、来歴。
 - [ユースケース集](use-cases.md) — 業務シナリオごとの方式とサンプル。

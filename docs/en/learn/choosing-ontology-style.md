@@ -22,7 +22,7 @@ An Object Ontology answers the question **"what do we operate on, and what are w
 
 ## 3. The same domain, both ways
 
-The bundled samples model one last-mile delivery business twice, with the same IDs: [`delivery-ops.oont.yaml`](../../samples/delivery-ops.oont.yaml) and [`delivery-ops.ttl`](../../samples/delivery-ops.ttl). In both, shipment S-5001 is delayed because van V-101 is in maintenance, and van V-102 at the same depot has room.
+The bundled samples model one last-mile delivery business twice, with the same IDs: [`delivery-ops.oont.yaml`](../../../packages/vscode/samples/delivery-ops.oont.yaml) and [`delivery-ops.ttl`](../../../packages/vscode/samples/delivery-ops.ttl). In both, shipment S-5001 is delayed because van V-101 is in maintenance, and van V-102 at the same depot has room.
 
 ### Object Ontology excerpt
 
@@ -122,7 +122,7 @@ flowchart LR
 
 - The **glossary** (SKOS) and **data catalog** (DCAT + PROV-O) stay on the Semantic Web side, where other teams and tools can reuse them.
 - The **operations** are an Object Ontology. Agents write only through its actions, and your backend enforces the validations.
-- **Export Object Ontology as Turtle (OWL)...** is the bridge. The exported Turtle uses OWL plus the `oont:` vocabulary, so it can sit next to the glossary in one RDF store and be queried with one SPARQL query. The viewer itself queries one document at a time, so combine the files first; [Tutorial 7](tutorial-7-semantic-web-llm.md) section 6 shows how, with a tested query.
+- **Export Object Ontology as Turtle (OWL)...** is the bridge. The exported Turtle uses OWL plus the `oont:` vocabulary, so it can sit next to the glossary in one RDF store and be queried with one SPARQL query. The viewer itself queries one document at a time, so combine the files first; [Tutorial 7](../ai/tutorial-7-semantic-web-llm.md) section 6 shows how, with a tested query.
 
 ## 6. Common misconceptions
 
@@ -141,6 +141,6 @@ Several data platforms now ship an ontology-like layer of entities, properties a
 ## Next steps
 
 - [Tutorial 5: Your First Object Ontology](tutorial-5-object-ontology.md) — create, view and edit an Object Ontology.
-- [Tutorial 6: Object Ontology × AI Agents](tutorial-6-object-ontology-ai-agents.md) — actions as agent tools, using the delivery delay scenario.
-- [Tutorial 7: Semantic Web Ontologies × LLMs](tutorial-7-semantic-web-llm.md) — grounding, LLM-written SPARQL, glossaries and provenance.
+- [Tutorial 6: Object Ontology × AI Agents](../ai/tutorial-6-object-ontology-ai-agents.md) — actions as agent tools, using the delivery delay scenario.
+- [Tutorial 7: Semantic Web Ontologies × LLMs](../ai/tutorial-7-semantic-web-llm.md) — grounding, LLM-written SPARQL, glossaries and provenance.
 - [Use Cases](use-cases.md) — business scenarios mapped to a style and a sample.

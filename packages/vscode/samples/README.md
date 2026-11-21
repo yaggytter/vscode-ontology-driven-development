@@ -2,7 +2,7 @@
 
 The bundled Turtle and Object Ontology files listed below were authored from scratch for Ontology Viewer. Their domains, labels, fictional names, identifiers, and instance records are original and do not reproduce an external ontology or dataset. Standard RDF, RDFS, OWL, XSD, and SKOS vocabulary IRIs are used only for interoperability.
 
-The samples are distributed under the repository's [MIT License](../LICENSE). `example.org` IRIs and fictional records are intentionally non-production data.
+The samples are distributed under the repository's [MIT License](../../../LICENSE). `example.org` IRIs and fictional records are intentionally non-production data.
 
 | Sample | Size | Focus |
 | --- | --- | --- |

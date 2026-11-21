@@ -1,6 +1,6 @@
 # Tutorial 3: Bring In an Existing .owl File
 
-Most real-world OWL files you'll find in the wild are RDF/XML (`.owl` or `.rdf`), not Turtle. This extension can display them, but write-back is Turtle-only (see [Format Support](format-support.md)). Here's the recommended workflow.
+Most real-world OWL files you'll find in the wild are RDF/XML (`.owl` or `.rdf`), not Turtle. This extension can display them, but write-back is Turtle-only (see [Format Support](../reference/format-support.md)). Here's the recommended workflow.
 
 ## 1. Open the file
 
@@ -31,4 +31,4 @@ Save the untitled document as a `.ttl` file. From here on, it's a normal editabl
 - Anything else is written with whatever prefixes were declared in the original file's `xmlns` attributes, where recoverable.
 - The exact formatting (line breaks, statement grouping) will look different from hand-written Turtle — that's expected, since it's generated fresh rather than reformatted from the XML source.
 
-Next: [Tutorial 4: Ask Questions with SPARQL](tutorial-4-sparql.md), or [Format Support](format-support.md) for the full picture of what's editable and what isn't.
+Next: [Tutorial 4: Ask Questions with SPARQL](tutorial-4-sparql.md), or [Format Support](../reference/format-support.md) for the full picture of what's editable and what isn't.

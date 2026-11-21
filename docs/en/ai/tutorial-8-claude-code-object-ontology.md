@@ -236,4 +236,4 @@ The server does exactly what the ontology declares and nothing more. For example
 - [Tutorial 9: Run It with Claude Code — Semantic Web Answers](tutorial-9-claude-code-semantic-web.md): the same hands-on approach for tutorial 7.
 - [Tutorial 6: Object Ontology × AI Agents](tutorial-6-object-ontology-ai-agents.md): the concepts behind this setup.
 
-Back to the [tutorial list](../en/).
+Back to the [tutorial list](../).

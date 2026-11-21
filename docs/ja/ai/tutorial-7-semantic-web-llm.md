@@ -266,7 +266,7 @@ LLM と組み合わせるなら、これが安全な統合のしかたです。�
 
 ## 6. ハイブリッド: エクスポートした Object Ontology と用語集を組み合わせる
 
-`delivery-ops.oont.yaml` のような業務モデルは Object Ontology 形式で書きます（[オントロジー方式の選び方](choosing-ontology-style.md) を参照）。これを用語集とつなぐには、YAML ファイルを開いて **「Ontology Viewer: Object Ontology を Turtle (OWL) としてエクスポート...」** を実行します。無題の Turtle ドキュメントができ、ビューワーで開けます。
+`delivery-ops.oont.yaml` のような業務モデルは Object Ontology 形式で書きます（[オントロジー方式の選び方](../learn/choosing-ontology-style.md) を参照）。これを用語集とつなぐには、YAML ファイルを開いて **「Ontology Viewer: Object Ontology を Turtle (OWL) としてエクスポート...」** を実行します。無題の Turtle ドキュメントができ、ビューワーで開けます。
 
 ビューワーは一度に1つのドキュメントしか問い合わせないので、両方をまとめて問い合わせるには Turtle を1つにします。いちばん簡単なのは、エクスポートしたドキュメントの末尾に `glossary-skos.ttl` の全文を貼り付ける方法です。Turtle では後から `@prefix :` で空のプレフィックスを定義し直せるので、前半と後半はどちらも元の意味を保ちます。規模が大きい場合は、両方のファイルを外部のトリプルストアに読み込んでください。
 
@@ -296,7 +296,7 @@ SELECT ?action ?property ?concept ?ja WHERE {
 ## 次のステップ
 
 - [チュートリアル9: Claude Code で動かす — Semantic Web と根拠のある回答](tutorial-9-claude-code-semantic-web.md) — これらのクエリを Claude Code に書かせて実行し、ビューワーで確かめます。
-- [チュートリアル4: SPARQL で問い合わせる](tutorial-4-sparql.md) — SPARQL パネルの詳しい使い方。
-- [チュートリアル5: はじめての Object Ontology](tutorial-5-object-ontology.md) と [チュートリアル6: Object Ontology × AI エージェント](tutorial-6-object-ontology-ai-agents.md) — ハイブリッド構成の業務側。
-- [ユースケース集](use-cases.md) — どの業務場面にどちらの方式が合うか。
-- [オントロジー方式の選び方](choosing-ontology-style.md) — Object Ontology と Semantic Web の比較。
+- [チュートリアル4: SPARQL で問い合わせる](../learn/tutorial-4-sparql.md) — SPARQL パネルの詳しい使い方。
+- [チュートリアル5: はじめての Object Ontology](../learn/tutorial-5-object-ontology.md) と [チュートリアル6: Object Ontology × AI エージェント](tutorial-6-object-ontology-ai-agents.md) — ハイブリッド構成の業務側。
+- [ユースケース集](../learn/use-cases.md) — どの業務場面にどちらの方式が合うか。
+- [オントロジー方式の選び方](../learn/choosing-ontology-style.md) — Object Ontology と Semantic Web の比較。

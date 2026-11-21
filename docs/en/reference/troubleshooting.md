@@ -22,7 +22,7 @@ An `ASK` query never highlights anything — it answers `true`/`false` and has n
 - Remember to declare a prefix for your own namespace. The examples only declare `rdf:`, `rdfs:`, and `owl:`, so a pattern using your ontology's terms needs its own `PREFIX` line.
 - Queries run against the file as it currently is in the editor, including unsaved changes.
 
-See the [SPARQL tutorial](tutorial-4-sparql.md) for a guided walkthrough.
+See the [SPARQL tutorial](../learn/tutorial-4-sparql.md) for a guided walkthrough.
 
 ## A node doesn't have a dashed border (can't edit it)
 
@@ -59,7 +59,7 @@ The toast explains why. The usual causes are a YAML syntax error elsewhere in th
 
 ## The exported agent tools don't enforce my validations
 
-That is expected. `validations` and their `expr` strings are written into the tool descriptions so the model knows the rules, but the extension does not evaluate them, and it never calls a model or a service. Enforce the same checks in the code that executes the tool (your MCP server or backend). See [Object Ontology × AI Agents](tutorial-6-object-ontology-ai-agents.md). [Tutorial 8](tutorial-8-claude-code-object-ontology.md) has a working MCP server that enforces them, and refuses an action whose check is not implemented yet.
+That is expected. `validations` and their `expr` strings are written into the tool descriptions so the model knows the rules, but the extension does not evaluate them, and it never calls a model or a service. Enforce the same checks in the code that executes the tool (your MCP server or backend). See [Object Ontology × AI Agents](../ai/tutorial-6-object-ontology-ai-agents.md). [Tutorial 8](../ai/tutorial-8-claude-code-object-ontology.md) has a working MCP server that enforces them, and refuses an action whose check is not implemented yet.
 
 ## Still stuck?
 

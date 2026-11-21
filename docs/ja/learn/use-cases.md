@@ -19,7 +19,7 @@
 | 9 | 企業間のデータ連携 | Semantic Web（ハイブリッドが多い） | 専用サンプルなし |
 | 10 | 業務の言葉で話すオペレーション | ハイブリッド | `delivery-ops.oont.yaml` + `glossary-skos.ttl` |
 
-Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samples/cafe-orders.oont.yaml) から始めてください。型が3つ、アクションが3つの小さな入門用サンプルです。
+Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../../packages/vscode/samples/cafe-orders.oont.yaml) から始めてください。型が3つ、アクションが3つの小さな入門用サンプルです。
 
 ## 1. 配送の手配と遅延対応
 
@@ -29,7 +29,7 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　「S-5001 が遅れているので対応して」と頼まれたエージェントは、S-5001 が整備中のバン V-101 に積まれて遅延していることを読み取ります。次に営業所 D-01 のリンクをたどって所属車両を調べ、V-201 は別の営業所の所属で運行中、しかもほぼ満載なので除外し、空いていて 650 kg の余裕がある V-102 を選びます。そのうえで `assignVehicle`（S-5001 を V-102 へ）を呼び、続けて Bayview Bakery への `notifyCustomer` を呼びます。ツールは **「アクションを AI エージェント用ツール定義 (JSON Schema) としてエクスポート...」** で作ります。各ツールの説明に入っている検証条件から、エージェントはどの呼び出しがバックエンドで拒否されるかを知ることができます。
 
-サンプル: [`delivery-ops.oont.yaml`](../../samples/delivery-ops.oont.yaml)。比較用の OWL 版は [`delivery-ops.ttl`](../../samples/delivery-ops.ttl) です。チュートリアル: [チュートリアル6](tutorial-6-object-ontology-ai-agents.md)。
+サンプル: [`delivery-ops.oont.yaml`](../../../packages/vscode/samples/delivery-ops.oont.yaml)。比較用の OWL 版は [`delivery-ops.ttl`](../../../packages/vscode/samples/delivery-ops.ttl) です。チュートリアル: [チュートリアル6](../ai/tutorial-6-object-ontology-ai-agents.md)。
 
 ## 2. センサーの警報から始まる設備保全
 
@@ -39,7 +39,7 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　ライン L-02 の機械 M-03「Cap press 3」に付いたセンサー SN-301 が、しきい値 7.1 に対して 11.8 mm/s の測定値 R-9002 を報告しています。エージェントは測定値から機械へリンクをたどり、M-03 に未完了の作業指示がないこと（WO-415 は M-01 のもの）を確かめてから `createWorkOrder` を呼びます。続いて `assignTechnician` で、vibrationAnalysis のスキルを持つ技術者 T-02 Omar Lind を割り当て、`reserveSparePart` で M-03 に適合するベアリングキット SP-12 を確保します。
 
-サンプル: [`plant-maintenance.oont.yaml`](../../samples/plant-maintenance.oont.yaml)。チュートリアル: 配送のサンプルを使う [チュートリアル6](tutorial-6-object-ontology-ai-agents.md) と同じ手順で扱えます。
+サンプル: [`plant-maintenance.oont.yaml`](../../../packages/vscode/samples/plant-maintenance.oont.yaml)。チュートリアル: 配送のサンプルを使う [チュートリアル6](../ai/tutorial-6-object-ontology-ai-agents.md) と同じ手順で扱えます。
 
 ## 3. カスタマーサポートの返金
 
@@ -49,7 +49,7 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　チケット TK-301（顧客 CU-01、注文 OR-7001）は、ひびの入ったイヤホン 4,800 円分の件です。上限の 10,000 円を下回るので、エージェントは `issueRefund` を呼びます。チケット TK-302（顧客 CU-02、注文 OR-7002）は、つぶれて届いた 24,800 円のスピーカーの件です。`issueRefund` は拒否されるので、エージェントは `requestRefundApproval` を呼び、リーダー SS-02 Ada Brooks の承認待ちの返金を作ります。拡張機能は検証式を評価しません。上限を超える返金を拒否するのはバックエンドの役割です。
 
-サンプル: [`support-desk.oont.yaml`](../../samples/support-desk.oont.yaml)。チュートリアル: [チュートリアル6](tutorial-6-object-ontology-ai-agents.md)。
+サンプル: [`support-desk.oont.yaml`](../../../packages/vscode/samples/support-desk.oont.yaml)。チュートリアル: [チュートリアル6](../ai/tutorial-6-object-ontology-ai-agents.md)。
 
 ## 4. 製品カタログの互換性
 
@@ -59,7 +59,7 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　「12速カセットは11速チェーンに合うか」と聞かれたアシスタントは、推測せずにカタログを問い合わせます。結果は、互換性の記録はなく、そのカセットは11速チェーンの後継である12速チェーンと互換と記録されている、というものです。ビューワーには推論器がないので、クエリでは対称性を `UNION` で、推移性を `+` で明示します。
 
-サンプル: [`product-compatibility.ttl`](../../samples/product-compatibility.ttl)。チュートリアル: [チュートリアル7](tutorial-7-semantic-web-llm.md) の1章と2章。
+サンプル: [`product-compatibility.ttl`](../../../packages/vscode/samples/product-compatibility.ttl)。チュートリアル: [チュートリアル7](../ai/tutorial-7-semantic-web-llm.md) の1章と2章。
 
 ## 5. 社内用語集と検索
 
@@ -69,7 +69,7 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　検索システムは「ETA」や「到着予定時刻」を5つのラベルを持つ1つの概念に対応付け、「Last Mile」をその下位語・関連語の英語と日本語に広げてから検索します。モデルは定義を作り出さず、用語集の定義を引用します。
 
-サンプル: [`glossary-skos.ttl`](../../samples/glossary-skos.ttl)。より小さな SKOS の例として [`community-services-skos.ttl`](../../samples/community-services-skos.ttl) もあります。チュートリアル: [チュートリアル7](tutorial-7-semantic-web-llm.md) の3章。
+サンプル: [`glossary-skos.ttl`](../../../packages/vscode/samples/glossary-skos.ttl)。より小さな SKOS の例として [`community-services-skos.ttl`](../../../packages/vscode/samples/community-services-skos.ttl) もあります。チュートリアル: [チュートリアル7](../ai/tutorial-7-semantic-web-llm.md) の3章。
 
 ## 6. データカタログと来歴
 
@@ -79,7 +79,7 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　「2026年3月の路線全体の利用者数は？」と聞かれたアシスタントは、1,284,300 を報告しているデータセットを見つけ、`prov:wasDerivedFrom+` で生データまでさかのぼり、各段階の公開元とライセンスを示します。生データが内部利用ライセンスであることは事実として伝え、法的な解釈は公開元への確認に委ねます。
 
-サンプル: [`dataset-catalog.ttl`](../../samples/dataset-catalog.ttl)。チュートリアル: [チュートリアル7](tutorial-7-semantic-web-llm.md) の4章。
+サンプル: [`dataset-catalog.ttl`](../../../packages/vscode/samples/dataset-catalog.ttl)。チュートリアル: [チュートリアル7](../ai/tutorial-7-semantic-web-llm.md) の4章。
 
 ## 7. 研究・学術データの統合
 
@@ -89,7 +89,7 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　「Priya Raman」と「P. Raman」は同じ識別子 `person/0103` を持っています。名前で問い合わせると論文は1本しか見つかりませんが、識別子で問い合わせると2本とも見つかります。2つのレコードが似ていると提案するのはモデルでもかまいませんが、統合そのものは共有された識別子を通じてだけ行います。
 
-サンプル: [`research-kg.ttl`](../../samples/research-kg.ttl)。チュートリアル: [チュートリアル7](tutorial-7-semantic-web-llm.md) の5章。
+サンプル: [`research-kg.ttl`](../../../packages/vscode/samples/research-kg.ttl)。チュートリアル: [チュートリアル7](../ai/tutorial-7-semantic-web-llm.md) の5章。
 
 ## 8. 標準語彙が求められる規制分野
 
@@ -99,7 +99,7 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　5と6のシナリオと同じ使い方です。用語を公式の概念に正規化し、すべての数字について根拠となるデータセットとライセンスを示します。その上に載る業務操作（届け出、承認など）は、Object Ontology で定義してもかまいません。
 
-専用のサンプルはありません。近いものとして、SKOS の構造は [`glossary-skos.ttl`](../../samples/glossary-skos.ttl)、来歴は [`dataset-catalog.ttl`](../../samples/dataset-catalog.ttl) で確かめられます。ガイド: [オントロジー方式の選び方](choosing-ontology-style.md)。
+専用のサンプルはありません。近いものとして、SKOS の構造は [`glossary-skos.ttl`](../../../packages/vscode/samples/glossary-skos.ttl)、来歴は [`dataset-catalog.ttl`](../../../packages/vscode/samples/dataset-catalog.ttl) で確かめられます。ガイド: [オントロジー方式の選び方](choosing-ontology-style.md)。
 
 ## 9. 企業間のデータ連携
 
@@ -109,7 +109,7 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　回答の前に、相手企業の識別子を `sameAs` リンクで解決します。取引先のデータに直接書き込むことはなく、書き込みは自社のオントロジーのアクションを通じてだけ行います。
 
-専用のサンプルはありません。組織をまたいで識別子を共有する例は [`research-kg.ttl`](../../samples/research-kg.ttl) で確かめられます。チュートリアル: [チュートリアル7](tutorial-7-semantic-web-llm.md) の5章と6章。
+専用のサンプルはありません。組織をまたいで識別子を共有する例は [`research-kg.ttl`](../../../packages/vscode/samples/research-kg.ttl) で確かめられます。チュートリアル: [チュートリアル7](../ai/tutorial-7-semantic-web-llm.md) の5章と6章。
 
 ## 10. 業務の言葉で話すオペレーション
 
@@ -119,11 +119,11 @@ Object Ontology が初めてなら、まず [`cafe-orders.oont.yaml`](../../samp
 
 **エージェントがすること**　`eta` フィールドを変更する `markDelayed` を呼んだあと、エージェントはその項目を用語集で引き、メッセージに使う「到着予定時刻」という言葉を得ます。ビューワーは一度に1つのドキュメントしか問い合わせないので、先に2つの Turtle ファイルを1つにまとめておく必要があります。
 
-サンプル: [`delivery-ops.oont.yaml`](../../samples/delivery-ops.oont.yaml) と [`glossary-skos.ttl`](../../samples/glossary-skos.ttl)。チュートリアル: [チュートリアル7](tutorial-7-semantic-web-llm.md) の6章。
+サンプル: [`delivery-ops.oont.yaml`](../../../packages/vscode/samples/delivery-ops.oont.yaml) と [`glossary-skos.ttl`](../../../packages/vscode/samples/glossary-skos.ttl)。チュートリアル: [チュートリアル7](../ai/tutorial-7-semantic-web-llm.md) の6章。
 
 ## 次のステップ
 
 - [チュートリアル5: はじめての Object Ontology](tutorial-5-object-ontology.md) — Object Ontology の作成、表示、編集。
-- [チュートリアル6: Object Ontology × AI エージェント](tutorial-6-object-ontology-ai-agents.md) — アクションをエージェントのツールとして使う。
-- [チュートリアル7: Semantic Web オントロジー × LLM](tutorial-7-semantic-web-llm.md) — 回答の裏付け、SPARQL、用語集、来歴。
+- [チュートリアル6: Object Ontology × AI エージェント](../ai/tutorial-6-object-ontology-ai-agents.md) — アクションをエージェントのツールとして使う。
+- [チュートリアル7: Semantic Web オントロジー × LLM](../ai/tutorial-7-semantic-web-llm.md) — 回答の裏付け、SPARQL、用語集、来歴。
 - [オントロジー方式の選び方](choosing-ontology-style.md) — 方式を選ぶためのガイド。

@@ -148,4 +148,4 @@ The bike's chain, cassette, crankset and derailleur sit inside its drivetrain ki
 - [Tutorial 8: Run It with Claude Code — Object Ontology Agents](tutorial-8-claude-code-object-ontology.md): agents that change data through actions.
 - [Tutorial 7: Semantic Web Ontologies × LLMs](tutorial-7-semantic-web-llm.md): the concepts and verified queries behind this tutorial.
 
-Back to the [tutorial list](../en/).
+Back to the [tutorial list](../).

@@ -51,7 +51,7 @@ RDF/XML や JSON-LD で同じ保証を得るには、それぞれ専用の位置
 
 Object Ontology は、ファイル名が `.oont.yaml`、`.oont.yml`、`.oont.json` で終わる YAML（または JSON）のファイルです。VS Code の言語モードは通常の YAML / JSON のままなので、シンタックスハイライトなど YAML 用のツールはそのまま使えます。拡張機能はファイル名でこの形式を判別します。先頭のキーが `objectOntology` の無題の YAML ドキュメントも対象になるため、**サンプルオントロジーを作成...** で開いたサンプルは保存前から図で表示できます。一般の `.yaml`、`.json`、`.jsonld` のファイルを Object Ontology として扱うことはありません。
 
-トップレベルのキーは、`objectOntology`（形式のバージョン。`1`）、`name`、`description`、`namespace`（RDF に変換するときの IRI。省略可）、`objectTypes`、`interfaces`、`linkTypes`、`actionTypes`、`objects`（サンプルデータ。省略可）です。詳しい構造は同梱の JSON Schema（`schemas/object-ontology.schema.json`）で定義しています。`*.oont.json` には VS Code が自動で適用し、`*.oont.yaml` には Red Hat の YAML 拡張機能が適用します。各セクションの書き方は[はじめての Object Ontology](tutorial-5-object-ontology.md)で順に説明しています。
+トップレベルのキーは、`objectOntology`（形式のバージョン。`1`）、`name`、`description`、`namespace`（RDF に変換するときの IRI。省略可）、`objectTypes`、`interfaces`、`linkTypes`、`actionTypes`、`objects`（サンプルデータ。省略可）です。詳しい構造は同梱の JSON Schema（`schemas/object-ontology.schema.json`）で定義しています。`*.oont.json` には VS Code が自動で適用し、`*.oont.yaml` には Red Hat の YAML 拡張機能が適用します。各セクションの書き方は[はじめての Object Ontology](../learn/tutorial-5-object-ontology.md)で順に説明しています。
 
 図からの編集は YAML ファイルだけが対象です。JSON は表示のみなので、**Object Ontology の JSON を編集用に YAML へ変換...**（または図のバナーのリンク）で YAML にしてから編集してください。図からの編集は Turtle と同じ安全性の規則に従います。YAML の該当箇所だけを最小限のテキスト置換で書き換え、変更後のテキストを再パースし、意図した変更が反映されている場合にだけ適用します。安全に変更できない場合（YAML に構文エラーがあるときや、型がまだ主キーとして指定しているプロパティを削除しようとしたときなど）は、ファイルを書き換えずに理由を示して編集を断ります。
 

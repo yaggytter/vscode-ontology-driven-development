@@ -27,7 +27,7 @@ Run the command **Ontology Viewer: Create Sample Ontology...** from the Command 
 | Plant Maintenance (Object Ontology) | Following links from a sensor alert to a work order. |
 | Support Desk (Object Ontology) | Validations as guard rails for refunds issued by an agent. |
 
-Or just open your own `.ttl` file — nothing special is required. Object Ontology files need the `.oont.yaml` suffix; see [Your First Object Ontology](tutorial-5-object-ontology.md).
+Or just open your own `.ttl` file — nothing special is required. Object Ontology files need the `.oont.yaml` suffix; see [Your First Object Ontology](learn/tutorial-5-object-ontology.md).
 
 ## Open the diagram
 
@@ -53,15 +53,15 @@ The diagram opens beside your file in the **schema view** by default: one node p
 
 ## Next steps
 
-- [Tutorial 1: Build Your First Ontology](tutorial-1-first-ontology.md)
-- [Tutorial 2: Edit From the Diagram](tutorial-2-editing-from-diagram.md)
-- [Tutorial 3: Bring In an Existing .owl File](tutorial-3-importing-owl.md)
-- [Tutorial 4: Ask Questions with SPARQL](tutorial-4-sparql.md)
-- [Tutorial 5: Your First Object Ontology](tutorial-5-object-ontology.md)
-- [Tutorial 6: Object Ontology × AI Agents](tutorial-6-object-ontology-ai-agents.md)
-- [Tutorial 7: Semantic Web Ontologies × LLMs](tutorial-7-semantic-web-llm.md)
-- [Tutorial 8: Run It with Claude Code — Object Ontology Agents](tutorial-8-claude-code-object-ontology.md)
-- [Tutorial 9: Run It with Claude Code — Semantic Web Answers](tutorial-9-claude-code-semantic-web.md)
-- [Choosing an Ontology Style](choosing-ontology-style.md) · [Use Cases](use-cases.md)
-- [Format Support](format-support.md)
-- [Troubleshooting](troubleshooting.md)
+- [Tutorial 1: Build Your First Ontology](learn/tutorial-1-first-ontology.md)
+- [Tutorial 2: Edit From the Diagram](learn/tutorial-2-editing-from-diagram.md)
+- [Tutorial 3: Bring In an Existing .owl File](learn/tutorial-3-importing-owl.md)
+- [Tutorial 4: Ask Questions with SPARQL](learn/tutorial-4-sparql.md)
+- [Tutorial 5: Your First Object Ontology](learn/tutorial-5-object-ontology.md)
+- [Tutorial 6: Object Ontology × AI Agents](ai/tutorial-6-object-ontology-ai-agents.md)
+- [Tutorial 7: Semantic Web Ontologies × LLMs](ai/tutorial-7-semantic-web-llm.md)
+- [Tutorial 8: Run It with Claude Code — Object Ontology Agents](ai/tutorial-8-claude-code-object-ontology.md)
+- [Tutorial 9: Run It with Claude Code — Semantic Web Answers](ai/tutorial-9-claude-code-semantic-web.md)
+- [Choosing an Ontology Style](learn/choosing-ontology-style.md) · [Use Cases](learn/use-cases.md)
+- [Format Support](reference/format-support.md)
+- [Troubleshooting](reference/troubleshooting.md)

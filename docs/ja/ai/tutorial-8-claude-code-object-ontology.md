@@ -236,4 +236,4 @@ Tickets TK-301 and TK-302 both report items that arrived damaged. Refund the dam
 - [チュートリアル9: Claude Code で動かす — Semantic Web と根拠のある回答](tutorial-9-claude-code-semantic-web.md): チュートリアル7の内容を、同じように実際に動かします。
 - [チュートリアル6: Object Ontology × AI エージェント](tutorial-6-object-ontology-ai-agents.md): この構成の考え方。
 
-[チュートリアル一覧](../ja/) に戻る。
+[チュートリアル一覧](../) に戻る。

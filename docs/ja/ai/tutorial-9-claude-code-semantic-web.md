@@ -148,4 +148,4 @@ List every part on the Trailfinder Complete Bike.
 - [チュートリアル8: Claude Code で動かす — Object Ontology とエージェント](tutorial-8-claude-code-object-ontology.md): アクションを通じてデータを変えるエージェント。
 - [チュートリアル7: Semantic Web オントロジー × LLM](tutorial-7-semantic-web-llm.md): このチュートリアルの考え方と、検証済みのクエリ。
 
-[チュートリアル一覧](../ja/) に戻る。
+[チュートリアル一覧](../) に戻る。

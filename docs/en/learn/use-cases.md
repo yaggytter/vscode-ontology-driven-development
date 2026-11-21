@@ -19,7 +19,7 @@ Two reminders apply to every scenario. The extension does not call any LLM; it i
 | 9 | Cross-company data exchange | Semantic Web, often hybrid | No dedicated sample |
 | 10 | Operations that speak the business's language | Hybrid | `delivery-ops.oont.yaml` + `glossary-skos.ttl` |
 
-New to Object Ontology? Start with [`cafe-orders.oont.yaml`](../../samples/cafe-orders.oont.yaml), a small starter with three types and three actions.
+New to Object Ontology? Start with [`cafe-orders.oont.yaml`](../../../packages/vscode/samples/cafe-orders.oont.yaml), a small starter with three types and three actions.
 
 ## 1. Logistics dispatch and delay handling
 
@@ -29,7 +29,7 @@ New to Object Ontology? Start with [`cafe-orders.oont.yaml`](../../samples/cafe-
 
 **What the agent does.** Asked "S-5001 is late, sort it out", the agent reads that S-5001 is delayed on van V-101 (in maintenance), follows the depot link from D-01 to its vehicles, rejects V-201 (another depot, on route, nearly full), picks V-102 (available, 650 kg spare), calls `assignVehicle` (S-5001 to V-102) and then `notifyCustomer` for Bayview Bakery. The tools come from **Export Actions as AI Agent Tools (JSON Schema)...**; the validations in each tool's description tell the agent which calls your backend will reject.
 
-Sample: [`delivery-ops.oont.yaml`](../../samples/delivery-ops.oont.yaml), with an OWL version for comparison in [`delivery-ops.ttl`](../../samples/delivery-ops.ttl). Tutorial: [Tutorial 6](tutorial-6-object-ontology-ai-agents.md).
+Sample: [`delivery-ops.oont.yaml`](../../../packages/vscode/samples/delivery-ops.oont.yaml), with an OWL version for comparison in [`delivery-ops.ttl`](../../../packages/vscode/samples/delivery-ops.ttl). Tutorial: [Tutorial 6](../ai/tutorial-6-object-ontology-ai-agents.md).
 
 ## 2. Plant maintenance from sensor alerts
 
@@ -39,7 +39,7 @@ Sample: [`delivery-ops.oont.yaml`](../../samples/delivery-ops.oont.yaml), with a
 
 **What the agent does.** Sensor SN-301 on machine M-03 "Cap press 3" (line L-02) reports reading R-9002 at 11.8 mm/s against a threshold of 7.1. The agent follows the links from the reading to the machine, checks that M-03 has no open work order (WO-415 is on M-01), calls `createWorkOrder`, assigns technician T-02 Omar Lind, who has the vibrationAnalysis skill, with `assignTechnician`, and reserves bearing kit SP-12, which fits M-03, with `reserveSparePart`.
 
-Sample: [`plant-maintenance.oont.yaml`](../../samples/plant-maintenance.oont.yaml). Tutorial: the same pattern as [Tutorial 6](tutorial-6-object-ontology-ai-agents.md), which uses the delivery sample.
+Sample: [`plant-maintenance.oont.yaml`](../../../packages/vscode/samples/plant-maintenance.oont.yaml). Tutorial: the same pattern as [Tutorial 6](../ai/tutorial-6-object-ontology-ai-agents.md), which uses the delivery sample.
 
 ## 3. Customer support refunds
 
@@ -49,7 +49,7 @@ Sample: [`plant-maintenance.oont.yaml`](../../samples/plant-maintenance.oont.yam
 
 **What the agent does.** Ticket TK-301 (customer CU-01, order OR-7001) is about cracked earbuds worth 4,800 JPY, under the 10,000 JPY limit, so the agent calls `issueRefund`. Ticket TK-302 (customer CU-02, order OR-7002) is about a crushed 24,800 JPY speaker; `issueRefund` would be rejected, so the agent calls `requestRefundApproval`, which creates a pending refund for lead SS-02 Ada Brooks. The extension does not evaluate the validation expressions. Rejecting the oversized refund is your backend's job.
 
-Sample: [`support-desk.oont.yaml`](../../samples/support-desk.oont.yaml). Tutorial: [Tutorial 6](tutorial-6-object-ontology-ai-agents.md).
+Sample: [`support-desk.oont.yaml`](../../../packages/vscode/samples/support-desk.oont.yaml). Tutorial: [Tutorial 6](../ai/tutorial-6-object-ontology-ai-agents.md).
 
 ## 4. Product catalog compatibility
 
@@ -59,7 +59,7 @@ Sample: [`support-desk.oont.yaml`](../../samples/support-desk.oont.yaml). Tutori
 
 **What the agent does.** For "does the 12-speed cassette fit my 11-speed chain?", the assistant queries the catalog instead of guessing. No compatibility is recorded, and the cassette is listed with the 12-speed chain, which replaces the 11-speed one. Because the viewer has no reasoner, the queries spell out symmetry with `UNION` and transitivity with `+`.
 
-Sample: [`product-compatibility.ttl`](../../samples/product-compatibility.ttl). Tutorial: [Tutorial 7](tutorial-7-semantic-web-llm.md), sections 1 and 2.
+Sample: [`product-compatibility.ttl`](../../../packages/vscode/samples/product-compatibility.ttl). Tutorial: [Tutorial 7](../ai/tutorial-7-semantic-web-llm.md), sections 1 and 2.
 
 ## 5. Enterprise glossary and search
 
@@ -69,7 +69,7 @@ Sample: [`product-compatibility.ttl`](../../samples/product-compatibility.ttl). 
 
 **What the agent does.** A retriever maps "ETA" or 「到着予定時刻」 to one concept with five labels, and expands "Last Mile" to its narrower and related terms in English and Japanese before searching. The model quotes the glossary's definitions instead of inventing them.
 
-Sample: [`glossary-skos.ttl`](../../samples/glossary-skos.ttl); a smaller SKOS example is [`community-services-skos.ttl`](../../samples/community-services-skos.ttl). Tutorial: [Tutorial 7](tutorial-7-semantic-web-llm.md), section 3.
+Sample: [`glossary-skos.ttl`](../../../packages/vscode/samples/glossary-skos.ttl); a smaller SKOS example is [`community-services-skos.ttl`](../../../packages/vscode/samples/community-services-skos.ttl). Tutorial: [Tutorial 7](../ai/tutorial-7-semantic-web-llm.md), section 3.
 
 ## 6. Data catalog and lineage
 
@@ -79,7 +79,7 @@ Sample: [`glossary-skos.ttl`](../../samples/glossary-skos.ttl); a smaller SKOS e
 
 **What the agent does.** For "how many people rode the network in March 2026?", the assistant finds the dataset that reports 1,284,300, walks `prov:wasDerivedFrom+` back to the raw counts, and cites publisher and license for each step. It states that the raw data is under an internal-use license and leaves the legal reading to the publisher.
 
-Sample: [`dataset-catalog.ttl`](../../samples/dataset-catalog.ttl). Tutorial: [Tutorial 7](tutorial-7-semantic-web-llm.md), section 4.
+Sample: [`dataset-catalog.ttl`](../../../packages/vscode/samples/dataset-catalog.ttl). Tutorial: [Tutorial 7](../ai/tutorial-7-semantic-web-llm.md), section 4.
 
 ## 7. Research and academic integration
 
@@ -89,7 +89,7 @@ Sample: [`dataset-catalog.ttl`](../../samples/dataset-catalog.ttl). Tutorial: [T
 
 **What the agent does.** "Priya Raman" and "P. Raman" share the identifier `person/0103`, so a query by identifier finds both of her papers where a query by name finds one. The model may suggest that two records look alike; the merge itself happens only through a shared identifier.
 
-Sample: [`research-kg.ttl`](../../samples/research-kg.ttl). Tutorial: [Tutorial 7](tutorial-7-semantic-web-llm.md), section 5.
+Sample: [`research-kg.ttl`](../../../packages/vscode/samples/research-kg.ttl). Tutorial: [Tutorial 7](../ai/tutorial-7-semantic-web-llm.md), section 5.
 
 ## 8. Regulated domains with standard vocabularies
 
@@ -99,7 +99,7 @@ Sample: [`research-kg.ttl`](../../samples/research-kg.ttl). Tutorial: [Tutorial 
 
 **What the agent does.** The same patterns as scenarios 5 and 6: normalize terms to the official concept, and cite the dataset and license behind every figure. Any operations on top (filing, approving) can still be modeled as an Object Ontology.
 
-There is no dedicated sample. The closest are [`glossary-skos.ttl`](../../samples/glossary-skos.ttl) for SKOS structure and [`dataset-catalog.ttl`](../../samples/dataset-catalog.ttl) for provenance. Guide: [Choosing an Ontology Style](choosing-ontology-style.md).
+There is no dedicated sample. The closest are [`glossary-skos.ttl`](../../../packages/vscode/samples/glossary-skos.ttl) for SKOS structure and [`dataset-catalog.ttl`](../../../packages/vscode/samples/dataset-catalog.ttl) for provenance. Guide: [Choosing an Ontology Style](choosing-ontology-style.md).
 
 ## 9. Cross-company data exchange
 
@@ -109,7 +109,7 @@ There is no dedicated sample. The closest are [`glossary-skos.ttl`](../../sample
 
 **What the agent does.** It resolves the other company's identifiers through `sameAs` links before answering, and it never writes to a partner's data directly — only through actions in its own company's ontology.
 
-There is no dedicated sample. [`research-kg.ttl`](../../samples/research-kg.ttl) shows identifiers shared across organizations. Tutorial: [Tutorial 7](tutorial-7-semantic-web-llm.md), sections 5 and 6.
+There is no dedicated sample. [`research-kg.ttl`](../../../packages/vscode/samples/research-kg.ttl) shows identifiers shared across organizations. Tutorial: [Tutorial 7](../ai/tutorial-7-semantic-web-llm.md), sections 5 and 6.
 
 ## 10. Operations that speak the business's language
 
@@ -119,11 +119,11 @@ There is no dedicated sample. [`research-kg.ttl`](../../samples/research-kg.ttl)
 
 **What the agent does.** After calling `markDelayed`, which changes the `eta` field, the agent looks up that field in the glossary and gets 到着予定時刻 for its message. The viewer queries one document at a time, so the two Turtle files must be combined first.
 
-Samples: [`delivery-ops.oont.yaml`](../../samples/delivery-ops.oont.yaml) and [`glossary-skos.ttl`](../../samples/glossary-skos.ttl). Tutorial: [Tutorial 7](tutorial-7-semantic-web-llm.md), section 6.
+Samples: [`delivery-ops.oont.yaml`](../../../packages/vscode/samples/delivery-ops.oont.yaml) and [`glossary-skos.ttl`](../../../packages/vscode/samples/glossary-skos.ttl). Tutorial: [Tutorial 7](../ai/tutorial-7-semantic-web-llm.md), section 6.
 
 ## Next steps
 
 - [Tutorial 5: Your First Object Ontology](tutorial-5-object-ontology.md) — create, view and edit an Object Ontology.
-- [Tutorial 6: Object Ontology × AI Agents](tutorial-6-object-ontology-ai-agents.md) — actions as agent tools.
-- [Tutorial 7: Semantic Web Ontologies × LLMs](tutorial-7-semantic-web-llm.md) — grounding, SPARQL, glossaries, provenance.
+- [Tutorial 6: Object Ontology × AI Agents](../ai/tutorial-6-object-ontology-ai-agents.md) — actions as agent tools.
+- [Tutorial 7: Semantic Web Ontologies × LLMs](../ai/tutorial-7-semantic-web-llm.md) — grounding, SPARQL, glossaries, provenance.
 - [Choosing an Ontology Style](choosing-ontology-style.md) — the decision guide.

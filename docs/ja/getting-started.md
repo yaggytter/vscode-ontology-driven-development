@@ -27,7 +27,7 @@ VS Code Marketplace から **Ontology Viewer** をインストールします（
 | 工場保全（Object Ontology） | センサーの警報からリンクをたどって作業指示を起票する |
 | サポートデスク（Object Ontology） | 検証ルールを、エージェントが行う返金のガードレールにする |
 
-もちろん、お手持ちの `.ttl` ファイルを開くだけでも構いません。特別な準備は不要です。Object Ontology のファイルは拡張子を `.oont.yaml` にしてください。詳しくは[はじめての Object Ontology](tutorial-5-object-ontology.md)で説明しています。
+もちろん、お手持ちの `.ttl` ファイルを開くだけでも構いません。特別な準備は不要です。Object Ontology のファイルは拡張子を `.oont.yaml` にしてください。詳しくは[はじめての Object Ontology](learn/tutorial-5-object-ontology.md)で説明しています。
 
 ## 図を開く
 
@@ -53,15 +53,15 @@ VS Code Marketplace から **Ontology Viewer** をインストールします（
 
 ## 次のステップ
 
-- [チュートリアル1: 最初のオントロジーを作る](tutorial-1-first-ontology.md)
-- [チュートリアル2: 図から編集する](tutorial-2-editing-from-diagram.md)
-- [チュートリアル3: 既存の .owl ファイルを取り込む](tutorial-3-importing-owl.md)
-- [チュートリアル4: SPARQL で問い合わせる](tutorial-4-sparql.md)
-- [チュートリアル5: はじめての Object Ontology](tutorial-5-object-ontology.md)
-- [チュートリアル6: Object Ontology × AI エージェント](tutorial-6-object-ontology-ai-agents.md)
-- [チュートリアル7: Semantic Web オントロジー × LLM](tutorial-7-semantic-web-llm.md)
-- [チュートリアル8: Claude Code で動かす — Object Ontology とエージェント](tutorial-8-claude-code-object-ontology.md)
-- [チュートリアル9: Claude Code で動かす — Semantic Web と根拠のある回答](tutorial-9-claude-code-semantic-web.md)
-- [オントロジー方式の選び方](choosing-ontology-style.md)・[ユースケース集](use-cases.md)
-- [対応形式](format-support.md)
-- [トラブルシューティング](troubleshooting.md)
+- [チュートリアル1: 最初のオントロジーを作る](learn/tutorial-1-first-ontology.md)
+- [チュートリアル2: 図から編集する](learn/tutorial-2-editing-from-diagram.md)
+- [チュートリアル3: 既存の .owl ファイルを取り込む](learn/tutorial-3-importing-owl.md)
+- [チュートリアル4: SPARQL で問い合わせる](learn/tutorial-4-sparql.md)
+- [チュートリアル5: はじめての Object Ontology](learn/tutorial-5-object-ontology.md)
+- [チュートリアル6: Object Ontology × AI エージェント](ai/tutorial-6-object-ontology-ai-agents.md)
+- [チュートリアル7: Semantic Web オントロジー × LLM](ai/tutorial-7-semantic-web-llm.md)
+- [チュートリアル8: Claude Code で動かす — Object Ontology とエージェント](ai/tutorial-8-claude-code-object-ontology.md)
+- [チュートリアル9: Claude Code で動かす — Semantic Web と根拠のある回答](ai/tutorial-9-claude-code-semantic-web.md)
+- [オントロジー方式の選び方](learn/choosing-ontology-style.md)・[ユースケース集](learn/use-cases.md)
+- [対応形式](reference/format-support.md)
+- [トラブルシューティング](reference/troubleshooting.md)

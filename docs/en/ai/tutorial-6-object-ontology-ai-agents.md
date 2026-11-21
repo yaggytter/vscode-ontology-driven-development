@@ -2,7 +2,7 @@
 
 An AI agent that can change real data needs two things from you: an accurate picture of your domain, and a short, strict list of what it is allowed to do. An Object Ontology holds both in one file. This tutorial turns one into an agent's context and tool list, then follows the agent through a delayed delivery.
 
-We'll use **Harbor City Delivery Ops**. Run **Ontology Viewer: Create Sample Ontology...** and pick **Delivery Operations (Object Ontology)**. This creates `delivery-ops.oont.yaml`. If the file format is new to you, start with [Tutorial 5](tutorial-5-object-ontology.md).
+We'll use **Harbor City Delivery Ops**. Run **Ontology Viewer: Create Sample Ontology...** and pick **Delivery Operations (Object Ontology)**. This creates `delivery-ops.oont.yaml`. If the file format is new to you, start with [Tutorial 5](../learn/tutorial-5-object-ontology.md).
 
 The extension makes no network calls and does not call any LLM. It produces text and JSON for you to hand to the agent of your choice.
 
@@ -256,6 +256,6 @@ The Actions panel shows the new line under **Rejected unless** right away. Re-ru
 
 - [Tutorial 8: Run It with Claude Code — Object Ontology Agents](tutorial-8-claude-code-object-ontology.md): run this tutorial's scenario with Claude Code and a working MCP server.
 - [Tutorial 7: Semantic Web Ontologies × LLMs](tutorial-7-semantic-web-llm.md): use the OWL/RDF samples for grounding, glossaries and provenance.
-- [Choosing an Ontology Style](choosing-ontology-style.md): when to use an Object Ontology, and when to use OWL/RDF.
+- [Choosing an Ontology Style](../learn/choosing-ontology-style.md): when to use an Object Ontology, and when to use OWL/RDF.
 
-Back to the [tutorial list](../en/).
+Back to the [tutorial list](../).

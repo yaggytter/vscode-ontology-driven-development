@@ -266,7 +266,7 @@ For an LLM this is the safe way to merge: the model proposes "these look like th
 
 ## 6. Hybrid: an exported Object Ontology plus the glossary
 
-Operational models such as `delivery-ops.oont.yaml` live in the Object Ontology format (see [Choosing an Ontology Style](choosing-ontology-style.md)). To connect one to the glossary, open the YAML file and run **Ontology Viewer: Export Object Ontology as Turtle (OWL)...**. The result is an untitled Turtle document that opens in the viewer.
+Operational models such as `delivery-ops.oont.yaml` live in the Object Ontology format (see [Choosing an Ontology Style](../learn/choosing-ontology-style.md)). To connect one to the glossary, open the YAML file and run **Ontology Viewer: Export Object Ontology as Turtle (OWL)...**. The result is an untitled Turtle document that opens in the viewer.
 
 The viewer queries one document at a time, so to query both together you combine the Turtle. The simplest way is to paste the whole of `glossary-skos.ttl` at the end of the exported document. Turtle allows a later `@prefix :` to redefine the empty prefix, so both halves keep their meaning. For anything larger, load both files into an external triple store.
 
@@ -296,7 +296,7 @@ One row: `markDelayed`, `eta`, `:eta`, 到着予定時刻. An agent that explain
 ## Next steps
 
 - [Tutorial 9: Run It with Claude Code — Semantic Web Answers](tutorial-9-claude-code-semantic-web.md) — let Claude Code write and run these queries, and check them in the viewer.
-- [Tutorial 4: Ask Questions with SPARQL](tutorial-4-sparql.md) — the SPARQL panel in detail.
-- [Tutorial 5: Your First Object Ontology](tutorial-5-object-ontology.md) and [Tutorial 6: Object Ontology × AI Agents](tutorial-6-object-ontology-ai-agents.md) — the operational side of the hybrid setup.
-- [Use Cases](use-cases.md) — which style fits which business scenario.
-- [Choosing an Ontology Style](choosing-ontology-style.md) — Object Ontology vs Semantic Web, side by side.
+- [Tutorial 4: Ask Questions with SPARQL](../learn/tutorial-4-sparql.md) — the SPARQL panel in detail.
+- [Tutorial 5: Your First Object Ontology](../learn/tutorial-5-object-ontology.md) and [Tutorial 6: Object Ontology × AI Agents](tutorial-6-object-ontology-ai-agents.md) — the operational side of the hybrid setup.
+- [Use Cases](../learn/use-cases.md) — which style fits which business scenario.
+- [Choosing an Ontology Style](../learn/choosing-ontology-style.md) — Object Ontology vs Semantic Web, side by side.

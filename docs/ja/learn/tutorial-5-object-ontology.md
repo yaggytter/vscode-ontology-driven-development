@@ -124,7 +124,7 @@ Unknown field "descripton" in object type Ingredient. Expected one of: displayNa
 
 Mark order served には副作用がありません。**副作用** の表示を見たい場合は **Restock ingredient** を選んでください。
 
-図では、選んだアクションが関係するオブジェクト型がオレンジの枠で強調されます。パネル下部の **エージェント用ツールとしてエクスポート** は [チュートリアル6](tutorial-6-object-ontology-ai-agents.md) で使います。
+図では、選んだアクションが関係するオブジェクト型がオレンジの枠で強調されます。パネル下部の **エージェント用ツールとしてエクスポート** は [チュートリアル6](../ai/tutorial-6-object-ontology-ai-agents.md) で使います。
 
 ## 7. SPARQL で問い合わせる
 
@@ -178,7 +178,7 @@ RDF のツールに渡したい場合は **「Ontology Viewer: Object Ontology �
 
 ## 次のステップ
 
-- [チュートリアル6: Object Ontology × AI エージェント](tutorial-6-object-ontology-ai-agents.md): ここで定義したアクションを、AI エージェントが呼び出せるツールにします。
+- [チュートリアル6: Object Ontology × AI エージェント](../ai/tutorial-6-object-ontology-ai-agents.md): ここで定義したアクションを、AI エージェントが呼び出せるツールにします。
 - [オントロジー方式の選び方](choosing-ontology-style.md): Object Ontology と OWL/RDF をどう使い分けるかを説明しています。
 
-[チュートリアル一覧](../ja/) に戻る。
+[チュートリアル一覧](../) に戻る。

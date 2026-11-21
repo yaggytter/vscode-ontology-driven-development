@@ -124,7 +124,7 @@ Click **Actions** in the toolbar. A panel opens on the left with every action ty
 
 Mark order served has no side effects. Select **Restock ingredient** to see one.
 
-On the diagram, the object types the action touches get an orange outline. **Export as agent tools** at the bottom of the panel is the subject of [Tutorial 6](tutorial-6-object-ontology-ai-agents.md).
+On the diagram, the object types the action touches get an orange outline. **Export as agent tools** at the bottom of the panel is the subject of [Tutorial 6](../ai/tutorial-6-object-ontology-ai-agents.md).
 
 ## 7. Ask questions with SPARQL
 
@@ -178,7 +178,7 @@ To hand the ontology to RDF tools, run **Ontology Viewer: Export Object Ontology
 
 ## Next steps
 
-- [Tutorial 6: Object Ontology × AI agents](tutorial-6-object-ontology-ai-agents.md): turn these actions into tools an AI agent can call.
+- [Tutorial 6: Object Ontology × AI agents](../ai/tutorial-6-object-ontology-ai-agents.md): turn these actions into tools an AI agent can call.
 - [Choosing an Ontology Style](choosing-ontology-style.md): when to use an Object Ontology, and when to use OWL/RDF.
 
-Back to the [tutorial list](../en/).
+Back to the [tutorial list](../).

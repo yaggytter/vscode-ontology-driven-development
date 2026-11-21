@@ -2,7 +2,7 @@
 
 実データを変更する AI エージェントには、2つのものを渡す必要があります。ひとつは業務領域の正確な全体像、もうひとつは「やってよいこと」を絞り込んだ厳密な一覧です。Object Ontology なら、この2つを1つのファイルにまとめられます。このチュートリアルでは、オントロジーからエージェント用のコンテキストとツール一覧を作り、配送遅延に対応するエージェントの動きを順に追います。
 
-題材は **Harbor City Delivery Ops** です。**「Ontology Viewer: サンプルオントロジーを作成...」** を実行して **配送オペレーション（Object Ontology）** を選ぶと、`delivery-ops.oont.yaml` が作られます。ファイル形式をまだ知らない場合は、先に [チュートリアル5](tutorial-5-object-ontology.md) を読んでください。
+題材は **Harbor City Delivery Ops** です。**「Ontology Viewer: サンプルオントロジーを作成...」** を実行して **配送オペレーション（Object Ontology）** を選ぶと、`delivery-ops.oont.yaml` が作られます。ファイル形式をまだ知らない場合は、先に [チュートリアル5](../learn/tutorial-5-object-ontology.md) を読んでください。
 
 拡張機能はネットワーク通信を行わず、LLM も呼び出しません。作るのはテキストと JSON だけで、それをどのエージェントに渡すかは利用者が決めます。
 
@@ -256,6 +256,6 @@ read the reason and choose another option instead of retrying unchanged.
 
 - [チュートリアル8: Claude Code で動かす — Object Ontology とエージェント](tutorial-8-claude-code-object-ontology.md): このチュートリアルのシナリオを、Claude Code と実際に動く MCP サーバーで試します。
 - [チュートリアル7: Semantic Web オントロジー × LLM](tutorial-7-semantic-web-llm.md): OWL/RDF のサンプルを、回答の裏付け、用語集、来歴の記録に使います。
-- [オントロジー方式の選び方](choosing-ontology-style.md): Object Ontology と OWL/RDF をどう使い分けるかを説明しています。
+- [オントロジー方式の選び方](../learn/choosing-ontology-style.md): Object Ontology と OWL/RDF をどう使い分けるかを説明しています。
 
-[チュートリアル一覧](../ja/) に戻る。
+[チュートリアル一覧](../) に戻る。

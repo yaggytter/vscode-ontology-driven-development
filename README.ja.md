@@ -12,7 +12,7 @@ OWL、RDF、RDFS、SKOSを、VS Codeから離れずに見やすいスキーマ�
 
 > Ontology Viewerはプレビュー版です。大切なオントロジーではソース管理を有効にし、図から生成された変更をコミット前に確認してください。
 
-![部品互換サンプルを表示した Ontology Viewer。自転車部品のクラス階層で「部品」を選択し、インスペクターにプロパティと関係を表示している](media/ontology-viewer-overview.ja.png)
+![部品互換サンプルを表示した Ontology Viewer。自転車部品のクラス階層で「部品」を選択し、インスペクターにプロパティと関係を表示している](packages/vscode/media/ontology-viewer-overview.ja.png)
 
 ## 触ってわかる使いやすさ
 
@@ -35,11 +35,11 @@ OWL、RDF、RDFS、SKOSを、VS Codeから離れずに見やすいスキーマ�
 | 変更操作 | モデル化しない（SPARQL Update は別の仕組み） | パラメーター・ルール・検証を持つ**アクション型**として定義する |
 | AI との相性 | 回答の裏付け（GraphRAG、用語集、来歴） | 安全な実行（アクションがガードレール付きのエージェント用ツールになる） |
 
-使い分けと組み合わせ方は、[使い分けガイド](docs/ja/choosing-ontology-style.md)と[ユースケース集](docs/ja/use-cases.md)で説明しています。
+使い分けと組み合わせ方は、[使い分けガイド](docs/ja/learn/choosing-ontology-style.md)と[ユースケース集](docs/ja/learn/use-cases.md)で説明しています。
 
 ### Object Ontology の概要
 
-![Harbor City Delivery Ops サンプルでアクションパネルを開いた画面。Assign vehicle のパラメーター、変更内容、拒否条件、副作用が表示され、関係する Shipment と Vehicle が図上で強調されている](media/object-ontology-actions.ja.png)
+![Harbor City Delivery Ops サンプルでアクションパネルを開いた画面。Assign vehicle のパラメーター、変更内容、拒否条件、副作用が表示され、関係する Shipment と Vehicle が図上で強調されている](packages/vscode/media/object-ontology-actions.ja.png)
 
 ```yaml
 objectOntology: 1
@@ -65,7 +65,7 @@ actionTypes:
 - **SPARQL** は RDF に変換したモデル（OWL と `oont:` 語彙）に対して実行します。「各型に対して何ができるか」「オブジェクト間のリンクをたどる」など、Object Ontology 用のクエリ例を8つ用意しています。
 - **AI エージェント向けのエクスポート**は、確認しやすいよう無題のドキュメントとして開きます。アクション型の**ツール定義**（MCP や function calling で使われる JSON Schema 形式）、LLM のコンテキストに入れる Markdown の**要約**、Semantic Web のデータと組み合わせるための **Turtle** の3種類です。拡張機能自体は LLM もネットワークも呼び出しません。
 
-![Corner Cafe Orders サンプルで Order 型を選択した画面。インスペクターに説明、サンプルオブジェクトの数、型付きのプロパティ（主キーに鍵マーク）、リンクが表示されている](media/object-ontology-inspector.ja.png)
+![Corner Cafe Orders サンプルで Order 型を選択した画面。インスペクターに説明、サンプルオブジェクトの数、型付きのプロパティ（主キーに鍵マーク）、リンクが表示されている](packages/vscode/media/object-ontology-inspector.ja.png)
 
 この形式は本拡張機能独自のものです。Palantir のファイル形式ではなく、Foundry とも接続しません。
 
@@ -93,7 +93,7 @@ actionTypes:
 
 ツールバーの **SPARQL** ボタンでパネルを開くと、開いているオントロジーに対して SPARQL 1.1 クエリを実行できます。SELECT・ASK・CONSTRUCT/DESCRIBE に対応しています。**実行**ボタンか `Ctrl`/`Cmd`+`Enter` で実行します。
 
-SPARQL がはじめての方へ: パネルには、どのオントロジーでも動く9つのサンプルクエリが用意されています。「とにかく何か表示する」から OPTIONAL、FILTER、集計、ASK、CONSTRUCT へと進む順序です。選んで実行するだけで試せます。[SPARQL チュートリアル](docs/ja/tutorial-4-sparql.md) で順を追って解説しています。
+SPARQL がはじめての方へ: パネルには、どのオントロジーでも動く9つのサンプルクエリが用意されています。「とにかく何か表示する」から OPTIONAL、FILTER、集計、ASK、CONSTRUCT へと進む順序です。選んで実行するだけで試せます。[SPARQL チュートリアル](docs/ja/learn/tutorial-4-sparql.md) で順を追って解説しています。
 
 結果はテキストで表示され（SELECT はバインディングの表、ASK は真偽値、CONSTRUCT は主語・述語・目的語の行）、図にも反映されます。
 
@@ -101,7 +101,7 @@ SPARQL がはじめての方へ: パネルには、どのオントロジーで�
 - **絞り込み**: 一致しなかったものを淡色化します。検索ボックスやダブルクリックのフォーカスと組み合わせられます。
 - **グラフに反映しない**: テキストの結果のみを表示します。
 
-![配送サンプルに SPARQL クエリを実行し、オブジェクト型ごとに変更できるアクションを一覧した画面。一致した Shipment と Vehicle が図上でハイライトされている](media/object-ontology-sparql.ja.png)
+![配送サンプルに SPARQL クエリを実行し、オブジェクト型ごとに変更できるアクションを一覧した画面。一致した Shipment と Vehicle が図上でハイライトされている](packages/vscode/media/object-ontology-sparql.ja.png)
 
 クエリは拡張機能ホスト内（[Comunica](https://comunica.dev/) を利用）でローカルに実行され、オントロジーの内容が外部に送信されることはありません。
 
@@ -130,7 +130,7 @@ RDF/XMLとJSON-LDはそのまま表示できます。図から編集したい場
 
 SPARQL による問い合わせは、この表のすべての形式で利用できます。パース済みのトリプル（Object Ontology の場合は RDF に変換したモデル）に対して実行されるため、変換は不要です。
 
-パーサーや編集範囲の詳細は[対応形式](docs/ja/format-support.md)をご覧ください。
+パーサーや編集範囲の詳細は[対応形式](docs/ja/reference/format-support.md)をご覧ください。
 
 ## コマンド
 
@@ -158,22 +158,22 @@ SPARQL による問い合わせは、この表のすべての形式で利用で�
 ## ドキュメントとサポート
 
 - [はじめに](docs/ja/getting-started.md)
-- [最初のオントロジーを作る](docs/ja/tutorial-1-first-ontology.md)
-- [図から編集する](docs/ja/tutorial-2-editing-from-diagram.md)
-- [既存のOWLファイルを取り込む](docs/ja/tutorial-3-importing-owl.md)
-- [SPARQLで問い合わせる](docs/ja/tutorial-4-sparql.md)
-- [はじめての Object Ontology](docs/ja/tutorial-5-object-ontology.md)
-- [Object Ontology × AI エージェント](docs/ja/tutorial-6-object-ontology-ai-agents.md)
-- [Semantic Web オントロジー × LLM](docs/ja/tutorial-7-semantic-web-llm.md)
-- [Claude Code で動かす — Object Ontology とエージェント](docs/ja/tutorial-8-claude-code-object-ontology.md)
-- [Claude Code で動かす — Semantic Web と根拠のある回答](docs/ja/tutorial-9-claude-code-semantic-web.md)
-- [オントロジー方式の選び方](docs/ja/choosing-ontology-style.md)・[ユースケース集](docs/ja/use-cases.md)
-- [対応形式](docs/ja/format-support.md)
-- [トラブルシューティング](docs/ja/troubleshooting.md)
+- [最初のオントロジーを作る](docs/ja/learn/tutorial-1-first-ontology.md)
+- [図から編集する](docs/ja/learn/tutorial-2-editing-from-diagram.md)
+- [既存のOWLファイルを取り込む](docs/ja/learn/tutorial-3-importing-owl.md)
+- [SPARQLで問い合わせる](docs/ja/learn/tutorial-4-sparql.md)
+- [はじめての Object Ontology](docs/ja/learn/tutorial-5-object-ontology.md)
+- [Object Ontology × AI エージェント](docs/ja/ai/tutorial-6-object-ontology-ai-agents.md)
+- [Semantic Web オントロジー × LLM](docs/ja/ai/tutorial-7-semantic-web-llm.md)
+- [Claude Code で動かす — Object Ontology とエージェント](docs/ja/ai/tutorial-8-claude-code-object-ontology.md)
+- [Claude Code で動かす — Semantic Web と根拠のある回答](docs/ja/ai/tutorial-9-claude-code-semantic-web.md)
+- [オントロジー方式の選び方](docs/ja/learn/choosing-ontology-style.md)・[ユースケース集](docs/ja/learn/use-cases.md)
+- [対応形式](docs/ja/reference/format-support.md)
+- [トラブルシューティング](docs/ja/reference/troubleshooting.md)
 - [サポート](SUPPORT.ja.md)・[プライバシー](PRIVACY.ja.md)・[セキュリティ](SECURITY.ja.md)
 - [コントリビューション](CONTRIBUTING.ja.md)・[変更履歴](CHANGELOG.ja.md)
 
-不具合を報告する前に、[トラブルシューティング](docs/ja/troubleshooting.md)をご確認ください。再現可能な不具合や具体的な機能提案は、[GitHub Issues](https://github.com/yaggytter/vscode-ontology-viewer/issues)で受け付けています。
+不具合を報告する前に、[トラブルシューティング](docs/ja/reference/troubleshooting.md)をご確認ください。再現可能な不具合や具体的な機能提案は、[GitHub Issues](https://github.com/yaggytter/vscode-ontology-viewer/issues)で受け付けています。
 
 ## プライバシーと信頼性
 

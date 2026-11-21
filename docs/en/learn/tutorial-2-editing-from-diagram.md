@@ -10,7 +10,7 @@ A node is editable — shown with a **dashed border**, and with active fields in
 - entities that only appear nested inside a blank-node property list (`[ ... ]`) or an RDF collection (`( ... )`),
 - properties whose provenance is `inferred` rather than `declared` — i.e. the diagram guessed at them from how they're used, and there's no declaration in the file yet to edit.
 
-Those are documented, deliberate limits — see [Format Support](format-support.md) for why.
+Those are documented, deliberate limits — see [Format Support](../reference/format-support.md) for why.
 
 ## Rename an entity
 

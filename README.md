@@ -12,7 +12,7 @@ It also reads **Object Ontology** files (`*.oont.yaml`): an object-centric forma
 
 > Ontology Viewer is in preview. Keep source control enabled for important ontologies and review diagram-generated changes before committing them.
 
-![Ontology Viewer showing the product-compatibility sample: a class hierarchy of bicycle parts with the Component class selected and its properties and relations in the Inspector](media/ontology-viewer-overview.png)
+![Ontology Viewer showing the product-compatibility sample: a class hierarchy of bicycle parts with the Component class selected and its properties and relations in the Inspector](packages/vscode/media/ontology-viewer-overview.png)
 
 ## Why you will enjoy using it
 
@@ -35,11 +35,11 @@ It also reads **Object Ontology** files (`*.oont.yaml`): an object-centric forma
 | Changes | Not modeled (SPARQL Update is separate) | First-class **action types** with parameters, rules and validations |
 | Best AI fit | Grounding answers: GraphRAG, glossaries, provenance | Acting safely: actions become typed agent tools with guard rails |
 
-The [choosing guide](docs/en/choosing-ontology-style.md) and the [use-case catalog](docs/en/use-cases.md) explain when to use which, and how to combine them.
+The [choosing guide](docs/en/learn/choosing-ontology-style.md) and the [use-case catalog](docs/en/learn/use-cases.md) explain when to use which, and how to combine them.
 
 ### Object Ontology at a glance
 
-![The Harbor City Delivery Ops sample with the Actions panel open: Assign vehicle lists its parameters, effects, rejection rules and side effects, and the Shipment and Vehicle types it touches are outlined](media/object-ontology-actions.png)
+![The Harbor City Delivery Ops sample with the Actions panel open: Assign vehicle lists its parameters, effects, rejection rules and side effects, and the Shipment and Vehicle types it touches are outlined](packages/vscode/media/object-ontology-actions.png)
 
 ```yaml
 objectOntology: 1
@@ -65,7 +65,7 @@ actionTypes:
 - **SPARQL** runs over an RDF projection (OWL + an `oont:` vocabulary), with eight Object-Ontology example queries such as "what can be done to each type?" and "follow links between objects".
 - **AI-agent exports** open as untitled documents for you to review: action types as **tool definitions** (JSON Schema, the shape used by MCP and function-calling APIs), a compact **LLM context summary** in Markdown, and **Turtle** for combining with Semantic Web data. The extension itself never calls an LLM or the network.
 
-![The Corner Cafe Orders sample with the Order type selected: the Inspector shows its description, example-object count, typed properties with the primary key marked, and its links](media/object-ontology-inspector.png)
+![The Corner Cafe Orders sample with the Order type selected: the Inspector shows its description, example-object count, typed properties with the primary key marked, and its links](packages/vscode/media/object-ontology-inspector.png)
 
 The format is this extension's own; it is not Palantir's file format and does not connect to Foundry.
 
@@ -93,7 +93,7 @@ Continue with the [Getting Started guide](docs/en/getting-started.md) or the han
 
 Open the **SPARQL** panel from the toolbar to run SPARQL 1.1 queries against the ontology you have open. SELECT, ASK, and CONSTRUCT/DESCRIBE are supported. Press **Run** or `Ctrl`/`Cmd`+`Enter` to execute.
 
-New to SPARQL? The panel ships nine example queries that work on any ontology, ordered from "show me anything" up through OPTIONAL, FILTER, aggregation, ASK, and CONSTRUCT — pick one and run it. The [SPARQL tutorial](docs/en/tutorial-4-sparql.md) walks through them.
+New to SPARQL? The panel ships nine example queries that work on any ontology, ordered from "show me anything" up through OPTIONAL, FILTER, aggregation, ASK, and CONSTRUCT — pick one and run it. The [SPARQL tutorial](docs/en/learn/tutorial-4-sparql.md) walks through them.
 
 Results show as text — a table of bindings for SELECT, a boolean for ASK, or subject/predicate/object rows for CONSTRUCT — and are reflected on the diagram:
 
@@ -101,7 +101,7 @@ Results show as text — a table of bindings for SELECT, a boolean for ASK, or s
 - **Filter** dims everything the query did not match, and composes with the search box and double-click focus.
 - **No graph effect** shows the text result only.
 
-![A SPARQL query over the delivery sample listing which actions may change each object type; the matching Shipment and Vehicle types are highlighted on the diagram](media/object-ontology-sparql.png)
+![A SPARQL query over the delivery sample listing which actions may change each object type; the matching Shipment and Vehicle types are highlighted on the diagram](packages/vscode/media/object-ontology-sparql.png)
 
 Queries execute locally in the extension host (powered by [Comunica](https://comunica.dev/)); no ontology contents leave your machine.
 
@@ -130,7 +130,7 @@ RDF/XML and JSON-LD are viewable directly. Use **Ontology Viewer: Convert to Tur
 
 SPARQL querying works on every format in this table — it runs against the parsed triples (or, for Object Ontology files, their RDF projection), so no conversion is needed.
 
-See [Format Support](docs/en/format-support.md) for parser and editing details.
+See [Format Support](docs/en/reference/format-support.md) for parser and editing details.
 
 ## Commands
 
@@ -158,22 +158,22 @@ See [Format Support](docs/en/format-support.md) for parser and editing details.
 ## Documentation and help
 
 - [Getting Started](docs/en/getting-started.md)
-- [Build Your First Ontology](docs/en/tutorial-1-first-ontology.md)
-- [Edit From the Diagram](docs/en/tutorial-2-editing-from-diagram.md)
-- [Import an Existing OWL File](docs/en/tutorial-3-importing-owl.md)
-- [Ask Questions with SPARQL](docs/en/tutorial-4-sparql.md)
-- [Your First Object Ontology](docs/en/tutorial-5-object-ontology.md)
-- [Object Ontology × AI Agents](docs/en/tutorial-6-object-ontology-ai-agents.md)
-- [Semantic Web Ontologies × LLMs](docs/en/tutorial-7-semantic-web-llm.md)
-- [Run It with Claude Code — Object Ontology Agents](docs/en/tutorial-8-claude-code-object-ontology.md)
-- [Run It with Claude Code — Semantic Web Answers](docs/en/tutorial-9-claude-code-semantic-web.md)
-- [Choosing an Ontology Style](docs/en/choosing-ontology-style.md) · [Use Cases](docs/en/use-cases.md)
-- [Format Support](docs/en/format-support.md)
-- [Troubleshooting](docs/en/troubleshooting.md)
+- [Build Your First Ontology](docs/en/learn/tutorial-1-first-ontology.md)
+- [Edit From the Diagram](docs/en/learn/tutorial-2-editing-from-diagram.md)
+- [Import an Existing OWL File](docs/en/learn/tutorial-3-importing-owl.md)
+- [Ask Questions with SPARQL](docs/en/learn/tutorial-4-sparql.md)
+- [Your First Object Ontology](docs/en/learn/tutorial-5-object-ontology.md)
+- [Object Ontology × AI Agents](docs/en/ai/tutorial-6-object-ontology-ai-agents.md)
+- [Semantic Web Ontologies × LLMs](docs/en/ai/tutorial-7-semantic-web-llm.md)
+- [Run It with Claude Code — Object Ontology Agents](docs/en/ai/tutorial-8-claude-code-object-ontology.md)
+- [Run It with Claude Code — Semantic Web Answers](docs/en/ai/tutorial-9-claude-code-semantic-web.md)
+- [Choosing an Ontology Style](docs/en/learn/choosing-ontology-style.md) · [Use Cases](docs/en/learn/use-cases.md)
+- [Format Support](docs/en/reference/format-support.md)
+- [Troubleshooting](docs/en/reference/troubleshooting.md)
 - [Support](SUPPORT.md) · [Privacy](PRIVACY.md) · [Security](SECURITY.md)
 - [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md)
 
-Before opening an issue, check the [troubleshooting guide](docs/en/troubleshooting.md). Bugs and focused feature requests are welcome in [GitHub Issues](https://github.com/yaggytter/vscode-ontology-viewer/issues).
+Before opening an issue, check the [troubleshooting guide](docs/en/reference/troubleshooting.md). Bugs and focused feature requests are welcome in [GitHub Issues](https://github.com/yaggytter/vscode-ontology-viewer/issues).
 
 ## Privacy and trust
 
