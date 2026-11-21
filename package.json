@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "npm run build -w packages/core && npm run build -w packages/cli",
     "compile": "npm run compile -w packages/vscode",
     "lint": "eslint packages",
     "typecheck": "npm run typecheck --workspaces --if-present",

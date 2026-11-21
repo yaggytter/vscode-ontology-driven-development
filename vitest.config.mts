@@ -9,12 +9,13 @@ export default defineConfig({
   resolve: { conditions: ["source"] },
   ssr: { resolve: { conditions: ["source"] } },
   test: {
-    projects: ["packages/core", "packages/vscode"],
+    projects: ["packages/core", "packages/cli", "packages/vscode"],
     coverage: {
       provider: "v8",
       reporter: ["text", "html"],
       include: [
         "packages/core/src/**",
+        "packages/cli/src/**",
         "packages/vscode/src/rdf/**",
         "packages/vscode/src/edit/**",
         "packages/vscode/src/objectOntology/**",

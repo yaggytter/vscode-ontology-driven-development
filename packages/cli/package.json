@@ -1,0 +1,40 @@
+{
+  "name": "@yaggytter/object-ontology-cli",
+  "version": "0.0.0",
+  "private": true,
+  "description": "oont: validate Object Ontology files and export them for AI agents and RDF tools, outside VS Code.",
+  "license": "SEE LICENSE IN LICENSE",
+  "bin": {
+    "oont": "./bin/oont.js"
+  },
+  "main": "./dist/cli.js",
+  "types": "./dist/cli.d.ts",
+  "exports": {
+    ".": {
+      "source": "./src/cli.ts",
+      "types": "./dist/cli.d.ts",
+      "default": "./dist/cli.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit -p ./",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@yaggytter/object-ontology-core": "0.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.7.2",
+    "vitest": "^5.0.5"
+  }
+}
