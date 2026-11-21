@@ -45,6 +45,15 @@ The workspace already contains both exports, so you can skip this step. Doing it
 2. Run **ODD: Export Actions as AI Agent Tools (JSON Schema)...**. Save the untitled document over `delivery/delivery-ops.tools.json`. Git shows no change, because the shipped file is exactly this output.
 3. Run **ODD: Export Ontology Summary for LLM Context...** and compare it with the `<ontology>` block in `delivery/CLAUDE.md`. It is the same text.
 
+The [`oont` CLI](../reference/cli.md) does the same from a terminal in `examples/claude-code/object-ontology-mcp`, which is convenient when you re-export after every change in [section 5](#5-change-the-ontology-and-let-the-server-refuse-until-it-can-check):
+
+```sh
+oont export tools delivery/delivery-ops.oont.yaml -o delivery/delivery-ops.tools.json
+oont export summary delivery/delivery-ops.oont.yaml
+```
+
+The first command leaves `git status` clean, because its output is byte for byte the shipped file.
+
 The rest of `CLAUDE.md` is the system prompt from [tutorial 6, section 4](tutorial-6-object-ontology-ai-agents.md#4-wire-it-up). It adds two rules this setup needs: never edit `state.json` to change data, and trust the read tools over the example objects in the summary.
 
 ## 2. Start Claude Code in the delivery workspace

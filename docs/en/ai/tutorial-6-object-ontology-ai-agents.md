@@ -4,7 +4,7 @@ An AI agent that can change real data needs two things from you: an accurate pic
 
 We'll use **Harbor City Delivery Ops**. Run **ODD: Create Sample Ontology...** and pick **Delivery Operations (Object Ontology)**. This creates `delivery-ops.oont.yaml`. If the file format is new to you, start with [Tutorial 5](../learn/tutorial-5-object-ontology.md).
 
-The extension makes no network calls and does not call any LLM. It produces text and JSON for you to hand to the agent of your choice.
+The extension makes no network calls and does not call any LLM. It produces text and JSON for you to hand to the agent of your choice. The [`oont` CLI](../reference/cli.md) produces the same exports from a terminal.
 
 To run this setup end to end, with Claude Code as the agent and a ready-made MCP server, see [Tutorial 8](tutorial-8-claude-code-object-ontology.md).
 
@@ -68,9 +68,11 @@ Side effects:
 
 The full document also lists the other types, the `Trackable` interface, the remaining actions, and up to three example objects per type.
 
+> **From the command line.** `oont export summary delivery-ops.oont.yaml` writes the same summary to standard output, and `-o <file>` saves it. This is handy in scripts and CI, where there is no editor. See the [CLI reference](../reference/cli.md).
+
 ## 2. Export the agent tools
 
-Run **ODD: Export Actions as AI Agent Tools (JSON Schema)...**, or click **Export as agent tools** in the Actions panel. You get an untitled JSON document shaped as `{ "source": {...}, "tools": [...] }`, with one tool per action type. These are two of the four tools, exactly as exported:
+Run **ODD: Export Actions as AI Agent Tools (JSON Schema)...**, or click **Export as agent tools** in the Actions panel. You get an untitled JSON document shaped as `{ "source": {...}, "tools": [...] }`, with one tool per action type. From the command line, `oont export tools delivery-ops.oont.yaml -o delivery-ops.tools.json` writes the same JSON. These are two of the four tools, exactly as exported:
 
 ```json
 {

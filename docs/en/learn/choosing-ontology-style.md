@@ -2,6 +2,8 @@
 
 Ontology-Driven Development works with two kinds of ontology. **Object Ontology** (`*.oont.yaml`) is this extension's own format, inspired by Palantir Foundry's ontology: object types, properties, link types, interfaces, and *action types*. **Semantic Web** ontologies (OWL/RDF in Turtle, RDF/XML and other formats) are the W3C standard. This guide explains how they differ, shows the same domain written both ways, and helps you decide which to use — or how to use both.
 
+**In ontology-driven development**, the two styles play different roles. The Object Ontology is the center: it holds the concepts and operations you extract from the requirements, carries the requirement IDs, and drives the code and the AI agents. Semantic Web ontologies are the connection layer: they link that center to glossaries, standard vocabularies and external knowledge, for example through the Turtle export of an Object Ontology. See [What Is Ontology-Driven Development?](../odd/what-is-odd.md).
+
 ## 1. The core difference
 
 An Object Ontology answers the question **"what do we operate on, and what are we allowed to do to it?"** It describes business objects with primary keys, the links between them, and the actions that change them, each with typed parameters, preconditions and side effects. A Semantic Web ontology answers **"what are things, and how do they relate?"** It describes classes, properties and individuals with globally unique IRIs, so that facts from different sources can be joined, reused and reasoned over. The first is built around *doing*; the second around *knowing*.

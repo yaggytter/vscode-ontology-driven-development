@@ -61,6 +61,43 @@ The toast explains why. The usual causes are a YAML syntax error elsewhere in th
 
 That is expected. `validations` and their `expr` strings are written into the tool descriptions so the model knows the rules, but the extension does not evaluate them, and it never calls a model or a service. Enforce the same checks in the code that executes the tool (your MCP server or backend). See [Object Ontology × AI Agents](../ai/tutorial-6-object-ontology-ai-agents.md). [Tutorial 8](../ai/tutorial-8-claude-code-object-ontology.md) has a working MCP server that enforces them, and refuses an action whose check is not implemented yet.
 
+## A requirement warning I don't understand
+
+- **`Requirement "REQ-008" is not referenced by any element.`** The registry lists a requirement that no object type, interface, link type, action type or validation names in its `requirements:` list. Add the reference to the element that realizes it, or remove the entry if the requirement was dropped. While you are still building the ontology, these warnings are your to-do list.
+- **`Requirement IDs are not checked because there is no top-level requirements registry.`** Elements have `requirements:` lists, but the file has no top-level `requirements:` registry, so the IDs cannot be checked. Add the registry.
+- **`Requirement "REQ-04" is not defined in requirements.`** The reference does not match any registry ID, usually because of a typo.
+
+The [format reference](object-ontology-format.md#requirement-diagnostics) lists all six requirement diagnostics.
+
+## CLI (`oont`)
+
+### `oont: command not found`
+
+The CLI has not been published to npm yet. Build it from a clone of this repository with `npm ci && npm run build`, then run `node <clone>/packages/cli/bin/oont.js`, or define an alias as shown in the [CLI reference](cli.md#install).
+
+### Exit code 2
+
+Exit code 2 means the command could not run at all. `oont` prints the reason, followed by the usage text, on standard error. The causes are:
+
+- a usage mistake: an unknown command, option, `--format` value or export kind, or a missing file argument;
+- a file that does not exist, cannot be read, or (for `-o`) cannot be written;
+- a file named on the command line that is not an Object Ontology (next section);
+- a directory with no `*.oont.yaml`, `*.oont.yml` or `*.oont.json` files in it (`No Object Ontology files ... found in ...`).
+
+Exit code 1, by contrast, means the files were checked and have errors (or warnings, with `--strict`).
+
+### "is not an Object Ontology file"
+
+```text
+oont: notes.yaml is not an Object Ontology file (expected *.oont.yaml|yml|json or a first key objectOntology).
+```
+
+`oont validate` checks a file named on the command line only if its name ends in `.oont.yaml`, `.oont.yml` or `.oont.json`, or if its first key is `objectOntology`. Rename the file (for example `notes.yaml` to `notes.oont.yaml`) or make `objectOntology: 1` its first line. When you pass a directory instead, only `*.oont.*` files are searched, whatever their content, and `node_modules` and dot directories are skipped.
+
+### `oont export` printed diagnostics and wrote nothing
+
+`export` writes nothing when the file has errors, and exits with code 1. Fix the errors it printed on standard error (the same ones `oont validate` reports) and run it again. Warnings alone do not stop an export. `export` does not check the file name, so a file that is not an Object Ontology also ends here, with ``Missing `objectOntology: 1` `` among the errors.
+
 ## Still stuck?
 
 Open an issue on the project's GitHub repository with:

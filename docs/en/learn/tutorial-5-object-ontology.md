@@ -128,7 +128,7 @@ On the diagram, the object types the action touches get an orange outline. **Exp
 
 ## 7. Ask questions with SPARQL
 
-Click **SPARQL**. This is the same panel as in [Tutorial 4](tutorial-4-sparql.md), but **Examples:** now lists eight Object Ontology queries. They use only the `oont:` vocabulary (`urn:object-ontology:vocab#`), so they work on any `*.oont.yaml` file.
+Click **SPARQL**. This is the same panel as in [Tutorial 4](tutorial-4-sparql.md), but **Examples:** now lists nine Object Ontology queries. They use only the `oont:` vocabulary (`urn:object-ontology:vocab#`), so they work on any `*.oont.yaml` file.
 
 Choose **3. What can be done to each type?**:
 
@@ -169,6 +169,27 @@ ORDER BY ?label
 ```
 
 It returns two rows: **Mark order served** (`modifyObject`) and **Place order** (`createObject`).
+
+## Requirement IDs and `x-` fields
+
+Two optional additions connect an ontology to the rest of your project. The cafe sample does not use them; **Meeting Room Booking (Object Ontology)** does.
+
+**Requirement IDs.** A top-level `requirements:` registry lists requirement IDs with short titles, and object types, interfaces, link types, action types and validations say which requirements they realize:
+
+```yaml
+requirements:
+  REQ-001: Customers can order from the menu
+objectTypes:
+  Order:
+    requirements: [REQ-001]
+    # ...
+```
+
+The Problems panel reports a reference to an ID that is not in the registry as an error, and a registry entry that nothing references as a warning. The Inspector and the Actions panel list each element's requirements, and SPARQL example **9. Requirements and the elements that realize them** traces them all.
+
+**`x-` fields.** Any key that starts with `x-`, such as `x-owner: kitchen`, is an extension field. The tools ignore it and keep it when you edit from the diagram, so you can record notes for later phases or your own tools.
+
+The [format reference](../reference/object-ontology-format.md) has the ID rules, every place these fields are allowed, and the full list of diagnostics. [From Requirements to an Ontology](../odd/tutorial-requirements-to-ontology.md) uses them in a hands-on walkthrough.
 
 ## JSON or YAML?
 

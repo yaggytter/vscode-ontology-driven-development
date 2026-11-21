@@ -128,7 +128,7 @@ Mark order served には副作用がありません。**副作用** の表示を
 
 ## 7. SPARQL で問い合わせる
 
-**SPARQL** を押します。[チュートリアル4](tutorial-4-sparql.md) と同じパネルですが、**サンプル:** には Object Ontology 用のクエリが8つ並びます。どれも `oont:` 語彙（`urn:object-ontology:vocab#`）だけを使っているので、どの `*.oont.yaml` でも動きます。
+**SPARQL** を押します。[チュートリアル4](tutorial-4-sparql.md) と同じパネルですが、**サンプル:** には Object Ontology 用のクエリが9つ並びます。どれも `oont:` 語彙（`urn:object-ontology:vocab#`）だけを使っているので、どの `*.oont.yaml` でも動きます。
 
 **「3. 各型に対して何ができるか」** を選びます。
 
@@ -169,6 +169,27 @@ ORDER BY ?label
 ```
 
 結果は **Mark order served**（`modifyObject`）と **Place order**（`createObject`）の2行です。
+
+## 要件 ID と `x-` フィールド
+
+オントロジーをプロジェクトのほかの部分とつなぐために、任意で書けるものが2つあります。カフェのサンプルでは使っていませんが、**会議室予約（Object Ontology）** では使っています。
+
+**要件 ID**：トップレベルの `requirements:`（要件台帳）に要件 ID と短い見出しを並べ、オブジェクト型、インターフェース、リンク型、アクション型、validation に、実現する要件を書きます。
+
+```yaml
+requirements:
+  REQ-001: 客はメニューから注文できる
+objectTypes:
+  Order:
+    requirements: [REQ-001]
+    # ...
+```
+
+台帳にない ID を参照すると「問題」パネルにエラーが、どこからも参照されていない台帳の要件には警告が出ます。Inspector とアクションパネルには各要素の要件が表示され、SPARQL のサンプル **9. 要件と、それを実現する要素** ですべてをたどれます。
+
+**`x-` フィールド**：`x-owner: kitchen` のように `x-` で始まるキーは拡張フィールドです。ツールは無視し、図から編集しても消さないので、後の工程や自作ツールのためのメモを残せます。
+
+ID の規則、これらのフィールドを書ける場所、診断の一覧は[形式リファレンス](../reference/object-ontology-format.md)にあります。[要件からオントロジーを作る](../odd/tutorial-requirements-to-ontology.md)では、ハンズオンで使い方を試せます。
 
 ## JSON と YAML のどちらを使うか
 

@@ -51,7 +51,16 @@ If verification fails, nothing is written, and you'll see an error explaining wh
 
 Object Ontology documents are YAML (or JSON) files whose name ends in `.oont.yaml`, `.oont.yml`, or `.oont.json`. They keep VS Code's normal YAML/JSON language mode, so syntax highlighting and other YAML tooling keep working; the extension recognizes them by file name. An untitled YAML document whose first key is `objectOntology` is recognized too, which is how samples opened with **Create Sample Ontology...** work before you save them. Ordinary `.yaml`, `.json`, and `.jsonld` files are never treated as Object Ontologies.
 
-The top-level keys are `objectOntology` (the format version, `1`), `name`, `description`, `namespace` (optional IRI for the RDF projection), `objectTypes`, `interfaces`, `linkTypes`, `actionTypes`, and `objects` (optional example data). The full shape is defined by the bundled JSON Schema, `schemas/object-ontology.schema.json`, which VS Code applies to `*.oont.json` automatically and the Red Hat YAML extension applies to `*.oont.yaml`. [Your First Object Ontology](../learn/tutorial-5-object-ontology.md) walks through every section.
+The top-level keys are `objectOntology` (the format version, `1`), `name`, `description`, `namespace` (optional IRI for the RDF projection), `objectTypes`, `interfaces`, `linkTypes`, `actionTypes`, `objects` (optional example data), and `requirements` (an optional requirements registry). The full shape is defined by the bundled JSON Schema, `schemas/object-ontology.schema.json`, which VS Code applies to `*.oont.json` automatically and the Red Hat YAML extension applies to `*.oont.yaml`. [Your First Object Ontology](../learn/tutorial-5-object-ontology.md) walks through every section, and the [Object Ontology Format Reference](object-ontology-format.md) lists every field.
+
+### Requirement IDs and `x-` fields
+
+Two optional additions to version 1 need no change to existing files:
+
+- **Requirement IDs**: a top-level `requirements:` registry (ID → title) and `requirements: [ID, ...]` references on object types, interfaces, link types, action types and validations. Six diagnostics with codes, such as `requirement-undefined` (error) and `requirement-unreferenced` (warning), check them. The Inspector and the Actions panel show each element's requirements. In the RDF projection, requirements become `oont:Requirement` resources that elements point to with `oont:satisfies`, so SPARQL can trace them.
+- **`x-` extension fields**: keys starting with `x-` are allowed in every mapping with fixed fields. They raise no warnings, are kept by diagram edits, and are left out of the exports and the RDF projection.
+
+The [`oont` CLI](cli.md) reads the same files and reports the same diagnostics outside VS Code.
 
 Editing from the diagram works on YAML files only. JSON files are view-only; use **Convert Object Ontology JSON to YAML for Editing...** (or the link in the diagram banner). Diagram edits follow the same safety rule as Turtle: the change is a minimal text replacement at the exact YAML location, the proposed text is re-parsed, and the edit is applied only if the intended change is present. When an edit cannot be placed safely (for example, while the YAML has a syntax error, or when deleting a primary key that the type still names), it is refused with an explanation instead of rewriting the file.
 
