@@ -216,5 +216,10 @@
   "Plant Maintenance (Object Ontology)": "Plant Maintenance (Object Ontology)",
   "Follow links from a sensor alert to a work order": "Follow links from a sensor alert to a work order",
   "Support Desk (Object Ontology)": "Support Desk (Object Ontology)",
-  "Validations as guard rails for agent-issued refunds": "Validations as guard rails for agent-issued refunds"
+  "Validations as guard rails for agent-issued refunds": "Validations as guard rails for agent-issued refunds",
+  "Requirements": "Requirements",
+  "9. Requirements and the elements that realize them": "9. Requirements and the elements that realize them",
+  "Each requirement in the registry with the object types, links, actions and validations that reference it.": "Each requirement in the registry with the object types, links, actions and validations that reference it.",
+  "Meeting Room Booking (Object Ontology)": "Meeting Room Booking (Object Ontology)",
+  "Requirement IDs traced to every element (ontology-driven development)": "Requirement IDs traced to every element (ontology-driven development)"
 }

@@ -55,6 +55,7 @@ export function uiStrings(kind: DocumentKindName): UiStrings {
     entitiesLabel: vscode.l10n.t("Entities"),
     relationsLabel: vscode.l10n.t("Relations"),
     propertiesLabel: vscode.l10n.t("Properties"),
+    requirementsLabel: vscode.l10n.t("Requirements"),
     instancesLabel: vscode.l10n.t("{0} instances"),
     unattachedHeading: vscode.l10n.t("Unattached properties"),
     revealInSource: vscode.l10n.t("Reveal in source"),

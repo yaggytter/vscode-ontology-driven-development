@@ -47,6 +47,7 @@ export function renderActionDetails(action: ActionView, strings: UiStrings): HTM
         section(strings.actionRulesLabel, action.rules),
         section(strings.actionValidationsLabel, action.validations),
         section(strings.actionSideEffectsLabel, action.sideEffects),
+        section(strings.requirementsLabel, action.requirements ?? []),
       ].filter((el): el is HTMLElement => el !== undefined),
     ],
   });

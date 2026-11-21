@@ -103,6 +103,13 @@ export interface SchemaProperty {
   provenance: Provenance;
 }
 
+/** A requirement an Object Ontology element realizes (P1 F1), as shown in the Inspector. */
+export interface SchemaRequirement {
+  id: string;
+  /** Empty when the ID is not in the registry (the Problems panel reports that). */
+  title: string;
+}
+
 export interface SchemaEntity {
   /** Fully resolved IRI — the diagram node id. */
   id: string;
@@ -122,6 +129,8 @@ export interface SchemaEntity {
   };
   /** A validated `#rrggbb`-family literal found in the document, if any. */
   colorOverride?: string;
+  /** Object Ontology only, and only when the element references requirements. */
+  requirements?: SchemaRequirement[];
 }
 
 export interface SchemaRelation {
@@ -136,6 +145,8 @@ export interface SchemaRelation {
   inverseOfIri?: string;
   provenance: Provenance;
   attributes?: { name: string; type: PropertyType }[];
+  /** Object Ontology only, and only when the link type references requirements. */
+  requirements?: SchemaRequirement[];
 }
 
 export interface UnattachedProperty {

@@ -1,4 +1,4 @@
-import type { Cardinality, PropertyType, SchemaEntity, SchemaModel, SchemaProperty, SchemaRelation } from "../rdf/schemaModel";
+import type { Cardinality, PropertyType, SchemaEntity, SchemaModel, SchemaProperty, SchemaRelation, SchemaRequirement } from "../rdf/schemaModel";
 import { assignRelationalAppearance, DEFAULT_CLASS_ICON, iconFor, looksLikeColor, looksLikeIcon } from "../rdf/appearance";
 import {
   linkTypeIri,
@@ -53,6 +53,11 @@ function toSchemaProperty(ns: string, owner: string, property: OoProperty, prima
  */
 export function objectOntologyToSchemaModel(ontology: ObjectOntology): SchemaModel {
   const ns = ontology.namespace;
+  const titles = new Map(ontology.requirements.map((r) => [r.id, r.title]));
+  // Spread into an entity or relation only when it references requirements,
+  // so models of files without requirements stay exactly as before.
+  const requirementsOf = (ids: readonly string[]): { requirements?: SchemaRequirement[] } =>
+    ids.length > 0 ? { requirements: ids.map((id) => ({ id, title: titles.get(id) ?? "" })) } : {};
   const instanceCounts = new Map<string, number>();
   for (const record of ontology.objects) {
     instanceCounts.set(record.objectType, (instanceCounts.get(record.objectType) ?? 0) + 1);
@@ -72,6 +77,7 @@ export function objectOntologyToSchemaModel(ontology: ObjectOntology): SchemaMod
         colorIndex: 0,
         connectionGroup: { index: 1, count: 1, size: 1 },
         colorOverride: type.color && looksLikeColor(type.color) ? type.color.trim() : undefined,
+        ...requirementsOf(type.requirements),
       };
     }),
     ...ontology.interfaces.map((iface): SchemaEntity => ({
@@ -84,6 +90,7 @@ export function objectOntologyToSchemaModel(ontology: ObjectOntology): SchemaMod
       icon: DEFAULT_INTERFACE_ICON,
       colorIndex: 0,
       connectionGroup: { index: 1, count: 1, size: 1 },
+      ...requirementsOf(iface.requirements),
     })),
   ];
   const known = new Set(entities.map((e) => e.id));
@@ -106,6 +113,7 @@ export function objectOntologyToSchemaModel(ontology: ObjectOntology): SchemaMod
       cardinality: linkCardinality(link),
       description: link.description,
       provenance: "declared",
+      ...requirementsOf(link.requirements),
     });
   }
   const hierarchy = (kind: "implements" | "extends", child: string, parents: readonly string[]): void => {

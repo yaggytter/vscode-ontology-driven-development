@@ -107,6 +107,11 @@ function labelFor(id: string): { name: string; description: string } | undefined
         name: vscode.l10n.t("8. Interfaces and implementers"),
         description: vscode.l10n.t("Each interface and the object types that implement it."),
       };
+    case "oo-requirements":
+      return {
+        name: vscode.l10n.t("9. Requirements and the elements that realize them"),
+        description: vscode.l10n.t("Each requirement in the registry with the object types, links, actions and validations that reference it."),
+      };
     default:
       return undefined;
   }
