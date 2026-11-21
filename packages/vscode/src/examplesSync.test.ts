@@ -12,10 +12,11 @@ import { objectOntologyToTurtle } from "./objectOntology/export/turtle";
  * by exporting those files themselves, so the copies must be byte-for-byte
  * what the current extension produces.
  */
-const ROOT = join(__dirname, "..");
-const SAMPLES = join(ROOT, "samples");
-const MCP = join(ROOT, "examples", "claude-code", "object-ontology-mcp");
-const SPARQL = join(ROOT, "examples", "claude-code", "semantic-web-sparql");
+const PACKAGE_ROOT = join(__dirname, "..");
+const REPO_ROOT = join(PACKAGE_ROOT, "..", "..");
+const SAMPLES = join(PACKAGE_ROOT, "samples");
+const MCP = join(REPO_ROOT, "examples", "claude-code", "object-ontology-mcp");
+const SPARQL = join(REPO_ROOT, "examples", "claude-code", "semantic-web-sparql");
 
 const read = (...path: string[]): string => readFileSync(join(...path), "utf8");
 

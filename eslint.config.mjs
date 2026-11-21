@@ -4,10 +4,10 @@ import tsparser from "@typescript-eslint/parser";
 
 export default [
   {
-    ignores: ["dist/**", "out/**", "out-test/**", "node_modules/**", "**/*.js", "**/*.mjs"],
+    ignores: ["**/dist/**", "**/out/**", "**/out-test/**", "**/node_modules/**", "**/coverage/**", "examples/**", "**/*.js", "**/*.mjs"],
   },
   {
-    files: ["src/**/*.ts", "webview/**/*.ts"],
+    files: ["packages/*/src/**/*.ts", "packages/vscode/webview/**/*.ts"],
     languageOptions: {
       parser: tsparser,
       parserOptions: {
@@ -32,7 +32,7 @@ export default [
     // postMessage the host into editing files" — enforced mechanically here
     // rather than left as a code-review reminder. Route DOM construction
     // through webview/dom.ts's h(), which only accepts textContent.
-    files: ["webview/**/*.ts"],
+    files: ["packages/vscode/webview/**/*.ts"],
     rules: {
       "no-restricted-properties": [
         "error",
@@ -47,7 +47,7 @@ export default [
   {
     // The one exception: main.ts's static, hardcoded page shell (no
     // document-derived content in it).
-    files: ["webview/main.ts"],
+    files: ["packages/vscode/webview/main.ts"],
     rules: {
       "no-restricted-properties": "off",
     },

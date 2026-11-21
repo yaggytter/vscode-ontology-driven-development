@@ -3,6 +3,8 @@ import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const root = resolve(__dirname, "..");
+// Public documents, LICENSE and .github stay at the workspace root.
+const repoRoot = resolve(root, "..", "..");
 
 function readJson(path: string): Record<string, unknown> {
   return JSON.parse(readFileSync(resolve(root, path), "utf8")) as Record<string, unknown>;
@@ -43,11 +45,11 @@ describe("Marketplace release assets", () => {
     ];
 
     for (const name of bilingualDocuments) {
-      expect(() => readFileSync(resolve(root, `${name}.md`), "utf8")).not.toThrow();
-      expect(() => readFileSync(resolve(root, `${name}.ja.md`), "utf8")).not.toThrow();
+      expect(() => readFileSync(resolve(repoRoot, `${name}.md`), "utf8")).not.toThrow();
+      expect(() => readFileSync(resolve(repoRoot, `${name}.ja.md`), "utf8")).not.toThrow();
     }
 
-    expect(() => readFileSync(resolve(root, "THIRD_PARTY_NOTICES.md"), "utf8")).not.toThrow();
+    expect(() => readFileSync(resolve(repoRoot, "THIRD_PARTY_NOTICES.md"), "utf8")).not.toThrow();
     expect(() => readFileSync(resolve(root, "media/ontology-viewer-overview.png"))).not.toThrow();
   });
 
@@ -73,11 +75,11 @@ describe("Marketplace release assets", () => {
   });
 
   it("defines repeatable CI and release workflows", () => {
-    expect(() => readFileSync(resolve(root, ".github/workflows/ci.yml"), "utf8")).not.toThrow();
-    expect(() => readFileSync(resolve(root, ".github/workflows/release.yml"), "utf8")).not.toThrow();
-    expect(() => readFileSync(resolve(root, ".github/ISSUE_TEMPLATE/bug-report.yml"), "utf8")).not.toThrow();
-    expect(() => readFileSync(resolve(root, ".github/ISSUE_TEMPLATE/feature-request.yml"), "utf8")).not.toThrow();
-    expect(() => readFileSync(resolve(root, ".github/PULL_REQUEST_TEMPLATE.md"), "utf8")).not.toThrow();
+    expect(() => readFileSync(resolve(repoRoot, ".github/workflows/ci.yml"), "utf8")).not.toThrow();
+    expect(() => readFileSync(resolve(repoRoot, ".github/workflows/release.yml"), "utf8")).not.toThrow();
+    expect(() => readFileSync(resolve(repoRoot, ".github/ISSUE_TEMPLATE/bug-report.yml"), "utf8")).not.toThrow();
+    expect(() => readFileSync(resolve(repoRoot, ".github/ISSUE_TEMPLATE/feature-request.yml"), "utf8")).not.toThrow();
+    expect(() => readFileSync(resolve(repoRoot, ".github/PULL_REQUEST_TEMPLATE.md"), "utf8")).not.toThrow();
     expect(() => readFileSync(resolve(root, "scripts/validate-release.mjs"), "utf8")).not.toThrow();
   });
 });
