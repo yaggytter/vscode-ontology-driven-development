@@ -2,7 +2,7 @@
 
 [English](SECURITY.md)
 
-Ontology Viewerは、ローカルのオントロジー文書を開いて変換します。意図しないソース変更、Webviewの危険な挙動、文書内容の予期しない外部送信は、セキュリティ上の問題として扱います。
+Ontology-Driven Developmentは、ローカルのオントロジー文書を開いて変換します。意図しないソース変更、Webviewの危険な挙動、文書内容の予期しない外部送信は、セキュリティ上の問題として扱います。
 
 ## サポート対象
 
@@ -10,7 +10,7 @@ Ontology Viewerは、ローカルのオントロジー文書を開いて変換�
 
 ## 脆弱性を非公開で報告する
 
-脆弱性の疑いがある内容を、公開Issueへ投稿しないでください。[GitHub Private Vulnerability Reporting](https://github.com/yaggytter/vscode-ontology-viewer/security/advisories/new)を利用し、次の情報を添えてください。
+脆弱性の疑いがある内容を、公開Issueへ投稿しないでください。[GitHub Private Vulnerability Reporting](https://github.com/yaggytter/vscode-ontology-driven-development/security/advisories/new)を利用し、次の情報を添えてください。
 
 - 影響を受ける拡張機能とVS Codeのバージョン
 - OSとワークスペースの信頼状態

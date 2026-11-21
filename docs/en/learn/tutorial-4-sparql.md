@@ -2,7 +2,7 @@
 
 SPARQL is the query language for RDF. If you have never written a line of it, this tutorial gets you a real answer in about a minute — the panel ships ready-made examples, so you can start by running one rather than by writing one.
 
-We'll use **Harbor Market**, which has both a schema (classes like Stall and Product) and some actual instances to find. Run **Ontology Viewer: Create Sample Ontology...** and pick **Harbor Market**, then press `Cmd+Alt+O` / `Ctrl+Alt+O` to open the diagram.
+We'll use **Harbor Market**, which has both a schema (classes like Stall and Product) and some actual instances to find. Run **ODD: Create Sample Ontology...** and pick **Harbor Market**, then press `Cmd+Alt+O` / `Ctrl+Alt+O` to open the diagram.
 
 ## 1. Open the SPARQL panel
 

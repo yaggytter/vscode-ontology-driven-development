@@ -4,8 +4,8 @@
   地域イベント（RDF/XML）— この拡張機能では「表示専用」の形式です。
 
   This fictional vocabulary and all records were authored from scratch for
-  Ontology Viewer. Open the diagram preview to explore participants, activities,
-  and venues. Use "Ontology Viewer: Convert to Turtle for Editing..." to create
+  Ontology-Driven Development. Open the diagram preview to explore participants, activities,
+  and venues. Use "ODD: Convert to Turtle for Editing..." to create
   an editable Turtle copy without overwriting this source document.
 -->
 <rdf:RDF

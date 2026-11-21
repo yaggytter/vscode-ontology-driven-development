@@ -2,7 +2,7 @@
 
 [日本語](SECURITY.ja.md)
 
-Ontology Viewer opens and transforms local ontology documents. We treat unexpected source modification, unsafe webview behavior, and unintended disclosure of document contents as security-relevant.
+Ontology-Driven Development opens and transforms local ontology documents. We treat unexpected source modification, unsafe webview behavior, and unintended disclosure of document contents as security-relevant.
 
 ## Supported versions
 
@@ -10,7 +10,7 @@ Security fixes are provided for the latest Marketplace release. Please reproduce
 
 ## Report a vulnerability privately
 
-Do not open a public issue for a suspected vulnerability. Use [GitHub Private Vulnerability Reporting](https://github.com/yaggytter/vscode-ontology-viewer/security/advisories/new). Include:
+Do not open a public issue for a suspected vulnerability. Use [GitHub Private Vulnerability Reporting](https://github.com/yaggytter/vscode-ontology-driven-development/security/advisories/new). Include:
 
 - affected version and VS Code version;
 - operating system and workspace trust state;

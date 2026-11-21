@@ -2,7 +2,7 @@
 
 [Tutorial 6](tutorial-6-object-ontology-ai-agents.md) explains how an Object Ontology becomes an agent's context and tool list. This tutorial runs that setup for real. **Claude Code** plays the agent. A small **MCP server** plays your backend: it serves the tools you export from the viewer, checks every precondition, and records what changed. You watch the agent read the data, call an action, get refused, and pick something else.
 
-> **New to these ideas?** Read the [illustrated primer](https://yaggytter.github.io/vscode-ontology-viewer/index.en.html) first. It walks through the scenario, the problem and the steps with pictures, and has [captioned videos](https://yaggytter.github.io/vscode-ontology-viewer/index.en.html#video) of the terminal parts, with what to watch for.
+> **New to these ideas?** Read the [illustrated primer](https://yaggytter.github.io/vscode-ontology-driven-development/index.en.html) first. It walks through the scenario, the problem and the steps with pictures, and has [captioned videos](https://yaggytter.github.io/vscode-ontology-driven-development/index.en.html#video) of the terminal parts, with what to watch for.
 
 The server is a ready-made example in this repository. You don't have to write any code, except in section 5, where Claude Code writes a check for you.
 
@@ -17,8 +17,8 @@ What you need:
 ## 0. Get the example
 
 ```sh
-git clone https://github.com/yaggytter/vscode-ontology-viewer.git
-cd vscode-ontology-viewer/examples/claude-code/object-ontology-mcp
+git clone https://github.com/yaggytter/vscode-ontology-driven-development.git
+cd vscode-ontology-driven-development/examples/claude-code/object-ontology-mcp
 npm install
 npm test
 ```
@@ -42,8 +42,8 @@ npm test
 The workspace already contains both exports, so you can skip this step. Doing it once shows where the files come from.
 
 1. Open `delivery/delivery-ops.oont.yaml` in VS Code and open the diagram.
-2. Run **Ontology Viewer: Export Actions as AI Agent Tools (JSON Schema)...**. Save the untitled document over `delivery/delivery-ops.tools.json`. Git shows no change, because the shipped file is exactly this output.
-3. Run **Ontology Viewer: Export Ontology Summary for LLM Context...** and compare it with the `<ontology>` block in `delivery/CLAUDE.md`. It is the same text.
+2. Run **ODD: Export Actions as AI Agent Tools (JSON Schema)...**. Save the untitled document over `delivery/delivery-ops.tools.json`. Git shows no change, because the shipped file is exactly this output.
+3. Run **ODD: Export Ontology Summary for LLM Context...** and compare it with the `<ontology>` block in `delivery/CLAUDE.md`. It is the same text.
 
 The rest of `CLAUDE.md` is the system prompt from [tutorial 6, section 4](tutorial-6-object-ontology-ai-agents.md#4-wire-it-up). It adds two rules this setup needs: never edit `state.json` to change data, and trust the read tools over the example objects in the summary.
 

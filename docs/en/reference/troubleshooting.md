@@ -43,11 +43,11 @@ That's expected — it's VS Code's built-in "Go to Symbol in Editor". This exten
 
 ## RDF/XML or JSON-LD file won't let me edit from the diagram
 
-That's by design — see [Format Support](format-support.md#why-only-turtle-is-editable). Use **Ontology Viewer: Convert to Turtle for Editing...** first.
+That's by design — see [Format Support](format-support.md#why-only-turtle-is-editable). Use **ODD: Convert to Turtle for Editing...** first.
 
 ## Node positions disappeared
 
-Node positions are stored in VS Code's workspace state, keyed by the file's location — not inside the ontology file itself, and not synced across machines by default. If you open the same file from a different machine or a different workspace folder, it'll start with an auto-arranged layout. Use **Ontology Viewer: Export Diagram Layout as JSON...** if you want to save (or share) a layout explicitly.
+Node positions are stored in VS Code's workspace state, keyed by the file's location — not inside the ontology file itself, and not synced across machines by default. If you open the same file from a different machine or a different workspace folder, it'll start with an auto-arranged layout. Use **ODD: Export Diagram Layout as JSON...** if you want to save (or share) a layout explicitly.
 
 ## My YAML file doesn't get a diagram button
 

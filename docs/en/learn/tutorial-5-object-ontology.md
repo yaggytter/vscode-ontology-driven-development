@@ -2,7 +2,7 @@
 
 The earlier tutorials worked with OWL and RDF, where everything is a triple. An **Object Ontology** describes the same kind of knowledge the way an application developer thinks about it: *things* with properties, *links* between them, and a short list of *actions* that are allowed to change them.
 
-We'll use **Corner Cafe Orders**, a tiny cafe with menu items, orders and ingredients. Run **Ontology Viewer: Create Sample Ontology...** and pick **Corner Cafe Orders (Object Ontology)**. This creates `cafe-orders.oont.yaml`.
+We'll use **Corner Cafe Orders**, a tiny cafe with menu items, orders and ingredients. Run **ODD: Create Sample Ontology...** and pick **Corner Cafe Orders (Object Ontology)**. This creates `cafe-orders.oont.yaml`.
 
 ## 1. Five ideas
 
@@ -100,7 +100,7 @@ Renaming never changes the API name (the YAML key such as `MenuItem`). Rules, li
 - The primary key and the title property cannot be deleted. Change `primaryKey` or `titleProperty` first.
 - A link type used by an action rule cannot be deleted. Deleting `orderItems` is refused because `placeOrder` creates that link.
 
-`*.oont.json` files are view-only in the diagram. Click **Convert to YAML to edit** in the banner, or run **Ontology Viewer: Convert Object Ontology JSON to YAML for Editing...**.
+`*.oont.json` files are view-only in the diagram. Click **Convert to YAML to edit** in the banner, or run **ODD: Convert Object Ontology JSON to YAML for Editing...**.
 
 ## 5. Problems and typo warnings
 
@@ -174,7 +174,7 @@ It returns two rows: **Mark order served** (`modifyObject`) and **Place order** 
 
 The two formats hold the same model. YAML is the one to edit: the diagram writes to it, and comments survive. JSON suits files that another program generates. The diagram shows JSON files but does not edit them. Use the convert command when you want to take one over by hand.
 
-To hand the ontology to RDF tools, run **Ontology Viewer: Export Object Ontology as Turtle (OWL)...**. The result uses OWL plus the `oont:` vocabulary and opens in the RDF side of the viewer.
+To hand the ontology to RDF tools, run **ODD: Export Object Ontology as Turtle (OWL)...**. The result uses OWL plus the `oont:` vocabulary and opens in the RDF side of the viewer.
 
 ## Next steps
 

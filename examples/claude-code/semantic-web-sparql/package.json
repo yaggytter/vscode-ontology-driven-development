@@ -1,8 +1,8 @@
 {
-  "name": "ontology-viewer-example-semantic-web-sparql",
+  "name": "ontology-driven-development-example-semantic-web-sparql",
   "private": true,
   "version": "0.0.0",
-  "description": "A local SPARQL command for Claude Code: it runs queries over Turtle files with the same engine as the Ontology Viewer's SPARQL panel. Companion to tutorial 9.",
+  "description": "A local SPARQL command for Claude Code: it runs queries over Turtle files with the same engine as the Ontology-Driven Development's SPARQL panel. Companion to tutorial 9.",
   "license": "MIT",
   "type": "module",
   "engines": {

@@ -1,7 +1,7 @@
 {
-  "extension.displayName": "Ontology Viewer — OWL・RDF ビジュアルエディター",
-  "extension.description": "OWL・RDF・RDFS・SKOS オントロジーを対話的なスキーマ図で可視化し、安全に編集できる VS Code 拡張機能です。",
-  "extension.category": "Ontology Viewer",
+  "extension.displayName": "Ontology-Driven Development",
+  "extension.description": "要件からオントロジーを作り、そのオントロジーで開発を駆動するための拡張機能です。Object Ontology の図・検証・AI エージェント向けエクスポートと、OWL・RDF・RDFS・SKOS の可視化を備えます。",
+  "extension.category": "ODD",
   "command.openPreview.title": "図でプレビューを開く",
   "command.convertToTurtle.title": "編集用に Turtle へ変換...",
   "command.exportLayout.title": "図のレイアウトを JSON でエクスポート...",

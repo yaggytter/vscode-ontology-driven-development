@@ -1,8 +1,8 @@
 # Third-Party Notices
 
-Ontology Viewer bundles open-source packages. The table below lists the extension's direct production dependencies for version 0.5.1. The in-editor SPARQL engine brings in the [Comunica](https://comunica.dev/) framework, which expands the bundled set to 404 packages in total (mostly `@comunica/*`, `@rdfjs/*`, and their supporting libraries); the complete, machine-readable inventory of every bundled package and exact version is preserved in `package-lock.json`. The packages remain subject to their own licenses; this file does not replace those license texts.
+Ontology-Driven Development bundles open-source packages. The table below lists the extension's direct production dependencies for version 0.5.1. The in-editor SPARQL engine brings in the [Comunica](https://comunica.dev/) framework, which expands the bundled set to 404 packages in total (mostly `@comunica/*`, `@rdfjs/*`, and their supporting libraries); the complete, machine-readable inventory of every bundled package and exact version is preserved in `package-lock.json`. The packages remain subject to their own licenses; this file does not replace those license texts.
 
-Ontology Viewerには、次のオープンソースパッケージが含まれます。下の表はバージョン0.5.1における直接の本番依存です。エディタ内SPARQL機能により [Comunica](https://comunica.dev/) フレームワークが加わり、同梱されるパッケージは合計404個になります（大半は `@comunica/*`・`@rdfjs/*` とその依存ライブラリです）。同梱される全パッケージと正確なバージョンの完全な一覧は `package-lock.json` に記録されています。各パッケージにはそれぞれのライセンスが適用され、この文書はライセンス本文に代わるものではありません。
+Ontology-Driven Developmentには、次のオープンソースパッケージが含まれます。下の表はバージョン0.5.1における直接の本番依存です。エディタ内SPARQL機能により [Comunica](https://comunica.dev/) フレームワークが加わり、同梱されるパッケージは合計404個になります（大半は `@comunica/*`・`@rdfjs/*` とその依存ライブラリです）。同梱される全パッケージと正確なバージョンの完全な一覧は `package-lock.json` に記録されています。各パッケージにはそれぞれのライセンスが適用され、この文書はライセンス本文に代わるものではありません。
 
 | Package | Version | License |
 | --- | --- | --- |

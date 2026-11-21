@@ -16,5 +16,5 @@ npm install
 npm test
 ```
 
-The data files are copies of the bundled samples and of the extension's exports; a test in the repository root keeps them in sync. These folders are not part of the published extension. [`guide/`](guide/) is an illustrated primer for both tutorials, published at [https://yaggytter.github.io/vscode-ontology-viewer/index.en.html](https://yaggytter.github.io/vscode-ontology-viewer/index.en.html).
-データファイルは、同梱サンプルと拡張機能のエクスポート結果のコピーです。リポジトリ直下のテストで、元のファイルと一致していることを確かめています。これらのフォルダは、公開する拡張機能には含まれません。[`guide/`](guide/) は、両チュートリアルのイラスト付きの予習ノートで、[https://yaggytter.github.io/vscode-ontology-viewer/index.ja.html](https://yaggytter.github.io/vscode-ontology-viewer/index.ja.html) で読めます。
+The data files are copies of the bundled samples and of the extension's exports; a test in the repository root keeps them in sync. These folders are not part of the published extension. [`guide/`](guide/) is an illustrated primer for both tutorials, published at [https://yaggytter.github.io/vscode-ontology-driven-development/index.en.html](https://yaggytter.github.io/vscode-ontology-driven-development/index.en.html).
+データファイルは、同梱サンプルと拡張機能のエクスポート結果のコピーです。リポジトリ直下のテストで、元のファイルと一致していることを確かめています。これらのフォルダは、公開する拡張機能には含まれません。[`guide/`](guide/) は、両チュートリアルのイラスト付きの予習ノートで、[https://yaggytter.github.io/vscode-ontology-driven-development/index.ja.html](https://yaggytter.github.io/vscode-ontology-driven-development/index.ja.html) で読めます。

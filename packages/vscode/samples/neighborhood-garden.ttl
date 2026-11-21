@@ -1,7 +1,7 @@
 # Neighborhood Garden — small class hierarchy and inverse relations.
 # まちの共同菜園 — 小規模なクラス階層と逆関係のサンプルです。
 #
-# This fictional ontology was created from scratch for Ontology Viewer.
+# This fictional ontology was created from scratch for Ontology-Driven Development.
 # It contains no copied vocabulary, records, or third-party sample data.
 
 @prefix : <https://example.org/ontology/neighborhood-garden#> .

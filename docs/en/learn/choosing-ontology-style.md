@@ -1,6 +1,6 @@
 # Choosing an Ontology Style
 
-Ontology Viewer works with two kinds of ontology. **Object Ontology** (`*.oont.yaml`) is this extension's own format, inspired by Palantir Foundry's ontology: object types, properties, link types, interfaces, and *action types*. **Semantic Web** ontologies (OWL/RDF in Turtle, RDF/XML and other formats) are the W3C standard. This guide explains how they differ, shows the same domain written both ways, and helps you decide which to use — or how to use both.
+Ontology-Driven Development works with two kinds of ontology. **Object Ontology** (`*.oont.yaml`) is this extension's own format, inspired by Palantir Foundry's ontology: object types, properties, link types, interfaces, and *action types*. **Semantic Web** ontologies (OWL/RDF in Turtle, RDF/XML and other formats) are the W3C standard. This guide explains how they differ, shows the same domain written both ways, and helps you decide which to use — or how to use both.
 
 ## 1. The core difference
 

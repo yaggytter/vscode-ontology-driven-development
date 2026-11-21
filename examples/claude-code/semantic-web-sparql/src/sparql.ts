@@ -13,7 +13,7 @@ import { Parser, Store, Writer, type Quad } from "n3";
  *   npm run --silent sparql -- data/product-compatibility.ttl -q 'ASK { ... }'
  *   npm run --silent sparql -- data/a.ttl data/b.ttl -f query.rq
  *
- * It uses the same engine as the Ontology Viewer's SPARQL panel (Comunica
+ * It uses the same engine as the Ontology-Driven Development's SPARQL panel (Comunica
  * over an in-memory store), so a query that works here works in the panel.
  * Several files are loaded into one graph, which is how you query an
  * exported Object Ontology together with a glossary.

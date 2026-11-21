@@ -10,7 +10,7 @@ import { loadChecks, openWorkspace, readExportedTools, type ExportedTool } from 
 /**
  * An MCP server for one Object Ontology workspace.
  *
- * - Write tools are the action types, served exactly as the Ontology Viewer
+ * - Write tools are the action types, served exactly as the Ontology-Driven Development
  *   exported them (`tools/list` returns the exported `tools` array).
  * - Read tools are this server's own. The export only contains writes; an
  *   agent also needs to look things up before it acts.

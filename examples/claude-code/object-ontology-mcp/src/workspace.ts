@@ -6,7 +6,7 @@ import type { Checks } from "./guards.ts";
 /**
  * A workspace is a folder you start Claude Code in (`delivery/`,
  * `support/`). Its `workspace.json` names the ontology, the tool
- * definitions exported from the Ontology Viewer, the guards module and the
+ * definitions exported from the Ontology-Driven Development, the guards module and the
  * state file. Everything is re-read on every tool call, so edits to the YAML,
  * the export or the guards take effect without restarting the server.
  */

@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 import { parseObjectOntology } from "@yaggytter/object-ontology-core";
 import { planAddObjectType, planAddProperty, planSetPropertyType } from "../objectOntology/edit/operations";
 
-const EXTENSION_ID = "AkihiroYAGASAKI.ontology-viewer";
+const EXTENSION_ID = "AkihiroYAGASAKI.ontology-driven-development";
 const SAMPLES_DIR = path.join(__dirname, "..", "..", "..", "samples");
 
 async function waitFor<T>(probe: () => T | undefined, timeoutMs = 5000): Promise<T | undefined> {
@@ -29,7 +29,7 @@ async function applySplice(doc: vscode.TextDocument, plan: ReturnType<typeof pla
   assert.ok(await vscode.workspace.applyEdit(edit), "VS Code should accept the edit");
 }
 
-suite("Ontology Viewer — Object Ontology", () => {
+suite("Ontology-Driven Development — Object Ontology", () => {
   suiteSetup(async () => {
     await vscode.extensions.getExtension(EXTENSION_ID)?.activate();
   });
@@ -37,10 +37,10 @@ suite("Ontology Viewer — Object Ontology", () => {
   test("registers the Object Ontology commands", async () => {
     const commands = await vscode.commands.getCommands(true);
     for (const id of [
-      "ontologyViewer.exportAgentTools",
-      "ontologyViewer.exportContextSummary",
-      "ontologyViewer.exportObjectOntologyTurtle",
-      "ontologyViewer.convertObjectOntologyToYaml",
+      "ontologyDrivenDevelopment.exportAgentTools",
+      "ontologyDrivenDevelopment.exportContextSummary",
+      "ontologyDrivenDevelopment.exportObjectOntologyTurtle",
+      "ontologyDrivenDevelopment.convertObjectOntologyToYaml",
     ]) {
       assert.ok(commands.includes(id), `expected command ${id} to be registered`);
     }
@@ -54,7 +54,7 @@ suite("Ontology Viewer — Object Ontology", () => {
   test("opens the diagram preview for a sample", async () => {
     const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(path.join(SAMPLES_DIR, "cafe-orders.oont.yaml")));
     await vscode.window.showTextDocument(doc);
-    await vscode.commands.executeCommand("ontologyViewer.openPreview");
+    await vscode.commands.executeCommand("ontologyDrivenDevelopment.openPreview");
   });
 
   test("provides an outline of object types, links and actions", async () => {
@@ -95,7 +95,7 @@ suite("Ontology Viewer — Object Ontology", () => {
 
   test("exports agent tools as an untitled JSON document", async () => {
     const uri = vscode.Uri.file(path.join(SAMPLES_DIR, "cafe-orders.oont.yaml"));
-    await vscode.commands.executeCommand("ontologyViewer.exportAgentTools", uri);
+    await vscode.commands.executeCommand("ontologyDrivenDevelopment.exportAgentTools", uri);
     const exported = await waitFor(() =>
       vscode.workspace.textDocuments.find((d) => d.isUntitled && d.languageId === "json" && d.getText().includes('"tools"')),
     );

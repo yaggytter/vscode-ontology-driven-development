@@ -196,7 +196,7 @@ export async function openPreview(
   }
 
   const panel = vscode.window.createWebviewPanel(
-    "ontologyViewer.preview",
+    "ontologyDrivenDevelopment.preview",
     vscode.l10n.t("Diagram: {0}", path.basename(document.fileName)),
     vscode.ViewColumn.Beside,
     {
@@ -206,7 +206,7 @@ export async function openPreview(
     },
   );
 
-  const config = vscode.workspace.getConfiguration("ontologyViewer");
+  const config = vscode.workspace.getConfiguration("ontologyDrivenDevelopment");
   const state: PanelState = {
     panel,
     document,
@@ -267,11 +267,11 @@ async function handleWebviewMessage(
       return;
     }
     if (message.type === "convertToTurtle") {
-      await vscode.commands.executeCommand("ontologyViewer.convertObjectOntologyToYaml", state.document.uri);
+      await vscode.commands.executeCommand("ontologyDrivenDevelopment.convertObjectOntologyToYaml", state.document.uri);
       return;
     }
     if (message.type === "exportAgentTools") {
-      await vscode.commands.executeCommand("ontologyViewer.exportAgentTools", state.document.uri);
+      await vscode.commands.executeCommand("ontologyDrivenDevelopment.exportAgentTools", state.document.uri);
       return;
     }
   }
@@ -341,7 +341,7 @@ async function handleWebviewMessage(
       }
       return;
     case "convertToTurtle":
-      await vscode.commands.executeCommand("ontologyViewer.convertToTurtle");
+      await vscode.commands.executeCommand("ontologyDrivenDevelopment.convertToTurtle");
       return;
     case "setLayoutAlgorithm":
       state.algorithm = message.algorithm;
@@ -404,7 +404,7 @@ function scheduleRefresh(state: PanelState): void {
     clearTimeout(state.debounceTimer);
   }
   const debounceMs = vscode.workspace
-    .getConfiguration("ontologyViewer")
+    .getConfiguration("ontologyDrivenDevelopment")
     .get<number>("preview.autoRefreshDebounceMs", 300);
   state.debounceTimer = setTimeout(() => void pushUpdate(state), debounceMs);
 }

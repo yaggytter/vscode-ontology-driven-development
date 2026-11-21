@@ -1,7 +1,7 @@
 # Harbor Market — appearance and relationship-shape extensions.
 # 港の朝市 — 表示と関係形状の拡張機能を試すサンプルです。
 #
-# This fictional ontology was designed from scratch for Ontology Viewer.
+# This fictional ontology was designed from scratch for Ontology-Driven Development.
 # The local predicates below are optional display hints recognized by local name.
 
 @prefix : <https://example.org/ontology/harbor-market#> .

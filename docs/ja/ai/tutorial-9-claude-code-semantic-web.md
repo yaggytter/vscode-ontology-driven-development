@@ -2,7 +2,7 @@
 
 [チュートリアル7](tutorial-7-semantic-web-llm.md) では、LLM が記憶ではなく Semantic Web オントロジーをもとに答える方法を説明しました。LLM が SPARQL を書いて実行し、結果の行だけを根拠に答えるという流れです。このチュートリアルでは、その流れを **Claude Code** で実際に動かします。
 
-> **はじめての方へ:** 先に[イラスト付きの予習ノート](https://yaggytter.github.io/vscode-ontology-viewer/index.ja.html)を読むと、場面、課題、進め方がつかめます。ターミナル部分の[字幕付きの動画](https://yaggytter.github.io/vscode-ontology-viewer/index.ja.html#video)と、その見どころも載せています。
+> **はじめての方へ:** 先に[イラスト付きの予習ノート](https://yaggytter.github.io/vscode-ontology-driven-development/index.ja.html)を読むと、場面、課題、進め方がつかめます。ターミナル部分の[字幕付きの動画](https://yaggytter.github.io/vscode-ontology-driven-development/index.ja.html#video)と、その見どころも載せています。
 
 今回はサーバーを使いません。サンプルは Claude Code に `npm run sparql` というローカルのコマンドを1つ渡します。このコマンドは、**ビューワーの SPARQL パネルと同じエンジン**で Turtle ファイルに問い合わせます。Claude Code はファイルを読み、クエリを書いて実行し、答えます。あなたはそのクエリを SPARQL パネルに貼り付けて、図の上で結果を確かめます。
 
@@ -17,8 +17,8 @@
 ## 0. サンプルを用意する
 
 ```sh
-git clone https://github.com/yaggytter/vscode-ontology-viewer.git
-cd vscode-ontology-viewer/examples/claude-code/semantic-web-sparql
+git clone https://github.com/yaggytter/vscode-ontology-driven-development.git
+cd vscode-ontology-driven-development/examples/claude-code/semantic-web-sparql
 npm install
 npm test
 ```
@@ -113,7 +113,7 @@ List every paper by Priya Raman, including any listed under another name.
 
 ## 8. ハイブリッド: エクスポートした Object Ontology と用語集
 
-`data/delivery-ops.export.ttl` は、配送の Object Ontology を Turtle にエクスポートしたものです。自分で作るときは、`delivery-ops.oont.yaml` を開いて **「Ontology Viewer: Object Ontology を Turtle (OWL) としてエクスポート...」** を実行します。ビューワーと違い、このコマンドは2つのファイルを同時に読めるので、事前に1つにまとめる必要はありません。
+`data/delivery-ops.export.ttl` は、配送の Object Ontology を Turtle にエクスポートしたものです。自分で作るときは、`delivery-ops.oont.yaml` を開いて **「ODD: Object Ontology を Turtle (OWL) としてエクスポート...」** を実行します。ビューワーと違い、このコマンドは2つのファイルを同時に読めるので、事前に1つにまとめる必要はありません。
 
 ```text
 Which delivery actions change a field that has a glossary entry? What is that field called in Japanese?

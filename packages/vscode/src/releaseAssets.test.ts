@@ -19,7 +19,7 @@ describe("Marketplace release assets", () => {
     const manifest = readJson("package.json");
 
     expect(manifest.publisher).toBe("AkihiroYAGASAKI");
-    expect(manifest.name).toBe("ontology-viewer");
+    expect(manifest.name).toBe("ontology-driven-development");
     expect(manifest.displayName).toBe("%extension.displayName%");
     expect(manifest.description).toBe("%extension.description%");
     expect(manifest.license).toBe("SEE LICENSE IN LICENSE");
@@ -50,7 +50,7 @@ describe("Marketplace release assets", () => {
     }
 
     expect(() => readFileSync(resolve(repoRoot, "THIRD_PARTY_NOTICES.md"), "utf8")).not.toThrow();
-    expect(() => readFileSync(resolve(root, "media/ontology-viewer-overview.png"))).not.toThrow();
+    expect(() => readFileSync(resolve(root, "media/ontology-diagram-overview.png"))).not.toThrow();
   });
 
   it("offers only bundled samples in the sample picker, with localized labels", () => {

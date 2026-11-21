@@ -14,7 +14,7 @@ Those are documented, deliberate limits — see [Format Support](../reference/fo
 
 ## Rename an entity
 
-1. Open `samples/neighborhood-garden.ttl` (via **Ontology Viewer: Create Sample Ontology...**) and open its diagram — it opens in the schema view by default.
+1. Open `samples/neighborhood-garden.ttl` (via **ODD: Create Sample Ontology...**) and open its diagram — it opens in the schema view by default.
 2. Click the **Riverside Garden** node. The Inspector opens on the right with a name field showing `Riverside Garden`.
 3. Clear it, type `Riverside Community Garden`, and press Enter (or click elsewhere to commit).
 4. Look at the text editor: the line

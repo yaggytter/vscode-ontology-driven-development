@@ -9,7 +9,7 @@ import { planAndVerifyAddProperty } from "../edit/addProperty";
 import { planAndVerifySetPropertyType } from "../edit/setPropertyType";
 import { planAndVerifyDeleteStatement } from "../edit/deleteStatement";
 
-const EXTENSION_ID = "AkihiroYAGASAKI.ontology-viewer";
+const EXTENSION_ID = "AkihiroYAGASAKI.ontology-driven-development";
 const SAMPLES_DIR = path.join(__dirname, "..", "..", "..", "samples");
 
 async function waitForExtension(id: string, timeoutMs = 5000): Promise<vscode.Extension<unknown> | undefined> {
@@ -24,7 +24,7 @@ async function waitForExtension(id: string, timeoutMs = 5000): Promise<vscode.Ex
   return undefined;
 }
 
-suite("Ontology Viewer — extension host smoke tests", () => {
+suite("Ontology-Driven Development — extension host smoke tests", () => {
   test("activates", async () => {
     const ext = await waitForExtension(EXTENSION_ID);
     assert.ok(
@@ -38,10 +38,10 @@ suite("Ontology Viewer — extension host smoke tests", () => {
   test("registers all contributed commands", async () => {
     const commands = await vscode.commands.getCommands(true);
     for (const id of [
-      "ontologyViewer.openPreview",
-      "ontologyViewer.convertToTurtle",
-      "ontologyViewer.exportLayout",
-      "ontologyViewer.newSample",
+      "ontologyDrivenDevelopment.openPreview",
+      "ontologyDrivenDevelopment.convertToTurtle",
+      "ontologyDrivenDevelopment.exportLayout",
+      "ontologyDrivenDevelopment.newSample",
     ]) {
       assert.ok(commands.includes(id), `expected command ${id} to be registered`);
     }
@@ -68,7 +68,7 @@ suite("Ontology Viewer — extension host smoke tests", () => {
     const uri = vscode.Uri.file(path.join(SAMPLES_DIR, "tool-lending.ttl"));
     const doc = await vscode.workspace.openTextDocument(uri);
     await vscode.window.showTextDocument(doc);
-    await vscode.commands.executeCommand("ontologyViewer.openPreview");
+    await vscode.commands.executeCommand("ontologyDrivenDevelopment.openPreview");
   });
 
   // Real end-to-end coverage of the Phase 5 write-back path: everything

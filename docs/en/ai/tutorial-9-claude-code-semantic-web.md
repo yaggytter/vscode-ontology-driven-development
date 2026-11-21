@@ -2,7 +2,7 @@
 
 [Tutorial 7](tutorial-7-semantic-web-llm.md) shows how an LLM can answer from a Semantic Web ontology instead of from memory: it writes SPARQL, runs it, and answers only from the rows. This tutorial runs that loop for real, with **Claude Code** as the assistant.
 
-> **New to these ideas?** Read the [illustrated primer](https://yaggytter.github.io/vscode-ontology-viewer/index.en.html) first. It walks through the scenario, the problem and the steps with pictures, and has [captioned videos](https://yaggytter.github.io/vscode-ontology-viewer/index.en.html#video) of the terminal parts, with what to watch for.
+> **New to these ideas?** Read the [illustrated primer](https://yaggytter.github.io/vscode-ontology-driven-development/index.en.html) first. It walks through the scenario, the problem and the steps with pictures, and has [captioned videos](https://yaggytter.github.io/vscode-ontology-driven-development/index.en.html#video) of the terminal parts, with what to watch for.
 
 No server is involved this time. The example gives Claude Code one local command, `npm run sparql`, which runs a query over Turtle files with **the same engine as the viewer's SPARQL panel**. Claude Code reads the files, writes a query, runs it, and answers. You then paste its query into the panel and check the result on the diagram.
 
@@ -17,8 +17,8 @@ What you need:
 ## 0. Get the example
 
 ```sh
-git clone https://github.com/yaggytter/vscode-ontology-viewer.git
-cd vscode-ontology-viewer/examples/claude-code/semantic-web-sparql
+git clone https://github.com/yaggytter/vscode-ontology-driven-development.git
+cd vscode-ontology-driven-development/examples/claude-code/semantic-web-sparql
 npm install
 npm test
 ```
@@ -113,7 +113,7 @@ In a real run, Claude Code didn't search by name. It followed `schema:sameAs` fr
 
 ## 8. Hybrid: the exported Object Ontology plus the glossary
 
-`data/delivery-ops.export.ttl` is the delivery Object Ontology, exported as Turtle. To make it yourself, open `delivery-ops.oont.yaml` and run **Ontology Viewer: Export Object Ontology as Turtle (OWL)...**. Unlike the viewer, the command can load two files at once, so you don't have to combine them first.
+`data/delivery-ops.export.ttl` is the delivery Object Ontology, exported as Turtle. To make it yourself, open `delivery-ops.oont.yaml` and run **ODD: Export Object Ontology as Turtle (OWL)...**. Unlike the viewer, the command can load two files at once, so you don't have to combine them first.
 
 ```text
 Which delivery actions change a field that has a glossary entry? What is that field called in Japanese?

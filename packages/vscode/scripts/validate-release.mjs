@@ -147,11 +147,11 @@ requireFiles(
   ],
   repoRoot,
 );
-requireFiles(["media/ontology-viewer-overview.png", "scripts/copy-public-docs.mjs"]);
+requireFiles(["media/ontology-diagram-overview.png", "scripts/copy-public-docs.mjs"]);
 
 const manifest = readJson("package.json");
-if (manifest.publisher !== "AkihiroYAGASAKI" || manifest.name !== "ontology-viewer") {
-  fail("package.json must publish as AkihiroYAGASAKI.ontology-viewer");
+if (manifest.publisher !== "AkihiroYAGASAKI" || manifest.name !== "ontology-driven-development") {
+  fail("package.json must publish as AkihiroYAGASAKI.ontology-driven-development");
 }
 if (manifest.displayName !== "%extension.displayName%" || manifest.description !== "%extension.description%") {
   fail("Marketplace displayName and description must use package.nls localization keys");
@@ -162,8 +162,8 @@ if (manifest.license !== "SEE LICENSE IN LICENSE") {
 if (manifest.preview !== true || manifest.pricing !== "Free") {
   fail("package.json must explicitly declare preview status and free pricing");
 }
-if (manifest.contributes?.configuration?.properties?.["ontologyViewer.layout.storage"]) {
-  fail("Do not advertise ontologyViewer.layout.storage until the setting is implemented");
+if (manifest.contributes?.configuration?.properties?.["ontologyDrivenDevelopment.layout.storage"]) {
+  fail("Do not advertise ontologyDrivenDevelopment.layout.storage until the setting is implemented");
 }
 
 compareKeys("package.nls.json", "package.nls.ja.json");
@@ -181,7 +181,7 @@ if (typeof manifest.icon !== "string") {
 } else {
   validatePng(manifest.icon, 128);
 }
-validatePng("media/ontology-viewer-overview.png", 1000, 600);
+validatePng("media/ontology-diagram-overview.png", 1000, 600);
 
 if (failures.length > 0) {
   console.error("Release validation failed:\n");

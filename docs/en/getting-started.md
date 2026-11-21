@@ -2,11 +2,11 @@
 
 ## Install
 
-Install **Ontology Viewer** from the VS Code Marketplace (or a `.vsix` file, if you were given one directly).
+Install **Ontology-Driven Development** from the VS Code Marketplace (or a `.vsix` file, if you were given one directly).
 
 ## Open a sample
 
-Run the command **Ontology Viewer: Create Sample Ontology...** from the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) and pick one:
+Run the command **ODD: Create Sample Ontology...** from the Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`) and pick one:
 
 | Sample | What it shows |
 | --- | --- |
@@ -36,7 +36,7 @@ With an ontology file focused, press:
 - **macOS**: `Cmd+Alt+O`
 - **Windows/Linux**: `Ctrl+Alt+O`
 
-...or click the diagram icon in the editor's title bar, or run **Ontology Viewer: Open Diagram Preview** from the Command Palette.
+...or click the diagram icon in the editor's title bar, or run **ODD: Open Diagram Preview** from the Command Palette.
 
 The diagram opens beside your file in the **schema view** by default: one node per class, one edge per relation, with datatype properties folded into each class rather than drawn as separate nodes. Use the **Schema / Triples** toggle in the toolbar to switch to the raw triple graph (every subject/predicate/object as its own node) when you need to see exactly what's in the file.
 

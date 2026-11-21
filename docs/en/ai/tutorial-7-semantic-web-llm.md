@@ -10,7 +10,7 @@ What the extension does and does not do matters here:
 
 To run these scenarios with Claude Code as the assistant, see [Tutorial 9](tutorial-9-claude-code-semantic-web.md).
 
-Each sample opens with **Ontology Viewer: Create Sample Ontology...**; the picker name is given in each section. Results are shown with local names (`:chainR11`) to keep the tables short.
+Each sample opens with **ODD: Create Sample Ontology...**; the picker name is given in each section. Results are shown with local names (`:chainR11`) to keep the tables short.
 
 ## 1. GraphRAG: answer from the graph, not from memory
 
@@ -266,7 +266,7 @@ For an LLM this is the safe way to merge: the model proposes "these look like th
 
 ## 6. Hybrid: an exported Object Ontology plus the glossary
 
-Operational models such as `delivery-ops.oont.yaml` live in the Object Ontology format (see [Choosing an Ontology Style](../learn/choosing-ontology-style.md)). To connect one to the glossary, open the YAML file and run **Ontology Viewer: Export Object Ontology as Turtle (OWL)...**. The result is an untitled Turtle document that opens in the viewer.
+Operational models such as `delivery-ops.oont.yaml` live in the Object Ontology format (see [Choosing an Ontology Style](../learn/choosing-ontology-style.md)). To connect one to the glossary, open the YAML file and run **ODD: Export Object Ontology as Turtle (OWL)...**. The result is an untitled Turtle document that opens in the viewer.
 
 The viewer queries one document at a time, so to query both together you combine the Turtle. The simplest way is to paste the whole of `glossary-skos.ttl` at the end of the exported document. Turtle allows a later `@prefix :` to redefine the empty prefix, so both halves keep their meaning. For anything larger, load both files into an external triple store.
 
