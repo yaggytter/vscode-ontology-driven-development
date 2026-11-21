@@ -1,10 +1,21 @@
 # 変更履歴
 
-Ontology Viewerの主な変更を記録しています。
+Ontology-Driven Development（旧 Ontology Viewer）の主な変更を記録しています。
 
 [English](CHANGELOG.md)
 
-## [Unreleased]
+## [Unreleased] — Ontology-Driven Development としてリニューアル
+
+Ontology Viewer は **Ontology-Driven Development（ODD、オントロジー駆動開発）**として生まれ変わりました。要件からオントロジーを作り、そのオントロジーで開発を駆動するための VS Code 拡張機能と CLI です。図のビューアー・エディターと、Semantic Web（OWL・RDF・RDFS・SKOS）の機能はそのまま残り、オントロジー駆動開発では Object Ontology を用語集や外部の知識とつなぐ役割を担います。
+
+- **新しい名前** — 新しい拡張機能 `AkihiroYAGASAKI.ontology-driven-development`（表示名「Ontology-Driven Development」）として公開します。コマンドのカテゴリは **ODD:**、設定は `ontologyDrivenDevelopment.*` になりました。Ontology Viewer の設定は引き継がれません。リポジトリは [vscode-ontology-driven-development](https://github.com/yaggytter/vscode-ontology-driven-development) に移り、[vscode-ontology-viewer](https://github.com/yaggytter/vscode-ontology-viewer) の開発は終了しました。
+- **3つのパッケージ** — リポジトリを npm workspaces にし、`packages/core`（読み込み・検証・エクスポート・JSON Schema。VS Code に依存しない）、`packages/cli`（`oont` コマンド）、`packages/vscode`（拡張機能）に分けました。
+- **要件 ID** — トップレベルの `requirements:`（要件台帳）と、オブジェクト型・インターフェース・リンク型・アクション型・validation に書く `requirements: [REQ-001]`（要件参照）を追加しました。台帳にない ID、参照されていない要件、重複した参照、不正な ID、台帳がないこと、見出しがないことを、コード付きの6つの新しい診断で知らせます。要件は LLM 向けの要約と、RDF への変換（`oont:Requirement` と `oont:satisfies`）にも出力します。既存のファイルはそのまま読め、診断も変わりません。
+- **`x-` 拡張フィールド** — `x-` で始まるキーを、決まったフィールドを持つマッピングならどこにでも書けるようにしました。警告は出ず、図から編集しても消えず、エクスポートには含まれません。
+- **`oont` CLI** — `oont validate` でファイルやディレクトリを検証できます。text と JSON の出力、`--strict`、CI 向けの終了コード 0/1/2 に対応します。`oont export tools|summary|turtle` は拡張機能のエクスポートと同じ内容を書き出します。ローカルで動き、ネットワークに接続せず、テレメトリも送りません。npm には `@yaggytter/object-ontology-cli` として公開する予定です。
+- **図での要件の表示** — Inspector のオブジェクト型とリンクに**要件**の欄を、アクションパネルの各アクションに要件を表示します（validation には自分の ID が付きます）。SPARQL のサンプル **9. 要件と、それを実現する要素** を追加しました。
+- **新しいサンプル** — **ODD: サンプルオントロジーを作成...** に、すべての要素が要件につながり、`x-` フィールドも使う **会議室予約（Object Ontology）** を追加しました。
+- **ドキュメント** — [オントロジー駆動開発とは](docs/ja/odd/what-is-odd.md)、[チュートリアル：要件からオントロジーを作る](docs/ja/odd/tutorial-requirements-to-ontology.md)、[Object Ontology 形式リファレンス](docs/ja/reference/object-ontology-format.md)、[CLI リファレンス](docs/ja/reference/cli.md)を追加しました。README と「はじめに」は、オントロジー駆動開発から始まる構成に書き直しました。
 
 ## [0.5.1] — Claude Code で動かす実践チュートリアル
 

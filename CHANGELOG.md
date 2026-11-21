@@ -1,10 +1,21 @@
 # Changelog
 
-All notable changes to the Ontology Viewer extension are documented in this file.
+All notable changes to Ontology-Driven Development (formerly the Ontology Viewer extension) are documented in this file.
 
 [日本語](CHANGELOG.ja.md)
 
-## [Unreleased]
+## [Unreleased] — Renewal as Ontology-Driven Development
+
+Ontology Viewer continues as **Ontology-Driven Development (ODD)**: a VS Code extension and a CLI for building an ontology from requirements and letting it drive development. The diagram viewer and editor and the Semantic Web (OWL, RDF, RDFS, SKOS) support remain; in ODD they connect the Object Ontology to glossaries and external knowledge.
+
+- **New name and identity** — the extension is published as a new extension, `AkihiroYAGASAKI.ontology-driven-development`, with the display name "Ontology-Driven Development". Commands are in the **ODD:** category, and settings moved to `ontologyDrivenDevelopment.*`. Settings from Ontology Viewer are not carried over. The repository moved to [vscode-ontology-driven-development](https://github.com/yaggytter/vscode-ontology-driven-development); [vscode-ontology-viewer](https://github.com/yaggytter/vscode-ontology-viewer) is no longer developed.
+- **Three packages** — the repository is an npm workspace with `packages/core` (reading, validation, exports and the JSON Schema, with no VS Code dependency), `packages/cli` (the `oont` command) and `packages/vscode` (the extension).
+- **Requirement IDs** — a top-level `requirements:` registry and `requirements: [REQ-001]` references on object types, interfaces, link types, action types and validations. Six new diagnostics with codes report undefined, unreferenced, duplicated and invalid IDs, a missing registry and missing titles. Requirements appear in the LLM context summary and, as `oont:Requirement` with `oont:satisfies`, in the RDF projection. Existing files read unchanged and give the same diagnostics as before.
+- **`x-` extension fields** — keys starting with `x-` are allowed in every mapping with fixed fields. They raise no warnings, are kept by diagram edits, and are left out of the exports.
+- **`oont` CLI** — `oont validate` checks files and directories, with text or JSON output, `--strict`, and exit codes 0/1/2 for CI. `oont export tools|summary|turtle` writes exactly what the extension's exports write. It runs locally, with no network access and no telemetry. It will be published to npm as `@yaggytter/object-ontology-cli`.
+- **Requirements in the diagram** — the Inspector has a **Requirements** section for object types and links, and the Actions panel shows each action's requirements, with validations carrying their own IDs. A new SPARQL example, **9. Requirements and the elements that realize them**, traces them all.
+- **New sample** — **Meeting Room Booking (Object Ontology)** in **ODD: Create Sample Ontology...** traces every element to a requirement and uses `x-` fields.
+- **Documentation** — new guides: [What Is Ontology-Driven Development?](docs/en/odd/what-is-odd.md), [Tutorial: From Requirements to an Ontology](docs/en/odd/tutorial-requirements-to-ontology.md), the [Object Ontology Format Reference](docs/en/reference/object-ontology-format.md) and the [CLI Reference](docs/en/reference/cli.md). The README and Getting Started guide now start from ontology-driven development.
 
 ## [0.5.1] — Hands-on tutorials with Claude Code
 
