@@ -80,6 +80,21 @@ suite("Ontology-Driven Development — Object Ontology", () => {
     assert.match(diagnostics![0].message, /primaryKey "missing"/);
   });
 
+  test("reports requirement diagnostics with their code (P1)", async () => {
+    const doc = await vscode.workspace.openTextDocument({
+      language: "yaml",
+      content:
+        "objectOntology: 1\nrequirements:\n  REQ-001: Book a room\nobjectTypes:\n  A:\n    requirements: [REQ-001, REQ-010]\n    primaryKey: id\n    properties: { id: string }\n",
+    });
+    const diagnostics = await waitFor(() => {
+      const found = vscode.languages.getDiagnostics(doc.uri).filter((d) => d.code === "requirement-undefined");
+      return found.length > 0 ? found : undefined;
+    });
+    assert.ok(diagnostics, "expected a requirement-undefined diagnostic");
+    assert.match(diagnostics![0].message, /REQ-010/);
+    assert.strictEqual(diagnostics![0].severity, vscode.DiagnosticSeverity.Error);
+  });
+
   test("diagram edits round-trip through real WorkspaceEdits", async () => {
     const doc = await vscode.workspace.openTextDocument({ language: "yaml", content: "objectOntology: 1\nname: Fleet\n" });
     await applySplice(doc, planAddObjectType(doc.getText(), "Truck", "A delivery truck."));

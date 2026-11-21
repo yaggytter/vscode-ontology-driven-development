@@ -115,9 +115,22 @@ describe("objectOntologyToQuads + SPARQL", () => {
       const quads = objectOntologyToQuads(load(text));
       const result = await runSparqlQuery(quads, sample.query);
       expect(result.kind).toBe("bindings");
-      if (result.kind === "bindings" && sample.id !== "oo-interfaces") {
+      // The cafe sample declares no interfaces and no requirements.
+      if (result.kind === "bindings" && sample.id !== "oo-interfaces" && sample.id !== "oo-requirements") {
         expect(result.rows.length).toBeGreaterThan(0);
       }
     });
   }
+
+  it("sample query oo-requirements lists requirements with their elements on the room-booking sample", async () => {
+    const text = readFileSync(join(SAMPLES_DIR, "room-booking.oont.yaml"), "utf8");
+    const query = OBJECT_ONTOLOGY_SAMPLE_QUERIES.find((q) => q.id === "oo-requirements")!.query;
+    const result = await runSparqlQuery(objectOntologyToQuads(load(text)), query);
+    expect(result.kind).toBe("bindings");
+    if (result.kind === "bindings") {
+      const ids = new Set(result.rows.map((row) => row.requirementId?.value));
+      expect([...ids].sort()).toEqual(["REQ-001", "REQ-002", "REQ-003", "REQ-004", "REQ-005", "REQ-006", "REQ-007"]);
+      expect(result.rows.every((row) => row.element !== undefined)).toBe(true);
+    }
+  });
 });
