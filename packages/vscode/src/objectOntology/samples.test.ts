@@ -3,7 +3,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { buildAgentTools, objectOntologyToQuads, parseObjectOntology } from "@yaggytter/object-ontology-core";
 import { objectOntologyToSchemaModel } from "./toSchemaModel";
-import { detectObjectOntology, OBJECT_ONTOLOGY_FILE_PATTERN } from "./detect";
+import { detectObjectOntology, OBJECT_ONTOLOGY_FILE_PATTERN } from "@yaggytter/object-ontology-core";
 import { runSparqlQuery } from "../sparql/engine";
 
 /**

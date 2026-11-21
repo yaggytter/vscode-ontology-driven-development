@@ -41,6 +41,8 @@ const copyCoreSchemaPlugin = {
 const extensionConfig = {
   entryPoints: ["src/extension.ts"],
   bundle: true,
+  // Bundle packages/core from its TypeScript sources (see its "source" export).
+  conditions: ["source"],
   outfile: "dist/extension.js",
   platform: "node",
   target: "node20",
@@ -56,6 +58,8 @@ const extensionConfig = {
 const webviewConfig = {
   entryPoints: ["webview/main.ts"],
   bundle: true,
+  // Bundle packages/core from its TypeScript sources (see its "source" export).
+  conditions: ["source"],
   outfile: "dist/webview.js",
   platform: "browser",
   target: "es2020",

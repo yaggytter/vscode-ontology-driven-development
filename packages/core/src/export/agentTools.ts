@@ -129,3 +129,11 @@ export function buildAgentTools(ontology: ObjectOntology): AgentToolsDocument {
     }),
   };
 }
+
+/**
+ * The agent tool definitions exactly as the VS Code export and `oont export
+ * tools` write them: pretty-printed JSON with a trailing newline.
+ */
+export function agentToolsJson(ontology: ObjectOntology): string {
+  return `${JSON.stringify(buildAgentTools(ontology), null, 2)}\n`;
+}

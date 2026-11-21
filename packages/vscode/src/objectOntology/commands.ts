@@ -2,6 +2,7 @@ import * as vscode from "vscode";
 import { stringify } from "yaml";
 import { detectDocumentObjectOntology } from "./detectDocument";
 import {
+  agentToolsJson,
   buildAgentTools,
   buildContextSummary,
   type ObjectOntology,
@@ -65,7 +66,7 @@ export async function exportAgentTools(uri?: vscode.Uri): Promise<void> {
   }
   await showUntitled(
     "json",
-    `${JSON.stringify(tools, null, 2)}\n`,
+    agentToolsJson(ontology),
     vscode.l10n.t("Exported {0} action types as agent tool definitions (MCP / function-calling JSON Schema).", String(tools.tools.length)),
   );
 }

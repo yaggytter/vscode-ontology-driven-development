@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { detectObjectOntology, type ObjectOntologySyntax } from "./detect";
+import { detectObjectOntology, type ObjectOntologySyntax } from "@yaggytter/object-ontology-core";
 
 /** Lines read when sniffing an untitled document for the `objectOntology:` marker. */
 const SNIFF_LINES = 200;
